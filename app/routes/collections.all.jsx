@@ -6,17 +6,12 @@ import ProductGrid from '../components/ProductGrid';
 export async function loader({params, context, request}) {
     const searchParams = new URL(request.url).searchParams;
     const cursor = searchParams.get('cursor');
-    // const curs.or = null;
-    console.log(cursor);
-    // return await context.storefront.query(COLLECTION_QUERY);
 
     const collection = await context.storefront.query(COLLECTION_QUERY, {
         variables: {
             cursor,
         },
     });
-
-    console.log(collection);
 
       if (!collection) {
         throw new Response(null, {status: 404});
@@ -27,12 +22,17 @@ export async function loader({params, context, request}) {
       });
   }
 
-// export function meta({data}){
-//   return [
-//     {title: data?.collection?.title ?? 'Collection'},
-//     {description: data?.collection?.description},
-//   ];
-// };
+export function meta(parentsData){
+    // console.log(parentsData.matches[0].data.header.shop.description);
+    return [
+        {title: 'Products - JIAGIA'},
+        {description: "All handmade screen printed ready to wear apparels, hoodies and t-shirt, made by JIAGIA"},
+        {
+            property: "og:description",
+            content: parentsData.matches[0].data.header.shop.description
+        },
+    ];
+};
 
 export default function CollectionAll() {
   const {collection} = useLoaderData();

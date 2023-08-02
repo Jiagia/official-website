@@ -37,10 +37,14 @@ return json({
     selectedVariant,
     storeDomain,
   });
+}
   
-
-  }
-  
+export function meta({data}){
+    return [
+      {title: (data?.product?.title ?? 'Collection') + ' - JIAGIA'},
+      {description: data?.product?.descriptionHtml},
+    ];
+  };
 
 function PrintJson({data}) {
     return (
@@ -56,6 +60,7 @@ function PrintJson({data}) {
   export default function ProductHandle() {
     const {product, selectedVariant, storeDomain} = useLoaderData();
     const orderable = selectedVariant?.availableForSale || false;
+
 
     return (
       <section className="w-full gap-4 md:gap-8 grid px-6 md:px-8 lg:px-12">
