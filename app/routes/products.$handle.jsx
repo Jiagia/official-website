@@ -5,8 +5,6 @@ import {MediaFile, Money, ShopPayButton} from '@shopify/hydrogen-react';
 import {CartForm} from '@shopify/hydrogen';
 
 
-
-
 export async function loader({params, context, request}) {
     const {handle} = params;
     const searchParams = new URL(request.url).searchParams;
@@ -57,8 +55,7 @@ function PrintJson({data}) {
   
   export default function ProductHandle() {
     const {product, selectedVariant, storeDomain} = useLoaderData();
-const orderable = selectedVariant?.availableForSale || false;
-
+    const orderable = selectedVariant?.availableForSale || false;
 
     return (
       <section className="w-full gap-4 md:gap-8 grid px-6 md:px-8 lg:px-12">
@@ -78,25 +75,24 @@ const orderable = selectedVariant?.availableForSale || false;
               </span>
             </div>
             <ProductOptions
-  options={product.options}
-  selectedVariant={selectedVariant}
-/>
-<Money
-  withoutTrailingZeros
-  data={selectedVariant.price}
-  className="text-xl font-semibold mb-2"
-/>
-{orderable && (
-  <div className="space-y-2">
-  <ShopPayButton
-    storeDomain={storeDomain}
-    variantIds={[selectedVariant?.id]}
-    width={'400px'}
-  />
-  <ProductForm variantId={selectedVariant?.id} />
-</div>
-
-)}
+            options={product.options}
+            selectedVariant={selectedVariant}
+            />
+            <Money
+            withoutTrailingZeros
+            data={selectedVariant.price}
+            className="text-xl font-semibold mb-2"
+            />
+            {orderable && (
+                <div className="space-y-2">
+                <ShopPayButton
+                    storeDomain={storeDomain}
+                    variantIds={[selectedVariant?.id]}
+                    width={'400px'}
+                />
+                <ProductForm variantId={selectedVariant?.id} />
+                </div>
+            )}
 
             <div
               className="prose border-t border-gray-200 pt-6 text-black text-md"
