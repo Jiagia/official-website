@@ -200,10 +200,12 @@ function PrintJson({data}) {
             mediaContentType
             image {
               id
-              url
               altText
-              width
+              url
+              
               height
+              width
+              
             }
           }
           ... on Model3d {

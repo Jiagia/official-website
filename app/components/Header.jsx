@@ -4,10 +4,19 @@ import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
 
 
-export function Header({cart}) {
+export function Header({cart, shop, menu}) {
     return (
-        <header className="header">
-            <CartToggle cart={cart} />
+        <header 
+        role="banner"
+          className={`flex items-center h-16 p-6 md:p-8 lg:p-12 sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 antialiased transition shadow-sm`}
+        >
+            <div className="flex gap-12">
+                <a className="font-bold" href="/">
+                {shop.name}
+                </a>
+                <HeaderMenu  menu={menu} viewport="desktop"/>
+                <CartToggle cart={cart} />
+            </div>
         </header>
        
             
@@ -26,10 +35,6 @@ function CartBadge({count}) {
                 className="w-10 h-10"
                 >
                 <title>Bag</title>
-                {/* <path
-                    fillRule="evenodd"
-                    d="M8.125 5a1.875 1.875 0 0 1 3.75 0v.375h-3.75V5Zm-1.25.375V5a3.125 3.125 0 1 1 6.25 0v.375h3.5V15A2.625 2.625 0 0 1 14 17.625H6A2.625 2.625 0 0 1 3.375 15V5.375h3.5ZM4.625 15V6.625h10.75V15c0 .76-.616 1.375-1.375 1.375H6c-.76 0-1.375-.616-1.375-1.375Z"
-                ></path> */}
                 <path fill="currentColor" fillRule="evenodd" d="M20.5 6.5a4.75 4.75 0 00-4.75 4.75v.56h-3.16l-.77 11.6a5 5 0 004.99 5.34h7.38a5 5 0 004.99-5.33l-.77-11.6h-3.16v-.57A4.75 4.75 0 0020.5 6.5zm3.75 5.31v-.56a3.75 3.75 0 10-7.5 0v.56h7.5zm-7.5 1h7.5v.56a3.75 3.75 0 11-7.5 0v-.56zm-1 0v.56a4.75 4.75 0 109.5 0v-.56h2.22l.71 10.67a4 4 0 01-3.99 4.27h-7.38a4 4 0 01-4-4.27l.72-10.67h2.22z"></path>
             </svg>
             <div className="">{count}</div> 

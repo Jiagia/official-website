@@ -17,6 +17,7 @@ export default function ProductCard({product}) {
           <Image
             data={product.variants.nodes[0].image}
             alt={product.title}
+            sizes="(min-width: 45em) 50vw, 100vw"
           />
         </div>
         <div className="grid gap-1">
