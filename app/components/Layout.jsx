@@ -3,6 +3,7 @@ import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Header} from './Header';
+import {Footer} from './Footer';
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const {shop, menu} = header;
@@ -30,6 +31,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
         >
           {children}
         </main>
+        <Footer menu={footer.menu} />
       </div>
     );
   }

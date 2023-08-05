@@ -1,23 +1,23 @@
 import {useLoaderData, Link} from '@remix-run/react';
 import {Image} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
-// import ProductCard from '../components/ProductCard';
 
 // GLOBAL VARIABLES
 // Featured Collection
 const FeaturedCollectionHandle = "season-4";
 const FeaturedCollectionNumber = 5;
 
-export function meta() {
+export function meta({matches}) {
+  // console.log(matches[0]?.data?.header?.shop);
   return [
-    { title: "Very cool app | Remix" },
+    { title: "Jiagia Studios - JIAGIA"},
     {
       property: "og:title",
-      content: "Very cool app",
+      content: "JIAGIA",
     },
     {
       name: "description",
-      content: "This app is the best",
+      content: matches[0]?.data?.header?.shop?.description ?? "Jiagia Studios",
     },
   ];
 }
@@ -33,7 +33,7 @@ export async function loader({context}) {
       },
     });
   
-    console.log(collection);
+    // console.log(collection);
 
     // Handle 404s
     if (!collection) {
@@ -49,7 +49,7 @@ export async function loader({context}) {
 
 export default function Index() {
   const {collection} = useLoaderData();
-  console.log(collection);
+  // console.log(collection);
   return (
     <section className="w-full gap-4">
       <h2 className="whitespace-pre-wrap max-w-prose font-bold text-lead">

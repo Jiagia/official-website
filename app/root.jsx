@@ -69,7 +69,7 @@ export async function loader({context}) {
   return defer(
     {
       cart: cartPromise,
-      footer: footerPromise,
+      footer: await footerPromise,
       header: await headerPromise,
       isLoggedIn,
       publicStoreDomain,
@@ -81,6 +81,8 @@ export async function loader({context}) {
 
 export default function App() {
   const data = useLoaderData();
+
+  // console.log(data);
 
   return (
     <html lang="en">
