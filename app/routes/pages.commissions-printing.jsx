@@ -1,9 +1,12 @@
+
+
 import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
+import ProductGrid from '../components/ProductGrid';
 
 
-export async function loader({params, context}) {
-  const {handle} = params;
+export async function loader({context}) {
+  const handle = "commissions-printing";
 
   const {page} = await context.storefront.query(PAGE_QUERY, {
     variables: {
@@ -23,6 +26,7 @@ export async function loader({params, context}) {
   });
 }
 
+
 export function meta({data, matches}){
   return [
       {title: (data?.page?.title ?? 'Page') + ' - JIAGIA'},
@@ -39,7 +43,22 @@ export default function Page() {
 
     // console.log(page);
 
-    return <div dangerouslySetInnerHTML={{__html: page.body}}></div>;
+    return (
+        <div>
+            <div dangerouslySetInnerHTML={{__html: page.body}}></div>
+            <ContactForm />
+        </div>
+    );
+}
+
+function ContactForm() {
+    return (
+        <div className="contact-form">
+          <form method="post"  >
+
+          </form>
+        </div>
+    )
 }
 
 
