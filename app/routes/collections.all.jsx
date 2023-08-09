@@ -2,6 +2,14 @@ import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import ProductGrid from '../components/ProductGrid';
 
+const seo = ({data}) => ({
+  title: data?.collection?.title,
+  description: data?.collection?.description.substr(0, 154),
+});
+
+export const handle = {
+  seo,
+};
 
 export async function loader({params, context, request}) {
     const searchParams = new URL(request.url).searchParams;
@@ -28,7 +36,7 @@ export function meta(parentsData){
         {title: 'Products - JIAGIA'},
         {description: "All handmade screen printed ready to wear apparels, hoodies and t-shirt, made by JIAGIA"},
         {
-            property: "og:description",
+            property: "description",
             content: parentsData.matches[0].data.header.shop.description
         },
     ];

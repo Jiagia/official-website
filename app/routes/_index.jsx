@@ -22,6 +22,10 @@ export function meta({matches}) {
   ];
 }
 
+/*
+  loaders are functions that retrieve the data that's required to render the page
+  They always run on the server and pass the returned data to the JSX component
+*/
 export async function loader({context}) {
     const handle = FeaturedCollectionHandle;
     const number = FeaturedCollectionNumber;
@@ -48,8 +52,9 @@ export async function loader({context}) {
   }
 
 export default function Index() {
+  // hook that retrieves queries data from the loader function
   const {collection} = useLoaderData();
-  // console.log(collection);
+  console.log(collection);
   return (
     <section className="w-full gap-4">
       <h2 className="whitespace-pre-wrap max-w-prose font-bold text-lead">

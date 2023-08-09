@@ -2,6 +2,11 @@ import {RemixServer} from '@remix-run/react';
 import isbot from 'isbot';
 import {renderToReadableStream} from 'react-dom/server';
 
+/* 
+  Remix entry point for the server
+  Loader function: fetches and passes data to the React component
+  Action function: handles form posts to Create/Update/Do a "thing"
+*/
 export default async function handleRequest(
   request,
   responseStatusCode,
