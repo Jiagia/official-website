@@ -4,9 +4,9 @@ Welcome to the Jiagia Studios website repository! This repository contains the s
 
 ## Table of Contents
 - [Technologies](#technologies)
-- [Building for Production](#building-for-production)
-- [Local Development](#local-development)
 - [Dependencies](#dependencies)
+- [Local Development](#local-development)
+- [Building for Production](#building-for-production)
 - [Contact](#contact)
 
 ## Technologies
