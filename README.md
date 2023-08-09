@@ -1,11 +1,17 @@
-# Hydrogen template: Hello World
+# Jiagia Studios Website Repository
 
-Hydrogen is Shopify’s stack for headless commerce. Hydrogen is designed to dovetail with [Remix](https://remix.run/), Shopify’s full stack web framework. This template contains a **minimal setup** of components, queries and tooling to get started with Hydrogen.
+Welcome to the Jiagia Studios website repository! This repository contains the source code for our custom storefront built using Shopify's Hydrogen and Oxygen with Remix.
 
-[Check out Hydrogen docs](https://shopify.dev/custom-storefronts/hydrogen)
-[Get familiar with Remix](https://remix.run/docs/en/v1)
+## Table of Contents
+- [Technologies](#technologies)
+- [Building for Production](#building-for-production)
+- [Local Development](#local-development)
+- [Dependencies](#dependencies)
+- [Contact](#contact)
 
-## What's included
+## Technologies
+
+Our website is built using the following technologies, libraries, and frameworks:
 
 - Remix
 - Hydrogen
@@ -15,28 +21,36 @@ Hydrogen is Shopify’s stack for headless commerce. Hydrogen is designed to dov
 - Prettier
 - GraphQL generator
 - TypeScript and JavaScript flavors
-- Minimal setup of components and routes
 
-## Getting started
+## Dependencies
 
-**Requirements:**
-
-- Node.js version 16.14.0 or higher
+To begin working on the website, make sure you have the necessary dependencies installed. Run the following commands:
 
 ```bash
-npm create @shopify/hydrogen@latest -- --template hello-world
+npm install -g @shopify/cli
+npm install @shopify/hydrogen@latest
 ```
 
-Remember to update `.env` with your shop's domain and Storefront API token!
+## Local Development
 
-## Building for production
+For local development, use the following command:
+
+```bash
+npm run dev
+```
+
+This will start a development server and allow you to preview changes in your browser.
+
+## Building for Production
+
+To build the project for production, run the following command:
 
 ```bash
 npm run build
 ```
 
-## Local development
+This command will prepare the project for deployment.
 
-```bash
-npm run dev
-```
+## Contact
+
+If you have any questions or need assistance, feel free to contact our team at contact@jiagiastudios.com.
