@@ -1,6 +1,6 @@
 
 
-import {useLoaderData} from '@remix-run/react';
+import {useLoaderData, Form, useActionData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import ProductGrid from '../components/ProductGrid';
 
@@ -54,8 +54,20 @@ export default function Page() {
 function ContactForm() {
     return (
         <div className="contact-form">
-          <form method="post"  >
-
+          <form method="post"  action="mailto:contact@jiagia.com">
+            <p>
+              <input type="text" name="name" placeholder="Name" />
+            </p>
+            <p>
+              <input type="tel" name="phone" placeholder="Phone" />
+              <input type="email" name="email" placeholder="Email" />
+            </p>
+            <p>
+              <input type="text" name="description" placeholder="Description" />
+            </p>
+            <p>
+              <button type="submit">Send</button>
+            </p>
           </form>
         </div>
     )
