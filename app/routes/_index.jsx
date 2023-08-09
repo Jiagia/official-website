@@ -1,6 +1,6 @@
-import {useLoaderData, Link} from '@remix-run/react';
-import {Image} from '@shopify/hydrogen';
+import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
+import FeaturedCollection from '../components/FeaturedCollection';
 
 // GLOBAL VARIABLES
 // Featured Collection
@@ -54,42 +54,9 @@ export async function loader({context}) {
 export default function Index() {
   // hook that retrieves queries data from the loader function
   const {collection} = useLoaderData();
-  console.log(collection);
-  return (
-    <section className="w-full gap-4">
-      <h2 className="whitespace-pre-wrap max-w-prose font-bold text-lead">
-        Featured Collection
-      </h2>
-      <div className="grid-flow-row grid gap-2 gap-y-6 md:gap-4 lg:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {collection.products.nodes.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </section>
-  );
+  // console.log(collection);
+  return <FeaturedCollection collection={collection} />;
 }
-
-export function ProductCard({product}) {
-  
-    return (
-      <Link to={`/products/${product.handle}`}>
-        <div className="grid gap-6">
-          <div className="shadow-sm rounded relative">
-            <Image
-              data={product.variants.nodes[0].image}
-              alt={product.title}
-              sizes="(min-width: 45em) 50vw, 100vw"
-            />
-          </div>
-          <div className="grid gap-1">
-            <h3 className="max-w-prose text-copy w-full overflow-hidden whitespace-nowrap text-ellipsis ">
-              {product.title}
-            </h3>
-          </div>
-        </div>
-      </Link>
-    );
-  }
 
 const COLLECTION_QUERY = `#graphql
   query CollectionDetails($handle: String!, $number: Int) {
