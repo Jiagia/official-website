@@ -68,7 +68,7 @@ export default function Cart() {
         Your cart is empty
       </h2>
       <Link
-        to="/"
+        to="/collections/all"
         className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
       >
         Continue shopping
