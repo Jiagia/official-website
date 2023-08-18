@@ -72,7 +72,7 @@ export default function CollectionAll() {
 
 const COLLECTION_QUERY = `#graphql
   query CollectionDetails($cursor: String) {
-      products(first: 4, reverse: true, after: $cursor) {
+      products(first: 20, reverse: true, after: $cursor) {
         pageInfo {
           hasNextPage
           endCursor
