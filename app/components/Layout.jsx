@@ -4,11 +4,17 @@ import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Header} from './Header';
 import {Footer} from './Footer';
+import {
+  PredictiveSearchForm,
+  PredictiveSearchResults,
+} from '~/components/Search';
+import {Aside} from '~/components/Aside';
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const {shop, menu} = header;
     return (
       <div className="flex flex-col min-h-screen antialiased bg-neutral-50">
+        {/* <SearchAside /> */}
         <Header cart={cart} shop={shop} menu={menu} />
         <main
           role="main"
@@ -99,3 +105,38 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     };
   }
   
+
+  function SearchAside() {
+    return (
+      <Aside id="search-aside" heading="SEARCH">
+        <div className="predictive-search">
+          <br />
+          <PredictiveSearchForm>
+            {({fetchResults, inputRef}) => (
+              <div>
+                <input
+                  name="q"
+                  onChange={fetchResults}
+                  onFocus={fetchResults}
+                  placeholder="Search"
+                  ref={inputRef}
+                  type="search"
+                />
+                &nbsp;
+                <button type="submit">Search</button>
+              </div>
+            )}
+          </PredictiveSearchForm>
+          <PredictiveSearchResults />
+        </div>
+      </Aside>
+    );
+  }
+  
+  function MobileMenuAside({menu}) {
+    return (
+      <Aside id="mobile-menu-aside" heading="MENU">
+        <HeaderMenu menu={menu} viewport="mobile" />
+      </Aside>
+    );
+  }
