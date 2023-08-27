@@ -88,7 +88,7 @@ function PrintJson({data}) {
             data={selectedVariant.price}
             className="text-xl font-semibold mb-2"
             />
-            {orderable && (
+            {orderable ? true (
                 <div className="space-y-2">
                 <ShopPayButton
                     storeDomain={storeDomain}
@@ -97,6 +97,8 @@ function PrintJson({data}) {
                 />
                 <ProductForm variantId={selectedVariant?.id} />
                 </div>
+            ) : (
+              <div className="text-xl font-bold mb-2">Sold Out</div>
             )}
 
             <div
