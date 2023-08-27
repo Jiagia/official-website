@@ -62,6 +62,23 @@ export function CartSummary({cost}) {
       </div>
     );
   }
+
+  export function CartError({errors}) {
+    // console.log(errors);
+    if (errors) {
+      return (
+        <div>
+          {errors.map((error) => {
+            return (
+              <div className="text-red-600 text-sm" key={error.field[1]}>{error.message}</div>
+            );
+          })}
+        </div>
+      )
+    } else {
+      return <></>
+    }
+  }
   
 
 function ItemRemoveButton({lineIds}) {

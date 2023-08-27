@@ -1,7 +1,7 @@
 import {Link, useLoaderData, useActionData, useFetcher} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import {CartForm} from '@shopify/hydrogen';
-import {CartLineItems, CartActions, CartSummary} from '~/components/Cart';
+import {CartLineItems, CartActions, CartSummary, CartError} from '~/components/Cart';
 
 var error = null;
 
@@ -37,19 +37,6 @@ export async function action({request, context}) {
   // The Cart ID might change after each mutation, so update it each time.
   const headers = cart.setCartId(result.cart.id);
 
-
-  console.log('1');
-  console.log(result);
-  // alert(result.errors[0]?.message);
-  error = result.errors;
-
-  if (error.length > 0) {
-    var message = error[0].message;
-    // return message;
-    console.log(error[0].message);
-    // invariant(false, error[0].message);
-    // throw new Error(message);
-  }
   return json(
     result,
     {status: 200, headers},
@@ -60,10 +47,13 @@ export default function Cart() {
   // const result = useActionData();
   const {cart} = useLoaderData();
   const fetcher = useFetcher();
-  console.log(cart);
+  // console.log(cart);
 
   // console.log(cart);
-  console.log(fetcher.data);
+  // console.log(fetcher.data);
+
+  const errors = fetcher.data?.errors;
+  // console.log(errors);
 
   if (cart?.totalQuantity > 0)
     return (
@@ -72,6 +62,8 @@ export default function Cart() {
           <CartLineItems linesObj={cart.lines} fetcher={fetcher}/>
         </div>
         <div className="fixed left-0 right-0 bottom-0 md:sticky md:top-[65px] grid gap-6 p-4 md:px-6 md:translate-y-4 bg-gray-100 rounded-md w-full">
+          <div className="text-red-600 text-sm"></div>
+          <CartError errors={errors} />
           <CartSummary cost={cart.cost} />
           <CartActions checkoutUrl={cart.checkoutUrl} />
 
