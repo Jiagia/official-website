@@ -45,6 +45,7 @@ export function meta(parentsData){
 
 export default function CollectionAll() {
   const {collection} = useLoaderData();
+  // console.log(collection);
   return (
     <>
       {/* <header className="grid w-full gap-8 py-8 justify-items-start">
@@ -82,6 +83,7 @@ const COLLECTION_QUERY = `#graphql
           title
           publishedAt
           handle
+          availableForSale
           variants(first: 1) {
             nodes {
               id

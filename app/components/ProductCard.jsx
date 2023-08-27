@@ -5,6 +5,8 @@ export default function ProductCard({product}) {
   const {price, compareAtPrice} = product.variants?.nodes[0] || {};
   const isDiscounted = compareAtPrice?.amount > price?.amount;
 
+  // console.log(product);
+
   return (
     <Link to={`/products/${product.handle}`}>
       <div className="grid gap-6 text-center">
@@ -19,6 +21,11 @@ export default function ProductCard({product}) {
             alt={product.title}
             sizes="(min-width: 45em) 50vw, 100vw"
           />
+          {!product.availableForSale && (
+            <label className="subpixel-antialiased absolute top-0 right-0 m-4 text-right text-notice text-red-600">
+              Sold out
+            </label>
+          )}
         </div>
         <div className="grid gap-1">
           <h3 className="max-w-prose text-copy w-full overflow-hidden whitespace-nowrap text-ellipsis ">

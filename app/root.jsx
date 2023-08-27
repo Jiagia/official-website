@@ -19,6 +19,7 @@ export const links = () => {
     {rel: 'stylesheet', href: tailwindCss},
     {rel: 'stylesheet', href: appStyles},
     {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Jomolhari"},
+    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Poppins"},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
