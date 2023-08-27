@@ -2,12 +2,12 @@ import {Link, useFetcher} from '@remix-run/react';
 import {CartForm} from '@shopify/hydrogen';
 import {flattenConnection, Image, Money} from '@shopify/hydrogen-react';
 
-export function CartLineItems({linesObj}) {
+export function CartLineItems({linesObj, fetcher}) {
   const lines = flattenConnection(linesObj);
   return (
     <div className="space-y-8">
       {lines.map((line) => {
-        return <LineItem key={line.id} lineItem={line} />;
+        return <LineItem key={line.id} lineItem={line} fetcher={fetcher}/>;
       })}
     </div>
   );
@@ -27,13 +27,23 @@ export function CartSummary({cost}) {
               )}
             </dd>
           </div>
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <dt className="flex items-center">
-              <span>Shipping estimate</span>
+              <span></span>
             </dt>
-            <dd className="text-green-600">Free and carbon neutral</dd>
-          </div>
+            
+            <dd>
+              {cost?.totalTaxAmount?.amount ? (
+                <Money data={cost?.totalTaxAmount} />
+              ) : (
+                '-'
+              )}
+            </dd>
+          </div> */}
         </dl>
+        <div>
+          Taxes and shipping calculated at checkout 
+        </div>
       </>
     );
   }
@@ -105,7 +115,7 @@ function ItemRemoveButton({lineIds}) {
   }
   
 
-function LineItem({lineItem}) {
+function LineItem({lineItem, fetcher}) {
   const {merchandise, quantity} = lineItem;
 
   return (
@@ -124,8 +134,8 @@ function LineItem({lineItem}) {
           {merchandise.product.title}
         </Link>
         <div className="text-gray-800 text-sm">{merchandise.title}</div>
-        <div className="text-gray-800 text-sm">Qty: {quantity}</div>
-        <CartLineQuantity line={lineItem} />
+        {/* <div className="text-gray-800 text-sm">Qty: {quantity}</div> */}
+        <CartLineQuantity line={lineItem} fetcher={fetcher}/>
         <ItemRemoveButton lineIds={[lineItem.id]} />
 
       </div>
@@ -134,7 +144,7 @@ function LineItem({lineItem}) {
   );
 }
 
-function CartLineQuantity({line}) {
+function CartLineQuantity({line, fetcher}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
@@ -143,22 +153,24 @@ function CartLineQuantity({line}) {
   return (
     <div className="cart-line-quantiy">
       <small>Quantity: {quantity} &nbsp;&nbsp;</small>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]} fetcher={fetcher}>
         <button
           aria-label="Decrease quantity"
           disabled={quantity <= 1}
           name="decrease-quantity"
           value={prevQuantity}
+          type="submit"
         >
           <span>&#8722; </span>
         </button>
       </CartLineUpdateButton>
       &nbsp;
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]} fetcher={fetcher}>
         <button
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
+          type="submit"
         >
           <span>&#43;</span>
         </button>
@@ -169,14 +181,41 @@ function CartLineQuantity({line}) {
   );
 }
 
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({children, lines, fetcher}) {
   return (
-    <CartForm
+    <JiagiaCartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
       inputs={{lines}}
+      fetcher={fetcher}
     >
       {children}
-    </CartForm>
+    </JiagiaCartForm>
+  );
+}
+
+const INPUT_NAME = 'cartFormInput';
+
+export function JiagiaCartForm({
+  children,
+  action,
+  inputs,
+  route,
+  fetcher
+}) 
+{
+  // const fetcher = useFetcher();
+
+  return (
+    <fetcher.Form action={route || ''} method="post">
+      {(action || inputs) && (
+        <input
+          type="hidden"
+          name={INPUT_NAME}
+          value={JSON.stringify({action, inputs})}
+        />
+      )}
+      {typeof children === 'function' ? children(fetcher) : children}
+    </fetcher.Form>
   );
 }
