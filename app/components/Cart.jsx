@@ -71,9 +71,9 @@ export function CartSummary({cost}) {
           {errors.map((error) => {
             return (
               <div className="flex text-red-600 text-sm" key={error.field[1]}>
-                <svg className="mx-2" fill="#dc2626" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
-	 width="20px" height="20px" viewBox="0 0 45.311 45.311"
-	 xmlSpace="preserve">
+                <svg className="mr-2" fill="#dc2626" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
+                width="20px" height="20px" viewBox="0 0 45.311 45.311"
+                xmlSpace="preserve">
                 <g>
                   <path d="M22.675,0.02c-0.006,0-0.014,0.001-0.02,0.001c-0.007,0-0.013-0.001-0.02-0.001C10.135,0.02,0,10.154,0,22.656
                     c0,12.5,10.135,22.635,22.635,22.635c0.007,0,0.013,0,0.02,0c0.006,0,0.014,0,0.02,0c12.5,0,22.635-10.135,22.635-22.635
@@ -167,6 +167,7 @@ function LineItem({lineItem, fetcher}) {
           {merchandise.product.title}
         </Link>
         <div className="text-gray-800 text-sm">{merchandise.title}</div>
+        <div className="text-gray-800 text-sm"><Money data={merchandise.price} /></div>
         {/* <div className="text-gray-800 text-sm">Qty: {quantity}</div> */}
         <CartLineQuantity line={lineItem} fetcher={fetcher}/>
         <ItemRemoveButton lineIds={[lineItem.id]} />

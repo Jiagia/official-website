@@ -47,7 +47,7 @@ export default function Cart() {
   // const result = useActionData();
   const {cart} = useLoaderData();
   const fetcher = useFetcher();
-  // console.log(cart);
+  console.log(cart);
 
   // console.log(cart);
   // console.log(fetcher.data);
