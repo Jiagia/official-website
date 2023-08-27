@@ -8,13 +8,17 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from '@remix-run/react';
-import styles from './styles/app.css';
+
+import appStyles from './styles/app.css';
+import tailwindCss from './styles/tailwind.css';
 import favicon from '../public/favicon.svg';
 import {Layout} from './components/Layout';
 
 export const links = () => {
   return [
-    {rel: 'stylesheet', href: styles},
+    {rel: 'stylesheet', href: tailwindCss},
+    {rel: 'stylesheet', href: appStyles},
+    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Jomolhari"},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -24,6 +28,7 @@ export const links = () => {
       href: 'https://shop.app',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    
   ];
 };
 
