@@ -1,7 +1,7 @@
 import {Link} from '@remix-run/react'
 import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import {Header} from './Header';
 import {Footer} from './Footer';
 import {
@@ -12,10 +12,23 @@ import {Aside} from '~/components/Aside';
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const {shop, menu} = header;
+    const [show, setShow] = useState(false);
+
+    function showSearch() {
+      setShow(true);
+    }
+
+    function closeSearch() {
+      setShow(false);
+    }
+
     return (
+      <>
+      <SearchAside show={show} closeAside={closeSearch}/>
       <div className="flex flex-col min-h-screen antialiased bg-neutral-50">
-        {/* <SearchAside /> */}
-        <Header cart={cart} shop={shop} menu={menu} />
+      
+        <Header cart={cart} shop={shop} menu={menu} showSearch={showSearch} />
+        
         <main
           role="main"
           id="mainContent"
@@ -25,6 +38,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
         </main>
         <Footer menu={footer.menu} />
       </div>
+      </>
     );
   }
 
@@ -106,9 +120,9 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   }
   
 
-  function SearchAside() {
+  function SearchAside({show, closeAside}) {
     return (
-      <Aside id="search-aside" heading="SEARCH">
+      <Aside id="search-aside" heading="SEARCH" show={show} closeAside={closeAside}>
         <div className="predictive-search">
           <br />
           <PredictiveSearchForm>

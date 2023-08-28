@@ -3,10 +3,7 @@ import {useLoaderData} from '@remix-run/react';
 import {getPaginationVariables} from '@shopify/hydrogen';
 
 import {SearchForm, SearchResults, NoSearchResults} from '~/components/Search';
-import {
-  PredictiveSearchForm,
-  PredictiveSearchResults,
-} from '~/components/Search';
+
 
 export const meta = () => {
   return [{title: `Hydrogen | Search`}];
@@ -51,35 +48,15 @@ export async function loader({request, context}) {
 export default function SearchPage() {
   const {searchTerm, searchResults} = useLoaderData();
   return (
-    // <div className="search">
-    //   <h1>Search</h1>
-    //   <SearchForm searchTerm={searchTerm} />
-    //   {!searchTerm || !searchResults.totalResults ? (
-    //     <NoSearchResults />
-    //   ) : (
-    //     <SearchResults results={searchResults.results} />
-    //   )}
-    // </div>
-    <div className="predictive-search">
-          <br />
-          <PredictiveSearchForm>
-            {({fetchResults, inputRef}) => (
-              <div>
-                <input
-                  name="q"
-                  onChange={fetchResults}
-                  onFocus={fetchResults}
-                  placeholder="Search"
-                  ref={inputRef}
-                  type="search"
-                />
-                &nbsp;
-                <button type="submit">Search</button>
-              </div>
-            )}
-          </PredictiveSearchForm>
-          <PredictiveSearchResults />
-        </div>
+    <div className="search">
+      <h1>Search</h1>
+      <SearchForm searchTerm={searchTerm} />
+      {!searchTerm || !searchResults.totalResults ? (
+        <NoSearchResults />
+      ) : (
+        <SearchResults results={searchResults.results} />
+      )}
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
 
-export function Header({cart, shop, menu}) {
+export function Header({cart, shop, menu, showSearch}) {
   return (
     <header
       role="banner"
@@ -15,6 +15,7 @@ export function Header({cart, shop, menu}) {
           {shop.name}
         </a>
         <HeaderMenu menu={menu} viewport="desktop" />
+        <SearchToggle showSearch={showSearch}/>
         <CartToggle cart={cart} />
       </div>
     </header>
@@ -116,4 +117,9 @@ function activeLinkStyle({isActive, isPending}) {
     fontWeight: isActive ? 'bold' : 'normal',
     color: isPending ? 'grey' : 'black',
   };
+}
+
+function SearchToggle({showSearch}) {
+  // return <a href="#search-aside">Search</a>;
+  return <button onClick={showSearch}>Search</button>;
 }

@@ -8,9 +8,13 @@
  * </Aside>
  * ```
  */
-export function Aside({children, heading, id = 'aside'}) {
+import {useState} from 'react'
+
+export function Aside({children, heading, id = 'aside', show = false, closeAside}) {
+
+  // console.log(show);
   return (
-    <div aria-modal className="overlay" id={id} role="dialog">
+    <div aria-modal className={"overlay overlay-"+ (show ? "open" : "close")} id={id} role="dialog">
       <button
         className="close-outside"
         onClick={() => {
@@ -21,7 +25,8 @@ export function Aside({children, heading, id = 'aside'}) {
       <aside>
         <header>
           <h3>{heading}</h3>
-          <CloseAside />
+          {/* <CloseAside /> */}
+          <button onClick={closeAside}> &times; </button>
         </header>
         <main>{children}</main>
       </aside>
