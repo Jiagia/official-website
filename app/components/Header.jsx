@@ -7,17 +7,19 @@ export function Header({cart, shop, menu, showSearch}) {
   return (
     <header
       role="banner"
-      className={`flex items-center h-16 p-6 md:p-8 lg:p-12 sticky backdrop-blur-lg z-40 top-0 
+      className={`header flex items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 
           justify-center w-full leading-none gap-4 antialiased transition shadow-sm`}
     >
       <div className="flex items-center justify-between w-4/5 gap-12">
-        <a className="font-bold" href="/">
-          {shop.name}
-        </a>
-        <HeaderMenu menu={menu} viewport="desktop" />
         <HeaderMenuMobileToggle />
-        <SearchToggle showSearch={showSearch}/>
-        <CartToggle cart={cart} />
+        {/* <a className="font-bold" href="/">
+          {shop.name}
+        </a> */}
+        <HeaderMenu menu={menu} viewport="desktop" />
+        <nav className='header-ctas' role="navigation" >
+          <SearchToggle showSearch={showSearch}/>
+          <CartToggle cart={cart} />
+        </nav>
       </div>
     </header>
   );
@@ -26,13 +28,13 @@ export function Header({cart, shop, menu, showSearch}) {
 function CartBadge({count}) {
   // return <a href="#cart-aside">Cart {count}</a>;
   return (
-    <div>
+    <div className='cart-badge'>
       <Link to="/cart">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 40 40"
           fill="currentColor"
-          className="w-10 h-10"
+          className={`w-10 h-10`}
         >
           <title>Bag</title>
           <path
@@ -42,7 +44,8 @@ function CartBadge({count}) {
                 5 0 004.99-5.33l-.77-11.6h-3.16v-.57A4.75 4.75 0 0020.5 6.5zm3.75 5.31v-.56a3.75 3.75 0 10-7.5 0v.56h7.5zm-7.5 1h7.5v.56a3.75 3.75 0 11-7.5 0v-.56zm-1 0v.56a4.75 4.75 0 109.5 0v-.56h2.22l.71 10.67a4 4 0 01-3.99 4.27h-7.38a4 4 0 01-4-4.27l.72-10.67h2.22z"
           ></path>
         </svg>
-        <div className="">{count}</div>
+        {count ? <div className={"cart-count rounded-full w-5 h-5 text-center leading-5"}>{count}</div> : null}
+        
       </Link>
     </div>
   );
@@ -120,16 +123,15 @@ function activeLinkStyle({isActive, isPending}) {
   };
 }
 
-function SearchToggle({showSearch}) {
+function SearchToggle() {
   
   return (
     <a href="#search-aside">
       <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="20px" height="20px">
         <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"/>
       </svg>
-    </a>)
-  ;
-  // return <button onClick={showSearch}>Search</button>;
+    </a>
+  );
 }
 
 function HeaderMenuMobileToggle() {
