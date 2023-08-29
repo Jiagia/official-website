@@ -188,8 +188,8 @@ body {
     display: flex;
     grid-gap: 1rem;
     margin-left: 3rem;
-    justify-content: space-evenly;
-    width: 100%;
+    /* justify-content: space-evenly;
+    width: 100%; */
     }
     .header-menu-mobile-toggle {
         display: none;
@@ -204,7 +204,7 @@ body {
     align-items: center;
     display: flex;
     grid-gap: 1rem;
-    margin-left: auto;
+    /* margin-left: auto; */
   }
 
   .cart-badge {

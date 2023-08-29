@@ -10,17 +10,18 @@ export function Header({cart, shop, menu, showSearch}) {
       className={`header flex items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 
           justify-center w-full leading-none gap-4 antialiased transition shadow-sm`}
     >
-      <div className="flex items-center justify-between w-4/5 gap-12">
+      <nav className="flex items-center justify-evenly w-4/5 gap-12">
         <HeaderMenuMobileToggle />
-        {/* <a className="font-bold" href="/">
-          {shop.name}
-        </a> */}
-        <HeaderMenu menu={menu} viewport="desktop" />
+        <HeaderMenuItem item={menu.items[0]} />
+        <HeaderMenuItem item={menu.items[1]} />
+        <NavLink to="/" end className="header-menu-item" onClick={closeAside} prefetch="intent" style={activeLinkStyle}>{shop.name}</NavLink>
+        {/* <HeaderMenuItem item={menu.items[2]} /> */}
+        {/* <HeaderMenuItem item={menu.items[3]} /> */}
         <nav className='header-ctas' role="navigation" >
           <SearchToggle showSearch={showSearch}/>
           <CartToggle cart={cart} />
         </nav>
-      </div>
+      </nav>
     </header>
   );
 }
@@ -114,6 +115,39 @@ function HeaderMenu({menu, viewport}) {
       })}
     </nav>
   );
+}
+
+function HeaderMenuItem({item}) {
+  const [root] = useMatches();
+  const publicStoreDomain = root?.data?.publicStoreDomain;
+  if (!item.url) return null;
+
+  // if the url is internal, we strip the domain
+  const url =
+    item.url.includes('myshopify.com') ||
+    item.url.includes(publicStoreDomain)
+      ? new URL(item.url).pathname
+      : item.url;
+  return (
+    <NavLink
+      className="header-menu-item header-menu-desktop"
+      end
+      key={item.id}
+      onClick={closeAside}
+      prefetch="intent"
+      style={activeLinkStyle}
+      to={url}
+    >
+      {item.title}
+    </NavLink>
+  )
+}
+
+function closeAside(event) {
+  if (viewport === 'mobile') {
+    event.preventDefault();
+    window.location.href = event.currentTarget.href;
+  }
 }
 
 function activeLinkStyle({isActive, isPending}) {
