@@ -8,29 +8,45 @@
  * </Aside>
  * ```
  */
-import {useState} from 'react'
-
-export function Aside({children, heading, id = 'aside', show = false, closeAside}) {
-
-  // console.log(show);
+export function Aside({children, heading, id = 'aside'}) {
   return (
-    <div aria-modal className={"overlay overlay-"+ (show ? "open" : "close")} id={id} role="dialog">
+    <div aria-modal className="overlay aside" id={id} role="dialog">
+      <button
+        className="close-outside"
+        onClick={() => {
+          history.go(-1);
+          window.location.hash = '';
+        }}
+      />
       <aside>
         <header>
           <h3>{heading}</h3>
-          {/* <CloseAside /> */}
-          <button onClick={closeAside}> &times; </button>
+          <CloseAside />
         </header>
         <main>{children}</main>
       </aside>
+    </div>
+  );
+}
+
+export function DropDown({children, heading, id = 'aside'}) {
+  return (
+    <div aria-modal className="overlay dropdown" id={id} role="dialog">
       <button
         className="close-outside"
-        // onClick={() => {
-        //   history.go(-1);
-        //   window.location.hash = '';
-        // }}
-        // onClick={closeAside}
+        onClick={() => {
+          history.go(-1);
+          // window.location.hash = '';
+          // return false;
+        }}
       />
+      <aside>
+        <header>
+          <h3>{heading}</h3>
+          <CloseAside />
+        </header>
+        <main>{children}</main>
+      </aside>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
-import {Aside} from '~/components/Aside';
+import {Aside, DropDown} from '~/components/Aside';
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const {shop, menu} = header;
@@ -24,7 +24,8 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
 
     return (
       <>
-      <SearchAside show={show} closeAside={closeSearch}/>
+      <MobileMenuAside menu={menu} />
+      <SearchDropDown />
       <div className="flex flex-col min-h-screen antialiased bg-neutral-50">
       
         <Header cart={cart} shop={shop} menu={menu} showSearch={showSearch} />
@@ -120,9 +121,9 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   }
   
 
-  function SearchAside({show, closeAside}) {
+  function SearchDropDown() {
     return (
-      <Aside id="search-aside" heading="SEARCH" show={show} closeAside={closeAside}>
+      <DropDown id="search-aside" heading="SEARCH" >
         <div className="predictive-search">
           <br />
           <PredictiveSearchForm>
@@ -143,7 +144,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
           </PredictiveSearchForm>
           <PredictiveSearchResults />
         </div>
-      </Aside>
+      </DropDown>
     );
   }
   
