@@ -15,8 +15,8 @@ export function Header({cart, shop, menu, showSearch}) {
         <HeaderMenuItem item={menu.items[0]} />
         <HeaderMenuItem item={menu.items[1]} />
         <NavLink to="/" end className="header-menu-item" onClick={closeAside} prefetch="intent" style={activeLinkStyle}>{shop.name}</NavLink>
-        {/* <HeaderMenuItem item={menu.items[2]} /> */}
-        {/* <HeaderMenuItem item={menu.items[3]} /> */}
+        {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null }
+        {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null }
         <nav className='header-ctas' role="navigation" >
           <SearchToggle showSearch={showSearch}/>
           <CartToggle cart={cart} />
@@ -170,8 +170,10 @@ function SearchToggle() {
 
 function HeaderMenuMobileToggle() {
   return (
-    <a className="header-menu-mobile-toggle" href="#mobile-menu-aside">
-      <h3>☰</h3>
-    </a>
+    <div className="header-menu-mobile-toggle" style={{width: "76px"}}>
+      <a  href="#mobile-menu-aside">
+        <h3>☰</h3>
+      </a>
+    </div>
   );
 }
