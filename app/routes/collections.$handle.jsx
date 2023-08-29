@@ -86,6 +86,7 @@ const COLLECTION_QUERY = `#graphql
           title
           publishedAt
           handle
+          availableForSale
           variants(first: 1) {
             nodes {
               id

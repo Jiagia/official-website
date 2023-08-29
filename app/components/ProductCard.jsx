@@ -5,7 +5,7 @@ export default function ProductCard({product}) {
   const {price, compareAtPrice} = product.variants?.nodes[0] || {};
   const isDiscounted = compareAtPrice?.amount > price?.amount;
 
-  // console.log(product);
+  console.log(product);
 
   return (
     <Link to={`/products/${product.handle}`}>

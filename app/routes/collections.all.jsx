@@ -15,10 +15,12 @@ import ProductGrid from '../components/ProductGrid';
 export async function loader({params, context, request}) {
     const searchParams = new URL(request.url).searchParams;
     const cursor = searchParams.get('cursor');
+    const filter = "(NOT product_type:Artwork)";
 
     const collection = await context.storefront.query(COLLECTION_QUERY, {
         variables: {
             cursor,
+            filter
         },
     });
 
@@ -72,8 +74,8 @@ export default function CollectionAll() {
 }
 
 const COLLECTION_QUERY = `#graphql
-  query CollectionDetails($cursor: String) {
-      products(first: 20, reverse: true, after: $cursor) {
+  query CollectionDetails($cursor: String, $filter: String) {
+      products(first: 20, reverse: true, after: $cursor, query: $filter) {
         pageInfo {
           hasNextPage
           endCursor
