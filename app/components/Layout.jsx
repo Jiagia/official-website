@@ -136,6 +136,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
                   placeholder="Search"
                   ref={inputRef}
                   type="search"
+                  onKeyDown={fetchResults}
                 />
                 &nbsp;
                 <button type="submit">Search</button>

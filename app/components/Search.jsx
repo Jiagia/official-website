@@ -186,6 +186,8 @@ export function PredictiveSearchForm({
   const inputRef = useRef(null);
 
   function fetchResults(event) {
+    console.log(event);
+    if (event.keyCode === 13) window.location.href="/search?q=" + event.target.value;
     const searchAction = action ?? '/api/predictive-search';
     const localizedAction = params.locale
       ? `/${params.locale}${searchAction}`
@@ -214,6 +216,7 @@ export function PredictiveSearchForm({
           return;
         }
         inputRef.current.blur();
+        window.location.href = "/search?q=" + encodeURIComponent(inputRef.current.value);
       }}
     >
       {children({fetchResults, inputRef, fetcher})}

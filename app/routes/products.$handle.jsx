@@ -70,7 +70,7 @@ function PrintJson({data}) {
                 <ProductGallery media={product.media.nodes} />
             </div>
           </div>
-          <div className="md:sticky  max-w-xl  grid p-0 md:p-6 md:px-0 top-[6rem] lg:top-[8rem] xl:top-[10rem]  lg:col-span-2" >
+          <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2 top-[6rem] lg:top-[8rem] xl:top-[10rem]  lg:col-span-2" >
             <div className="grid gap-2">
               <h1 className="text-4xl font-bold leading-10 whitespace-normal">
                 {product.title}
