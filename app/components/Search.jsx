@@ -2,6 +2,7 @@ import {useParams, useFetcher, Link, Form} from '@remix-run/react';
 import {Image, Money, Pagination} from '@shopify/hydrogen';
 import React, {useRef, useEffect} from 'react';
 import {useFetchers} from '@remix-run/react';
+import ProductCard from './ProductCard';
 
 export const NO_PREDICTIVE_SEARCH_RESULTS = [
   {type: 'queries', items: []},
@@ -34,17 +35,29 @@ export function SearchForm({searchTerm}) {
     };
   }, []);
 
+  function clearInput() {
+    inputRef.current.defaultValue = "";
+    inputRef.current.value = "";
+  }
+
   return (
-    <Form method="get">
+    <Form method="get" className="flex w-full md:w-[700px] h-[40px] p-1 items-center border border-solid border-black hover:border-2 focus:border-2 focus-within:border-2">
       <input
         defaultValue={searchTerm}
         name="q"
         placeholder="Search…"
         ref={inputRef}
         type="search"
+        className="grow background-transparent"
       />
       &nbsp;
-      <button type="submit">Search</button>
+      <button type="reset" onClick={clearInput} style={{width: "20px"}}>&times; </button>
+      
+      <button type="submit">
+      <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="20px" height="20px">
+        <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"/>
+      </svg>
+      </button>
     </Form>
   );
 }
@@ -55,7 +68,7 @@ export function SearchResults({results}) {
   }
   const keys = Object.keys(results);
   return (
-    <div>
+    <div className="">
       {results &&
         keys.map((type) => {
           const resourceResults = results[type];
@@ -95,31 +108,38 @@ export function SearchResults({results}) {
 
 function SearchResultsProductsGrid({products}) {
   return (
-    <div className="search-result">
-      <h3>Products</h3>
+    <div className="search-result ">
+      <h2 className="category-name" >Products</h2>
       <Pagination connection={products}>
         {({nodes, isLoading, NextLink, PreviousLink}) => {
           const itemsMarkup = nodes.map((product) => (
             <div className="search-results-item" key={product.id}>
-              <Link prefetch="intent" to={`/products/${product.handle}`}>
+              {/* <Link prefetch="intent" to={`/products/${product.handle}`}>
+                <Image 
+                  alt={product.variants.nodes[0].image.altText ?? ''}
+                  src={product.variants.nodes[0].image.url}
+                  width={product.variants.nodes[0].image.width || 100} 
+                  height={product.variants.nodes[0].image.height || 150}
+                />
                 <span>{product.title}</span>
-              </Link>
+              </Link> */}
+              <ProductCard product={product} />
             </div>
           ));
           return (
-            <div>
+            <div className="w-full">
               <div>
                 <PreviousLink>
                   {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
                 </PreviousLink>
               </div>
-              <div>
+              <div  className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-end">
                 {itemsMarkup}
                 <br />
               </div>
-              <div>
-                <NextLink>
-                  {isLoading ? 'Loading...' : <span>Load more ↓</span>}
+              <div className="flex w-full justify-center h-[40px] p-1 items-center ">
+                <NextLink className=" text-center">
+                  {isLoading ? 'Loading...' : <span className="m-2 p-2 border border-solid border-black hover:border-2 focus:border-2 focus-within:border-2">Load more ↓</span>}
                 </NextLink>
               </div>
             </div>
@@ -134,12 +154,14 @@ function SearchResultsProductsGrid({products}) {
 function SearchResultPageGrid({pages}) {
   return (
     <div className="search-result">
-      <h2>Pages</h2>
-      <div>
+      <h2 className="category-name">Pages</h2>
+      <div className="grid justify-center" >
         {pages?.nodes?.map((page) => (
-          <div className="search-results-item" key={page.id}>
+          <div className="search-results-item" 
+          key={page.id}>
             <Link prefetch="intent" to={`/pages/${page.handle}`}>
-              {page.title}
+              <h3 className="text-[20px]">{page.title}</h3>
+              <p>{page.bodySummary}</p>
             </Link>
           </div>
         ))}

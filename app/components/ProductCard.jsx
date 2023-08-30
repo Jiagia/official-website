@@ -28,7 +28,7 @@ export default function ProductCard({product}) {
           )}
         </div>
         <div className="grid gap-1">
-          <h3 className="max-w-prose text-copy w-full overflow-hidden whitespace-nowrap text-ellipsis ">
+          <h3 className="max-w-prose text-copy w-full overflow-hidden whitespace-normal ">
             {product.title}
           </h3>
           <div className="flex gap-4">

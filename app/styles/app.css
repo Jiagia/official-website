@@ -3,7 +3,7 @@
     --cart-aside-summary-height-with-discount: 300px;
     --cart-aside-summary-height: 250px;
     --grid-item-width: 355px;
-    --header-height: 64px;
+    --header-height: 94px;
     --color-dark: #000;
     --color-light: #fff;
     --font: "Jomolhari";
@@ -213,9 +213,11 @@ body {
     top: 0; */
   }
 
+
+
 .shop-name {
     font-size: var(--header-shop-name-size);
-    padding-top: calc((var(--header-shop-name-size) - var(--header-menu-size))/2);
+    /* padding-top: calc((var(--header-shop-name-size) - var(--header-menu-size))/2); */
 }
   
   .header-ctas {
@@ -243,4 +245,19 @@ body {
     bottom: 0;
     right: 0;
   }
+
+/*
+* --------------------------------------------------
+* components/Search
+* --------------------------------------------------
+*/
+
+.search h1 {
+  font-size: 30px;
+}
+
+.search-result .category-name {
+  font-size: 24px;
+  text-align: center;
+}
   

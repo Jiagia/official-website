@@ -47,10 +47,14 @@ export async function loader({request, context}) {
 
 export default function SearchPage() {
   const {searchTerm, searchResults} = useLoaderData();
+  // console.log(searchTerm);
+  console.log(searchResults);
   return (
     <div className="search">
-      <h1>Search</h1>
+      <h1 className="text-center">Search</h1>
+      <div className="flex justify-center w-full">
       <SearchForm searchTerm={searchTerm} />
+      </div>
       {!searchTerm || !searchResults.totalResults ? (
         <NoSearchResults />
       ) : (
@@ -68,6 +72,7 @@ const SEARCH_QUERY = `#graphql
     publishedAt
     title
     trackingParameters
+    availableForSale
     vendor
     variants(first: 1) {
       nodes {
@@ -103,6 +108,7 @@ const SEARCH_QUERY = `#graphql
     id
     title
     trackingParameters
+    bodySummary
   }
   fragment SearchArticle on Article {
     __typename
@@ -122,7 +128,6 @@ const SEARCH_QUERY = `#graphql
   ) @inContext(country: $country, language: $language) {
     products: search(
       query: $query,
-      unavailableProducts: HIDE,
       types: [PRODUCT],
       first: $first,
       sortKey: RELEVANCE,
