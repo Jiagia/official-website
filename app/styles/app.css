@@ -229,6 +229,8 @@ body {
 
   .header-menu-mobile-toggle {
     width: 60px;
+    height: 40px;
+    line-height: 50px;
   }
 
   .cart-badge {
