@@ -6,7 +6,9 @@
     --header-height: 64px;
     --color-dark: #000;
     --color-light: #fff;
-    --font: "Jomolhari"
+    --font: "Jomolhari";
+    --header-menu-size: 25px;
+    --header-shop-name-size: 50px;
   }
 
 
@@ -198,7 +200,15 @@ body {
   
   .header-menu-item {
     cursor: pointer;
+    font-size: var(--header-menu-size);
+    /* position: absolute;
+    top: 0; */
   }
+
+.shop-name {
+    font-size: var(--header-shop-name-size);
+    padding-top: calc((var(--header-shop-name-size) - var(--header-menu-size))/2);
+}
   
   .header-ctas {
     align-items: center;
