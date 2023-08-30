@@ -196,6 +196,14 @@ body {
     .header-menu-mobile-toggle {
         display: none;
     }
+
+    .header-ctas {
+        grid-gap: 1rem;
+    }
+
+    .header-menu-mobile-toggle {
+        width: 76px;
+    }
   }
   
   .header-menu-item {
@@ -213,8 +221,12 @@ body {
   .header-ctas {
     align-items: center;
     display: flex;
-    grid-gap: 1rem;
+    /* grid-gap: 1rem; */
     /* margin-left: auto; */
+  }
+
+  .header-menu-mobile-toggle {
+    width: 60px;
   }
 
   .cart-badge {

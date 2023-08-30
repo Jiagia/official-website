@@ -89,11 +89,11 @@ function PrintJson({data}) {
             className="text-xl font-semibold mb-2"
             />
             {orderable ? (
-                <div className="space-y-2">
+                <div className="space-y-2 w-11/12">
                   <ShopPayButton
                       storeDomain={storeDomain}
                       variantIds={[selectedVariant?.id]}
-                      width={'400px'}
+                      width="100%"
                   />
                   <ProductForm variantId={selectedVariant?.id} />
                 </div>
