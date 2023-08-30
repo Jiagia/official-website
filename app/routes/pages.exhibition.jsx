@@ -50,8 +50,8 @@ export default function Exhibition() {
   // console.log(page);
   // console.log(page.collection.title);
   return (
-    <div className="container mx-10 w-1/2">
-      <h1>{page.collection.title}</h1>
+    <div id="exhibition" className="">
+      {/* <h1 className="text-center text-[30px]">{page.collection.title}</h1> */}
       {/* <ProductGrid
         collection={page.collection}
         url={`/pages/${page.collection.handle}`}
@@ -60,16 +60,22 @@ export default function Exhibition() {
       {page.collection.products.nodes.map((painting) => {
         // console.log(painting);
         return (
-          <div key={painting.id}>
-          <h3>
+          <div className="painting-item m-10" key={painting.id}>
+          <h3 className="painting-title text-2xl">
             {painting.title}
           </h3>
-          <div>
-            <Image 
+          <div className="painting-body mx-auto">
+            <Image
               data={painting.variants.nodes[0].image}
               alt={painting.title}
               sizes="(min-width: 45em) 50vw, 100vw"
+              // height="80vh"
+              // style={{width: "60vw"}}
             />
+            <div className="grid painting-des" dangerouslySetInnerHTML={{__html: painting.descriptionHtml}}>
+
+
+              </div>
           </div>
           </div>
         );
@@ -85,12 +91,14 @@ const COLLECTION_QUERY = `#graphql
       id
       title
       description
+      descriptionHtml
       handle
       products(first: $number) {
         nodes {
           id
           title
           description
+          descriptionHtml
           handle
           variants(first: 1) {
             nodes {

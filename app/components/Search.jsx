@@ -68,7 +68,7 @@ export function SearchResults({results}) {
   }
   const keys = Object.keys(results);
   return (
-    <div className="">
+    <div className="m-5">
       {results &&
         keys.map((type) => {
           const resourceResults = results[type];

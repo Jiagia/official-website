@@ -6,7 +6,7 @@ export function Footer({menu}) {
   const FBLink = "https://www.facebook.com/profile.php?id=100083105601746";
   const IGLink = "https://www.instagram.com/jiagia_studios/";
   return (
-    <footer className="footer grid md:grid-cols-2 p-4">
+    <footer className="footer grid md:grid-cols-2 p-4 mb-16">
       <div className="text-center md:text-left">
           <FooterMenu menu={menu} />
       </div>

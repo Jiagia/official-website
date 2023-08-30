@@ -261,3 +261,52 @@ body {
   text-align: center;
 }
   
+/*
+* --------------------------------------------------
+* pages.exhibition
+* --------------------------------------------------
+*/
+
+.painting-body {
+  width: 60vw;
+  position: relative;
+}
+
+.painting-title {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .painting-title {
+    font-size: 56px;
+    line-height: 64px;
+  }
+  .painting-des {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    align-items: center;  
+    align-content: center;
+    justify-items: center;
+    gap: 1em;
+    background-color: rgba(255,255,255,0.7);
+    opacity: 0;
+    transition: opacity 400ms ease-in-out;
+    text-align: center;
+  }
+
+  .painting-des p {
+    width: 50%;
+  }
+
+  .painting-des h4 {
+    font-size: 1.5em;
+  }
+
+  .painting-des:hover {
+    opacity: 1;
+  }
+}
+
+
+
