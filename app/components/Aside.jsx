@@ -29,9 +29,9 @@ export function Aside({children, heading, id = 'aside'}) {
   );
 }
 
-export function DropDown({children, heading, id = 'aside'}) {
+export function DropDown({children, heading, id = 'aside', className = ""}) {
   return (
-    <div aria-modal className="overlay dropdown" id={id} role="dialog">
+    <div aria-modal className={"overlay dropdown " + className} id={id} role="dialog">
       <button
         className="close-outside"
         onClick={() => {
@@ -51,7 +51,7 @@ export function DropDown({children, heading, id = 'aside'}) {
   );
 }
 
-function CloseAside() {
+export function CloseAside() {
   return (
     /* eslint-disable-next-line jsx-a11y/anchor-is-valid */
     <a className="close" href="#" onChange={() => history.go(-1)}>

@@ -107,8 +107,8 @@ body {
 }
 
 .dropdown aside {
-    background: var(--color-light);
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    /* background: var(--color-light); */
+    /* box-shadow: 0 0 50px rgba(0, 0, 0, 0.3); */
     position: fixed;
     width: 100%;
     top: 0;
@@ -262,6 +262,129 @@ body {
   font-size: 24px;
   text-align: center;
 }
+
+/*
+* --------------------------------------------------
+* components/Layout
+* --------------------------------------------------
+*/
+
+
+#search-aside aside main {
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  position: relative;
+  
+}
+
+#search-aside .search-bar-background {
+  height: var(--header-height);
+  background-color: var(--color-light);
+  width: 100vw;
+  z-index: -1;
+  position: absolute;
+}
+#search-aside .predictive-search{
+  background-color: var(--color-light);
+}
+#search-aside .search-form {
+  /* display: flex; */
+  height: var(--header-height)
+}
+
+#search-aside header {
+  display: none;
+}
+
+/* #search-aside form {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+} */
+
+#search-aside form {
+  flex-grow: 1;
+  display: flex;
+  border: 1px solid black;
+}
+
+/* #search-aside img {
+  width: 30px;
+} */
+
+
+#search-aside .close {
+  font-size: 45px;
+  font-weight: 100;
+  line-height: var(--header-height);
+}
+
+#search-aside .input-body {
+  position: relative;
+  
+}
+
+#search-aside .input-body {
+  flex-grow: 1;
+  height: 80%;
+  vertical-align: middle;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#search-aside .input-body input {
+  height: 100%;
+  width: 100%;
+}
+
+#search-aside .input-body input:focus {
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  #search-aside .input-body {
+    flex-grow: 0;
+    width: 650px;
+  }
+
+  #search-aside form {
+    flex-grow: 0;
+  }
+}
+
+#search-aside .search-name-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 30px;
+}
+
+#search-aside .search-name-tag:focus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 10px;
+}
+
+
+.predictive-products .predictive-search-result-item  {
+  margin: 12px;
+  /* width: 70px; */
+  /* scale: 2; */
+  /* aspect-ratio: 1/1; */
+  
+}
+
+.predictive-products img {
+  width: 70px;
+  height: auto;
+  object-fit: cover;
+}
+
+
+
+
   
 /*
 * --------------------------------------------------

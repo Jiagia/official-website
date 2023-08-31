@@ -105,6 +105,27 @@ export function normalizePredictiveSearchResults(predictiveSearch, locale) {
   const localePrefix = locale ? `/${locale}` : '';
   const results = [];
 
+  
+
+  if (predictiveSearch.products.length) {
+    results.push({
+      type: 'products',
+      items: predictiveSearch.products.map((product) => {
+        totalResults++;
+        const trackingParams = applyTrackingParams(product);
+        return {
+          __typename: product.__typename,
+          handle: product.handle,
+          id: product.id,
+          image: product.variants?.nodes?.[0]?.image,
+          title: product.title,
+          url: `${localePrefix}/products/${product.handle}${trackingParams}`,
+          price: product.variants.nodes[0].price,
+        };
+      }),
+    });
+  }
+  
   if (predictiveSearch.queries.length) {
     results.push({
       type: 'queries',
@@ -123,25 +144,6 @@ export function normalizePredictiveSearchResults(predictiveSearch, locale) {
           title: query.text,
           styledTitle: query.styledText,
           url: `${localePrefix}/search${trackingParams}`,
-        };
-      }),
-    });
-  }
-
-  if (predictiveSearch.products.length) {
-    results.push({
-      type: 'products',
-      items: predictiveSearch.products.map((product) => {
-        totalResults++;
-        const trackingParams = applyTrackingParams(product);
-        return {
-          __typename: product.__typename,
-          handle: product.handle,
-          id: product.id,
-          image: product.variants?.nodes?.[0]?.image,
-          title: product.title,
-          url: `${localePrefix}/products/${product.handle}${trackingParams}`,
-          price: product.variants.nodes[0].price,
         };
       }),
     });

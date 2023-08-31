@@ -8,7 +8,8 @@ import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
-import {Aside, DropDown} from '~/components/Aside';
+import {Aside, DropDown, CloseAside} from '~/components/Aside';
+import searchIcon from "~/../public/search-icon.svg";
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const {shop, menu} = header;
@@ -123,28 +124,39 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
 
   function SearchDropDown() {
     return (
-      <DropDown id="search-aside" heading="SEARCH" >
-        <div className="predictive-search">
-          <br />
-          <PredictiveSearchForm>
-            {({fetchResults, inputRef}) => (
-              <div>
-                <input
-                  name="q"
-                  onChange={fetchResults}
-                  onFocus={fetchResults}
-                  placeholder="Search"
-                  ref={inputRef}
-                  type="search"
-                  onKeyDown={fetchResults}
-                />
-                &nbsp;
-                <button type="submit">Search</button>
-              </div>
-            )}
-          </PredictiveSearchForm>
+      <DropDown id="search-aside" heading="SEARCH" className="w-screen">
+        <div className="search-bar-background"></div>
+        <div className=" predictive-search ">
+          <div className='search-form flex  justify-center align-center mx-auto'>
+            <PredictiveSearchForm className=" my-5 mx-5 px-5">
+              {({fetchResults, inputRef}) => (
+                <div className= "form-body flex grow w-11/12 justify-center ">
+                  <div className='input-body'>
+                  <input
+                    name="q"
+                    onChange={fetchResults}
+                    onFocus={fetchResults}
+                    placeholder="Search"
+                    ref={inputRef}
+                    type="search"
+                    onKeyDown={fetchResults}
+                    className=""
+                    id="prediction-search-input"
+                  />
+                  {/* <span className="search-name-tag">Search</span> */}
+                  </div>
+                  &nbsp;
+                  <button type="submit">
+                  <img src={searchIcon} /> </button>
+                </div>
+              )}
+            </PredictiveSearchForm>
+          </div>
           <PredictiveSearchResults />
         </div>
+          
+        <CloseAside />
+        
       </DropDown>
     );
   }

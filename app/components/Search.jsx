@@ -261,18 +261,37 @@ export function PredictiveSearchResults() {
   if (!totalResults) {
     return <NoPredictiveSearchResults searchTerm={searchTerm} />;
   }
+
+  console.log(results);
   return (
-    <div className="predictive-search-results">
-      <div>
-        {results.map(({type, items}) => (
-          <PredictiveSearchResult
-            goToSearchResult={goToSearchResult}
-            items={items}
-            key={type}
-            searchTerm={searchTerm}
-            type={type}
-          />
-        ))}
+    <div className="predictive-search-results mx-5 ">
+      <div className="flex flex-col md:flex-row border-b border-gray-200 ">
+        <div className="predictive-not-products basis-full md:basis-1/3">
+          {results.map(({type, items}) => (
+            type !== "products" && (
+              <PredictiveSearchResult
+              goToSearchResult={goToSearchResult}
+              items={items}
+              key={type}
+              searchTerm={searchTerm}
+              type={type}
+            />
+            )
+          ))}
+        </div>
+        <div className="predictive-products basis-full md:basis-2/3">
+          {results.map(({type, items}) => (
+            type === "products" && (
+              <PredictiveSearchResult
+              goToSearchResult={goToSearchResult}
+              items={items}
+              key={type}
+              searchTerm={searchTerm}
+              type={type}
+            />
+            )
+          ))}
+        </div>
       </div>
       {/* view all results /search?q=term */}
       {searchTerm.current && (
@@ -305,11 +324,11 @@ function PredictiveSearchResult({goToSearchResult, items, searchTerm, type}) {
   }&type=${pluralToSingularSearchType(type)}`;
 
   return (
-    <div className="predictive-search-result" key={type}>
+    <div className="predictive-search-result p-2" key={type}>
       <Link prefetch="intent" to={categoryUrl} onClick={goToSearchResult}>
-        <h5>{isSuggestions ? 'Suggestions' : type}</h5>
+        <h5 className="text-xs text-gray-600 border-b border-gray-200 pb-1">{isSuggestions ? 'SUGGESTIONS' : type.toUpperCase()}</h5>
       </Link>
-      <ul>
+      <ul className="pt-1">
         {items.map((item) => (
           <SearchResultItem
             goToSearchResult={goToSearchResult}
@@ -324,17 +343,20 @@ function PredictiveSearchResult({goToSearchResult, items, searchTerm, type}) {
 
 function SearchResultItem({goToSearchResult, item}) {
   return (
-    <li className="predictive-search-result-item" key={item.id}>
-      <Link onClick={goToSearchResult} to={item.url}>
+    <Link onClick={goToSearchResult} to={item.url}>
+    <li className="predictive-search-result-item flex items-center" key={item.id}>
+      
         {item.image?.url && (
           <Image
             alt={item.image.altText ?? ''}
             src={item.image.url}
-            width={50}
-            height={50}
+            // width='70px'
+            // aspectRatio="1"
+            height={100}
+            width={100}
           />
         )}
-        <div>
+        <div className='px-2'>
           {item.styledTitle ? (
             <div
               dangerouslySetInnerHTML={{
@@ -344,14 +366,15 @@ function SearchResultItem({goToSearchResult, item}) {
           ) : (
             <span>{item.title}</span>
           )}
-          {item?.price && (
+          {/* {item?.price && (
             <small>
               <Money data={item.price} />
             </small>
-          )}
+          )} */}
         </div>
-      </Link>
+      
     </li>
+    </Link>
   );
 }
 
