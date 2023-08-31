@@ -382,6 +382,11 @@ body {
   object-fit: cover;
 }
 
+.predictive-search mark {
+  background-color: transparent;
+  font-weight: 900;
+}
+
 
 
 
