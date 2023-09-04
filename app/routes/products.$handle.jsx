@@ -1,6 +1,7 @@
 import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import ProductOptions from '~/components/ProductOptions';
+import ProductCard from '~/components/ProductCard';
 import {MediaFile, Money, ShopPayButton} from '@shopify/hydrogen-react';
 import {CartForm} from '@shopify/hydrogen';
 
@@ -10,17 +11,18 @@ export async function loader({params, context, request}) {
     const searchParams = new URL(request.url).searchParams;
     const selectedOptions = [];
     const storeDomain = context.storefront.getShopifyDomain();
-
+    const recNum = 5;
   
     // set selected options from the query string
     searchParams.forEach((value, name) => {
       selectedOptions.push({name, value});
     });
   
-    const {product} = await context.storefront.query(PRODUCT_QUERY, {
+    const {product} = await context.storefront.query(PRODUCT_W_REC_QUERY, {
       variables: {
         handle,
         selectedOptions,
+        recNum
       },
     });
   
@@ -59,6 +61,7 @@ function PrintJson({data}) {
   
   export default function ProductHandle() {
     const {product, selectedVariant, storeDomain} = useLoaderData();
+    // console.log(product.recommendation.references.nodes);
     const orderable = selectedVariant?.availableForSale || false;
 
 
@@ -107,6 +110,16 @@ function PrintJson({data}) {
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             ></div>
           </div>
+        </div>
+        <div className='pt-5 grid'>
+          <hr />
+          <h2>Recommendation</h2>
+          <div className='grid-flow-row grid gap-2 gap-y-6 md:gap-4 lg:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          
+          {product.recommendation?.references.nodes.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
         </div>
       </section>
     );
@@ -188,7 +201,141 @@ function PrintJson({data}) {
     );
   }
   
+  const PRODUCT_W_REC_QUERY = `#graphql
+  fragment RecProduct on Product {
+    id
+    title
+    availableForSale
+    handle
+    featuredImage {
+      id
+      altText
+      url
+      width
+      height
+    }
+    id
+    title
+    publishedAt
+    handle
+    availableForSale
+    variants(first: 1) {
+      nodes {
+        id
+        image {
+          url
+          altText
+          width
+          height
+        }
+        price {
+          amount
+          currencyCode
+        }
+        compareAtPrice {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
   
+  query product($recNum: Int, $handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
+    product(handle: $handle) {
+      id
+      title
+      handle
+      vendor
+      descriptionHtml
+      media(first: 10) {
+        nodes {
+          ... on MediaImage {
+            mediaContentType
+            image {
+              id
+              altText
+              url
+              height
+              width
+            }
+          }
+          ... on Model3d {
+            id
+            mediaContentType
+            sources {
+              mimeType
+              url
+            }
+          }
+        }
+      }
+      options {
+        name
+        values
+      }
+      selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions) {
+        id
+        availableForSale
+        selectedOptions {
+          name
+          value
+        }
+        image {
+          id
+          url
+          altText
+          width
+          height
+        }
+        price {
+          amount
+          currencyCode
+        }
+        compareAtPrice {
+          amount
+          currencyCode
+        }
+        sku
+        title
+        unitPrice {
+          amount
+          currencyCode
+        }
+        product {
+          title
+          handle
+        }
+      }
+      variants(first: 1) {
+        nodes {
+          id
+          title
+          availableForSale
+          price {
+            currencyCode
+            amount
+          }
+          compareAtPrice {
+            currencyCode
+            amount
+          }
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
+      recommendation: metafield(namespace: "my_product", key: "recommended_product") {
+        references(first: $recNum) {
+          nodes {
+            ...RecProduct
+          }
+        }
+      }
+    }
+  }
+  `;
+
   const PRODUCT_QUERY = `#graphql
   query product($handle: String!, $selectedOptions: [SelectedOptionInput!]!) {
     product(handle: $handle) {
