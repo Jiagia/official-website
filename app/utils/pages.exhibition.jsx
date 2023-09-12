@@ -5,7 +5,7 @@ import {Image} from '@shopify/hydrogen';
 import { FeaturedProductCard } from '~/components/FeaturedCollection';
 
 export async function loader({context}) {
-  const handle = "Exhibition";
+  const handle = "painting";
   const number = 8;
 
   console.log(context.storefront);
@@ -17,6 +17,7 @@ export async function loader({context}) {
     },
   });
 
+  console.log('2');
   
   // Handle 404s
   if (!page) {
@@ -50,25 +51,30 @@ export default function Exhibition() {
   // console.log(page.collection.title);
   return (
     <div id="exhibition" className="">
+      {/* <h1 className="text-center text-[30px]">{page.collection.title}</h1> */}
+      {/* <ProductGrid
+        collection={page.collection}
+        url={`/pages/${page.collection.handle}`}
+      /> */}
       <div>
-      {page.metaobjects.nodes.map((painting) => {
+      {page.collection.products.nodes.map((painting) => {
         // console.log(painting);
         return (
           <div className="painting-item m-10" key={painting.id}>
           <h3 className="painting-title text-2xl">
-            {painting.title.value}
+            {painting.title}
           </h3>
           <div className="painting-body mx-auto">
             <Image
-              data={painting.image.reference.image}
-              alt={painting.title.value}
+              data={painting.variants.nodes[0].image}
+              alt={painting.title}
               sizes="(min-width: 45em) 50vw, 100vw"
               // height="80vh"
               // style={{width: "60vw"}}
             />
-            <div className="grid painting-des">
-              <h4>{painting.fact.value}</h4>
-              <p>{painting.inspiration.value}</p>
+            <div className="grid painting-des" dangerouslySetInnerHTML={{__html: painting.descriptionHtml}}>
+
+
               </div>
           </div>
           </div>
@@ -81,43 +87,38 @@ export default function Exhibition() {
 
 const COLLECTION_QUERY = `#graphql
   query getCollectionByHandle($handle: String!, $number: Int) {
-    
-      metaobjects(type: $handle, first: $number) {
-        # MetaobjectConnection fields
+    collection(handle: $handle) {
+      id
+      title
+      description
+      descriptionHtml
+      handle
+      products(first: $number) {
         nodes {
           id
-          title: field(key:"title") {
-            key,
-            value
-    
-          }
-          image: field(key:"url"){
-            key,
-            value,
-            reference {
-                ... on MediaImage {
-                  __typename
-                  image {
-                    url
-                    width
-                    height
-                  }
-                }
+          title
+          description
+          descriptionHtml
+          handle
+          variants(first: 1) {
+            nodes {
+              id
+              image {
+                url
+                altText
+                width
+                height
+              }
+              price {
+                amount
+                currencyCode
+              }
             }
-          }
-          fact: field(key:"factual_description") {
-            key,
-            value
-          }
-          inspiration: field(key:"inspiration_description") {
-            key,
-            value
-    
           }
         }
       }
     }
-  
+  }
 `;
 
 // const COLLECTION_QUERY = `#graphql
