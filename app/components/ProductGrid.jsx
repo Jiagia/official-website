@@ -12,6 +12,9 @@ export default function ProductGrid({collection, url}) {
   );
 
   const [products, setProducts] = useState(collection.products.nodes || []);
+  useEffect(() => {
+    setProducts(collection.products.nodes || []);
+  }, [collection]);
 
   // For making client-side requests
   // https://remix.run/docs/en/v1/hooks/use-fetcher
