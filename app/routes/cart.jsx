@@ -5,15 +5,11 @@ import {CartLineItems, CartActions, CartSummary, CartError} from '~/components/C
 
 var error = null;
 
-export async function loader({context}) {
-  const {cart} = context;
-  
-  return json({cart: await cart.get()});
-}
+
  
 
 export async function action({request, context}) {
-  const {cart} = context;
+  const {cart, session} = context;
 
   const formData = await request.formData();
   const {action, inputs} = CartForm.getFormInput(formData);
@@ -30,6 +26,32 @@ export async function action({request, context}) {
     case CartForm.ACTIONS.LinesRemove:
       result = await cart.removeLines(inputs.lineIds);
       break;
+      case CartForm.ACTIONS.MetafieldsSet:
+        result = await cart.setMetafields(inputs.metafields);
+        break;
+    case CartForm.ACTIONS.NoteUpdate:
+        const note = String(formData.get('note') || '');
+        result = await cart.updateNote(note);
+        break;
+    case CartForm.ACTIONS.AttributesUpdateInput:
+        result = await cart.updateAttributes(inputs.attributes);
+        break;
+    case CartForm.ACTIONS.DiscountCodesUpdate:
+        const formDiscountCode = formData.get('discountCode');
+    
+        // User inputted discount code
+        const discountCodes = (
+            formDiscountCode ? [formDiscountCode] : []
+        );
+    
+        // Combine with discount codes already applied on cart
+        discountCodes.push(...inputs.discountCodes);
+    
+        result = await cart.updateDiscountCodes(discountCodes);
+        break;
+    case CartForm.ACTIONS.SelectedDeliveryOptionsUpdate:
+        result = await cart.updateSelectedDeliveryOption(inputs.selectedDeliveryOptions);
+        break;
     default:
       invariant(false, `${action} cart action is not defined`);
   }
@@ -37,17 +59,28 @@ export async function action({request, context}) {
   // The Cart ID might change after each mutation, so update it each time.
   const headers = cart.setCartId(result.cart.id);
 
+  const cartId = await session.get('cartId');
+
   return json(
     result,
-    {status: 200, headers},
+    {status: 200, 
+      headers,
+      analytics: {
+        cartId,
+      },},
   );
+}
+
+export async function loader({context}) {
+  const {cart} = context;
+  
+  return json({cart: await cart.get()});
 }
 
 export default function Cart() {
   // const result = useActionData();
   const {cart} = useLoaderData();
   const fetcher = useFetcher();
-  console.log(cart);
 
   // console.log(cart);
   // console.log(fetcher.data);

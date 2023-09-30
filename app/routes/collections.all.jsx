@@ -1,6 +1,7 @@
 import {useLoaderData, Form} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import ProductGrid from '../components/ProductGrid';
+import {AnalyticsPageType} from '@shopify/hydrogen';
 
 // const seo = ({data}) => ({
 //   title: data?.collection?.title,
@@ -87,6 +88,9 @@ import ProductGrid from '../components/ProductGrid';
 
       return json({
         collection,
+        analytics: {
+          pageType: AnalyticsPageType.collection,
+        },
       });
   }
 

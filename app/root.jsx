@@ -1,4 +1,14 @@
 import {defer} from '@shopify/remix-oxygen';
+import {useLocation} from '@remix-run/react';
+import {useRef, useEffect} from 'react';
+// import {useShopifyCookies} from '@shopify/hydrogen';  
+import {
+  AnalyticsEventName,
+  getClientBrowserParameters,
+  sendShopifyAnalytics,
+  useShopifyCookies,
+  AnalyticsPageType
+} from '@shopify/hydrogen';
 // import {Seo} from `@shopify/hydrogen`;
 import {
   Links,
@@ -13,6 +23,10 @@ import appStyles from './styles/app.css';
 import tailwindCss from './styles/tailwind.css';
 import favicon from '../public/favicon.svg';
 import {Layout} from './components/Layout';
+// import {usePageAnalytics} from './utils';
+import {CartProvider} from './components/CartProvider';
+import {usePageAnalytics} from '~/hooks/usePageAnalytics';
+import KlaviyoOnsite from './components/klaviyo/KlaviyoOnsite.client';
 
 export const links = () => {
   return [
@@ -33,6 +47,7 @@ export const links = () => {
   ];
 };
 
+
 // export const handle = {
 //   seo: {
 //     title: 'Snowdevil',
@@ -43,6 +58,7 @@ export const links = () => {
 // };
 
 export async function loader({context}) {
+  
   const {storefront, session, cart} = context;
   const customerAccessToken = await session.get('customerAccessToken');
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
@@ -79,6 +95,9 @@ export async function loader({context}) {
       header: await headerPromise,
       isLoggedIn,
       publicStoreDomain,
+      analytics: {
+        pageType: AnalyticsPageType.home,
+      }
     },
     {headers},
   );
@@ -87,8 +106,51 @@ export async function loader({context}) {
 
 export default function App() {
   const data = useLoaderData();
+  // need to obtain userconsent somehow
+  console.log(data);
+  const hasUserConsent = true;
+  useShopifyCookies({hasUserConsent});
 
-  // console.log(data);
+  const location = useLocation();
+  const lastLocationKey = useRef('');
+  const pageAnalytics = usePageAnalytics({hasUserConsent});
+
+  // // console.log(data);
+  // useEffect(() => {
+  //   // Filter out useEffect running twice
+  //   if (lastLocationKey.current === location.key) return;
+
+  //   lastLocationKey.current = location.key;
+
+  //   // This hook is where you can send a page view event to Shopify and other third-party analytics
+
+  //   	// Send page view analytics
+
+  //     console.log(pageAnalytics);
+  //     // pageAnalytics = {
+  //     //    shopId: 'gid://shopify/Shop/1',
+  //     //    pageType: 'product',
+  //     // }
+  
+  // }, [location, pageAnalytics]);
+  useEffect(() => {
+    // Filter out useEffect running twice
+    if (lastLocationKey.current === location.key) return;
+
+    lastLocationKey.current = location.key;
+
+    const payload = {
+      ...getClientBrowserParameters(),
+      ...pageAnalytics,
+      shopId: data.header.shop.id,
+    };
+
+    sendShopifyAnalytics({
+      eventName: AnalyticsEventName.PAGE_VIEW,
+      payload,
+    });
+  }, [location, pageAnalytics]);
+
 
   return (
     <html lang="en">
@@ -101,11 +163,14 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout {...data} >
-          <Outlet />
-        </Layout>
-        <ScrollRestoration />
-        <Scripts />
+        {/* <CartProvider> */}
+          <Layout {...data} >
+            <KlaviyoOnsite />
+            <Outlet />
+          </Layout>
+          <ScrollRestoration />
+          <Scripts />
+        {/* </CartProvider> */}
       </body>
     </html>
   );

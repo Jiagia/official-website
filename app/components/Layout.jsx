@@ -10,6 +10,7 @@ import {
 } from '~/components/Search';
 import {Aside, DropDown, CloseAside} from '~/components/Aside';
 import searchIcon from "~/../public/search-icon.svg";
+import {useCart} from './CartProvider';
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const {shop, menu} = header;
@@ -49,7 +50,8 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     return <div>{count}</div>;
   }
   
-  function CartToggle({cart}) {
+  function CartToggle() {
+    const cart = useCart();
     return (
       <Suspense fallback={<CartBadge count={0} />}>
         <Await resolve={cart}>

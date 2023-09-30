@@ -1,10 +1,11 @@
 import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
-import ProductOptions from '~/components/ProductOptions';
-import ProductCard from '~/components/ProductCard';
 import {MediaFile, Money, ShopPayButton} from '@shopify/hydrogen-react';
 import {CartForm} from '@shopify/hydrogen';
-
+import {AnalyticsPageType} from '@shopify/hydrogen';
+import ProductOptions from '~/components/ProductOptions';
+import ProductCard from '~/components/ProductCard';
+import {AddToCartButton} from '~/components/CartButtons';
 
 export async function loader({params, context, request}) {
     const {handle} = params;
@@ -38,6 +39,10 @@ export async function loader({params, context, request}) {
     product,
     selectedVariant,
     storeDomain,
+    analytics: {
+      pageType: AnalyticsPageType.product,
+      products: [product],
+    }
   });
 }
   
@@ -61,6 +66,8 @@ function PrintJson({data}) {
   
   export default function ProductHandle() {
     const {product, selectedVariant, storeDomain} = useLoaderData();
+    console.log(product)
+    console.log(selectedVariant)
     // console.log(product.recommendation.references.nodes);
     const orderable = selectedVariant?.availableForSale || false;
 
@@ -98,8 +105,10 @@ function PrintJson({data}) {
                       variantIds={[selectedVariant?.id]}
                       width="100%"
                   />
-                  <ProductForm variantId={selectedVariant?.id} 
-                  width="100%"/>
+                  <ProductForm 
+                  variantId={selectedVariant?.id} 
+                  width="100%" 
+                  productAnalytics={product?.handle} />
                 </div>
             ) : (
               <div className="text-xl font-bold mb-2">Sold Out</div>
@@ -186,22 +195,23 @@ function PrintJson({data}) {
     );
   }
 
-  function ProductForm({variantId}) {
+  function ProductForm({variantId, productAnalytics=''}) {
     const lines = [{merchandiseId: variantId, quantity: 1}];
   
-    return (
-      <CartForm
-        route="/cart"
-        action={CartForm.ACTIONS.LinesAdd}
-        inputs={
-          {lines}
-        }
-      >
-        <button className="bg-black text-white px-6 py-3 w-full rounded-md text-center font-medium max-w-[400px]">
-          Add to Bag
-        </button>
-      </CartForm>
-    );
+    return (<AddToCartButton lines={lines} productAnalytics ={productAnalytics} className='bg-black text-white px-6 py-3 w-full text-center font-medium max-w-[400px]' />);
+    // return (
+    //   <CartForm
+    //     route="/cart"
+    //     action={CartForm.ACTIONS.LinesAdd}
+    //     inputs={
+    //       {lines}
+    //     }
+    //   >
+    //     <button className="bg-black text-white px-6 py-3 w-full rounded-md text-center font-medium max-w-[400px]">
+    //       Add to Bag
+    //     </button>
+    //   </CartForm>
+    // );
   }
   
   const PRODUCT_W_REC_QUERY = `#graphql

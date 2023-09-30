@@ -50,15 +50,165 @@ export default {
        * Create a cart handler that will be used to
        * create and update the cart in the session.
        */
+      // const cart = createCartHandler({
+      //   storefront, // storefront is created by the createStorefrontClient
+      //   getCartId: cartGetIdDefault(request.headers),
+      //   setCartId: cartSetIdDefault({
+      //     maxage: 60 * 60 * 24 * 365, // One year expiry
+      //   }),
+        
+      // });
+
+      
+      
+      /**
+       * cartQueryFragment requirements:
+       *
+       * - Must be named `CartApiQuery`
+       * - Only have access to the following query variables:
+       *   - $cartId: ID!
+       *   - $country: CountryCode
+       *   - $language: LanguageCode
+       *   - $numCartLines: Int
+       **/
+      
+      const CART_QUERY_FRAGMENT = `#graphql
+        fragment CartApiQuery on Cart {
+          metafield(namespace: "custom", key: "gift") {
+            value
+          }
+          id
+          checkoutUrl
+          totalQuantity
+          note
+          deliveryGroups(first: 1) {
+            nodes {
+              id
+              deliveryOptions {
+                handle
+                title
+                code
+                estimatedCost {
+                  amount
+                  currencyCode
+                }
+              }
+              selectedDeliveryOption {
+                handle
+              }
+            }
+          }
+          buyerIdentity {
+            countryCode
+            customer {
+              id
+              email
+              firstName
+              lastName
+              displayName
+            }
+            email
+            phone
+          }
+          lines(first: $numCartLines) {
+            edges {
+              node {
+                id
+                quantity
+                attributes {
+                  key
+                  value
+                }
+                cost {
+                  totalAmount {
+                    amount
+                    currencyCode
+                  }
+                  amountPerQuantity {
+                    amount
+                    currencyCode
+                  }
+                  compareAtAmountPerQuantity {
+                    amount
+                    currencyCode
+                  }
+                }
+                merchandise {
+                  ... on ProductVariant {
+                    id
+                    availableForSale
+                    compareAtPrice {
+                      ...CartApiMoney
+                    }
+                    price {
+                      ...CartApiMoney
+                    }
+                    requiresShipping
+                    title
+                    image {
+                      ...CartApiImage
+                    }
+                    product {
+                      handle
+                      title
+                      id
+                    }
+                    selectedOptions {
+                      name
+                      value
+                    }
+                  }
+                }
+              }
+            }
+          }
+          cost {
+            subtotalAmount {
+              ...CartApiMoney
+            }
+            totalAmount {
+              ...CartApiMoney
+            }
+            totalDutyAmount {
+              ...CartApiMoney
+            }
+            totalTaxAmount {
+              ...CartApiMoney
+            }
+          }
+          note
+          attributes {
+            key
+            value
+          }
+          discountCodes {
+            applicable
+            code
+          }
+        }
+      
+        fragment CartApiMoney on MoneyV2 {
+          currencyCode
+          amount
+        }
+      
+        fragment CartApiImage on Image {
+          id
+          url
+          altText
+          width
+          height
+        }
+      `;
+      
       const cart = createCartHandler({
-        storefront, // storefront is created by the createStorefrontClient
+        storefront,
         getCartId: cartGetIdDefault(request.headers),
         setCartId: cartSetIdDefault({
           maxage: 60 * 60 * 24 * 365, // One year expiry
         }),
-        
+        // cartQueryFragment: CART_QUERY_FRAGMENT, // Your custom cart query fragment
       });
-      
 
       /**
        * Create a Remix request handler and pass
