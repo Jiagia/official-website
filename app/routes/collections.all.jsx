@@ -59,20 +59,30 @@ import {AnalyticsPageType} from '@shopify/hydrogen';
     
     // iterate through price range filters, if any
     let priceRangeFilter = '';
-    let minPrice = searchParams.get('min_price');
-    let maxPrice = searchParams.get('max_price');
+    let minPrice = parseInt(searchParams.get('min-price'));
+    let maxPrice = parseInt(searchParams.get('max-price'));
+    console.log('minPrice: ' + minPrice);
+    console.log('maxPrice: ' + maxPrice);
     if (minPrice && maxPrice) {
+      console.log('Inside both');
       priceRangeFilter += `(variants.price:>=${minPrice} variants.price<=${maxPrice})`;
     } else {
+      console.log('Inside one');
       if (minPrice) {
+        console.log('Inside minPrice');
         priceRangeFilter += `(variants.price:>=${minPrice})`;
       }
       if (maxPrice) {
-        priceRangeFilter += `(variants.price<=${maxPrice})`;
+        console.log('Inside maxPrice');
+        priceRangeFilter += `(variants.price:<=${maxPrice})`;
       }
     }
-    
-    let filter = `${availabilityFilter}AND${productTypeFilter}AND${priceRangeFilter}`;
+    console.log(priceRangeFilter);
+
+    let filter = `${availabilityFilter}${productTypeFilter}${priceRangeFilter}`;
+    if (!availabilityFilter && !productTypeFilter && !priceRangeFilter) {
+      filter = '';
+    }
     console.log(filter);
 
     const collection = await context.storefront.query(COLLECTION_QUERY, {
@@ -108,29 +118,6 @@ export function meta(parentsData){
     ];
 };
 
-function dropdownClicked(e) {
-  // console.log(e);
-  e.preventDefault();
-  let dropdown = e.currentTarget;
-  console.log(dropdown);
-  if (dropdown.className.includes('on')) {
-    dropdown.classList.remove('on');
-  } else {
-    dropdown.classList.add('on');
-  }
-}
-
-function checkAllClicked(e) {
-  // console.log(e);
-  e.preventDefault();
-  let checkAll = e.currentTarget;
-  // console.log(checkAll);
-}
-
-// function processForm() {
-//   let list = document.querySelector('label.dropdown-option');
-// }
-
 function CollectionForm() {
   return (
     <Form method="get" >
@@ -165,6 +152,12 @@ function CollectionForm() {
         <input type="checkbox" name="product_type" value="t-shirt"/>
         T-Shirt
       </label><br />
+      <select name="sort-options">
+        <option value="BEST_SELLING">Best Selling</option>
+        <option value="PRODUCT_TYPE">Product Type</option>
+        <option value="TITLE">Title</option>
+        <option value="UPDATED_AT">Product Added</option>
+      </select><br />
       <button type="submit">
         Submit
       </button>
@@ -174,9 +167,6 @@ function CollectionForm() {
 
 export default function CollectionAll() {
   const {collection} = useLoaderData();
-  // console.log(collection);
-  // const params = useParams();
-  // const inputRef = useRef(null);
   return (
     <>
       <CollectionForm />
