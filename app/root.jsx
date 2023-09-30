@@ -26,7 +26,7 @@ import {Layout} from './components/Layout';
 // import {usePageAnalytics} from './utils';
 import {CartProvider} from './components/CartProvider';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
-import KlaviyoOnsite from './components/klaviyo/KlaviyoOnsite.client';
+// import KlaviyoOnsite from './components/klaviyo/KlaviyoOnsite.client';
 
 export const links = () => {
   return [
@@ -165,7 +165,7 @@ export default function App() {
       <body>
         {/* <CartProvider> */}
           <Layout {...data} >
-            <KlaviyoOnsite />
+            {/* <KlaviyoOnsite /> */}
             <Outlet />
           </Layout>
           <ScrollRestoration />
