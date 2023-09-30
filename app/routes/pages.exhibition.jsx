@@ -27,6 +27,8 @@ export async function loader({context}) {
   
   // json is a Remix utility for creating application/json responses
   // https://remix.run/docs/en/v1/utils/json
+
+
   return json({
     page,
   });
@@ -46,12 +48,15 @@ export function meta(parentsData) {
 
 export default function Exhibition() {
   const {page} = useLoaderData();
-  console.log(page);
+  
   // console.log(page.collection.title);
+
+  const paintings = page.metaobjects.nodes.sort((paint1, paint2) => (paint1.order.value > paint2.order.value ? 1 : -1))
+  console.log(paintings);
   return (
     <div id="exhibition" className="">
       <div>
-      {page.metaobjects.nodes.map((painting) => {
+      {paintings.map((painting) => {
         // console.log(painting);
         return (
           <div className="painting-item m-10" key={painting.id}>
@@ -86,6 +91,7 @@ const COLLECTION_QUERY = `#graphql
         # MetaobjectConnection fields
         nodes {
           id
+          order: field(key: "order") {value}
           title: field(key:"title") {
             key,
             value
