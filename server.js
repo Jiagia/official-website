@@ -207,7 +207,7 @@ export default {
         setCartId: cartSetIdDefault({
           maxage: 60 * 60 * 24 * 365, // One year expiry
         }),
-        // cartQueryFragment: CART_QUERY_FRAGMENT, // Your custom cart query fragment
+        cartQueryFragment: CART_QUERY_FRAGMENT, // Your custom cart query fragment
       });
 
       /**

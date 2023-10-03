@@ -7,8 +7,9 @@ import {
   getClientBrowserParameters,
   sendShopifyAnalytics,
   useShopifyCookies,
-  AnalyticsPageType
+  AnalyticsPageType,
 } from '@shopify/hydrogen';
+import {CartProvider, useCart} from '@shopify/hydrogen-react';
 // import {Seo} from `@shopify/hydrogen`;
 import {
   Links,
@@ -24,7 +25,7 @@ import tailwindCss from './styles/tailwind.css';
 import favicon from '../public/favicon.svg';
 import {Layout} from './components/Layout';
 // import {usePageAnalytics} from './utils';
-import {CartProvider} from './components/CartProvider';
+// import {CartProvider} from './components/CartProvider';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
 // import KlaviyoOnsite from './components/klaviyo/KlaviyoOnsite.client';
 
@@ -161,16 +162,17 @@ export default function App() {
         {/* <Seo /> */}
         <Meta />
         <Links />
+        <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRiSq4"></script>
       </head>
       <body>
-        {/* <CartProvider> */}
+        <CartProvider>
           <Layout {...data} >
             {/* <KlaviyoOnsite /> */}
             <Outlet />
           </Layout>
           <ScrollRestoration />
           <Scripts />
-        {/* </CartProvider> */}
+        </CartProvider>
       </body>
     </html>
   );
