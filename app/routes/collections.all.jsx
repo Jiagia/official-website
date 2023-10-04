@@ -85,10 +85,14 @@ import {AnalyticsPageType} from '@shopify/hydrogen';
     }
     console.log(filter);
 
+    let sortOption = searchParams.get('sort-option');
+    console.log(sortOption);
+
     const collection = await context.storefront.query(COLLECTION_QUERY, {
         variables: {
             cursor,
-            filter
+            filter,
+            sortOption
         },
     });
 
@@ -152,11 +156,11 @@ function CollectionForm() {
         <input type="checkbox" name="product_type" value="t-shirt"/>
         T-Shirt
       </label><br />
-      <select name="sort-options">
-        <option value="BEST_SELLING">Best Selling</option>
-        <option value="PRODUCT_TYPE">Product Type</option>
-        <option value="TITLE">Title</option>
-        <option value="UPDATED_AT">Product Added</option>
+      <select name="sort-option">
+        <option value='BEST_SELLING'>Best Selling</option>
+        <option value='PRODUCT_TYPE'>Product Type</option>
+        <option value='TITLE'>Title</option>
+        <option value='CREATED_AT'>Product Added</option>
       </select><br />
       <button type="submit">
         Submit
@@ -183,8 +187,8 @@ export default function CollectionAll() {
 }
 
 const COLLECTION_QUERY = `#graphql
-  query CollectionDetails($cursor: String, $filter: String) {
-      products(first: 20, reverse: true, after: $cursor, query: $filter) {
+  query CollectionDetails($cursor: String, $filter: String, $sortOption: ProductSortKeys) {
+      products(first: 20, after: $cursor, query: $filter, sortKey: $sortOption) {
         pageInfo {
           hasNextPage
           endCursor
