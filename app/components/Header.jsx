@@ -147,6 +147,12 @@ function HeaderMenuItem({item}) {
   )
 }
 
+function closeAside(event) {
+  // if (viewport === 'mobile') {
+    event.preventDefault();
+    window.location.href = event.currentTarget.href;
+  // }
+}
 
 function activeLinkStyle({isActive, isPending}) {
   return {
