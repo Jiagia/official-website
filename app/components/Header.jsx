@@ -3,7 +3,7 @@ import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
 
-export function Header({cart, shop, menu, showSearch}) {
+export function Header({cart, shop, menu}) {
   return (
     <header
       role="banner"
@@ -22,7 +22,7 @@ export function Header({cart, shop, menu, showSearch}) {
 
       
       <nav className='header-ctas' role="navigation" >
-        <SearchToggle showSearch={showSearch}/>
+        <SearchToggle />
         <CartToggle cart={cart} />
       </nav>
       </nav>
@@ -69,7 +69,7 @@ function CartToggle({cart}) {
   );
 }
 
-function HeaderMenu({menu, viewport}) {
+export function HeaderMenu({menu, viewport}) {
   const [root] = useMatches();
   const publicStoreDomain = root?.data?.publicStoreDomain;
   const className = `header-menu-${viewport}`;
@@ -137,7 +137,6 @@ function HeaderMenuItem({item}) {
       className="header-menu-item header-menu-desktop"
       end
       key={item.id}
-      onClick={closeAside}
       prefetch="intent"
       style={activeLinkStyle}
       to={url}
@@ -147,12 +146,6 @@ function HeaderMenuItem({item}) {
   )
 }
 
-function closeAside(event) {
-  // if (viewport === 'mobile') {
-    event.preventDefault();
-    window.location.href = event.currentTarget.href;
-  // }
-}
 
 function activeLinkStyle({isActive, isPending}) {
   return {

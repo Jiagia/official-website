@@ -2,7 +2,7 @@ import {Link} from '@remix-run/react'
 import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense, useState} from 'react';
-import {Header} from './Header';
+import {Header, HeaderMenu} from './Header';
 import {Footer} from './Footer';
 import {
   PredictiveSearchForm,
@@ -14,15 +14,6 @@ import {useCart} from './CartProvider';
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const {shop, menu} = header;
-    const [show, setShow] = useState(false);
-
-    function showSearch() {
-      setShow(true);
-    }
-
-    function closeSearch() {
-      setShow(false);
-    }
 
     return (
       <>
@@ -30,7 +21,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
       <SearchDropDown />
       <div className="flex flex-col min-h-screen antialiased bg-neutral-50">
       
-        <Header cart={cart} shop={shop} menu={menu} showSearch={showSearch} />
+        <Header cart={cart} shop={shop} menu={menu} />
         
         <main
           role="main"
@@ -63,66 +54,6 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
       </Suspense>
     );
   }
-
-  export function HeaderMenu({menu, viewport}) {
-    const [root] = useMatches();
-    const publicStoreDomain = root?.data?.publicStoreDomain;
-    const className = `header-menu-${viewport}`;
-  
-    function closeAside(event) {
-      if (viewport === 'mobile') {
-        event.preventDefault();
-        window.location.href = event.currentTarget.href;
-      }
-    }
-  
-    return (
-      <nav className={className} role="navigation">
-        {viewport === 'mobile' && (
-          <NavLink
-            end
-            onClick={closeAside}
-            prefetch="intent"
-            // style={activeLinkStyle}
-            to="/"
-          >
-            Home
-          </NavLink>
-        )}
-        {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-          if (!item.url) return null;
-  
-          // if the url is internal, we strip the domain
-          const url =
-            item.url.includes('myshopify.com') ||
-            item.url.includes(publicStoreDomain)
-              ? new URL(item.url).pathname
-              : item.url;
-          return (
-            <NavLink
-              className="header-menu-item"
-              end
-              key={item.id}
-              onClick={closeAside}
-              prefetch="intent"
-            //   style={activeLinkStyle}
-              to={url}
-            >
-              {item.title}
-            </NavLink>
-          );
-        })}
-      </nav>
-    );
-  }
-
-  function activeLinkStyle({isActive, isPending}) {
-    return {
-      fontWeight: isActive ? 'bold' : 'normal',
-      color: isPending ? 'grey' : 'black',
-    };
-  }
-  
 
   function SearchDropDown() {
     return (
