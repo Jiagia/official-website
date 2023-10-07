@@ -14,7 +14,7 @@ export function Header({cart, shop, menu, showSearch}) {
         <HeaderMenuMobileToggle />
         <HeaderMenuItem item={menu.items[0]} />
         <HeaderMenuItem item={menu.items[1]} />
-        <NavLink to="/" end className="shop-name" onClick={closeAside} prefetch="intent" style={activeLinkStyle}>
+        <NavLink to="/" end className="shop-name" prefetch="intent" style={activeLinkStyle}>
           {shop.name}
         </NavLink>
         {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null }
@@ -147,12 +147,6 @@ function HeaderMenuItem({item}) {
   )
 }
 
-function closeAside(event) {
-  if (viewport === 'mobile') {
-    event.preventDefault();
-    window.location.href = event.currentTarget.href;
-  }
-}
 
 function activeLinkStyle({isActive, isPending}) {
   return {

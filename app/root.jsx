@@ -108,7 +108,7 @@ export async function loader({context}) {
 export default function App() {
   const data = useLoaderData();
   // need to obtain userconsent somehow
-  console.log(data);
+  // console.log(data);
   const hasUserConsent = true;
   useShopifyCookies({hasUserConsent});
 
@@ -162,17 +162,17 @@ export default function App() {
         {/* <Seo /> */}
         <Meta />
         <Links />
-        <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRiSq4"></script>
+        {/* <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRiSq4"></script> */}
       </head>
       <body>
-        <CartProvider>
+        {/* <CartProvider> */}
           <Layout {...data} >
             {/* <KlaviyoOnsite /> */}
             <Outlet />
           </Layout>
           <ScrollRestoration />
           <Scripts />
-        </CartProvider>
+        {/* </CartProvider> */}
       </body>
     </html>
   );

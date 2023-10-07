@@ -8,7 +8,8 @@ export async function loader({context}) {
   const handle = "Exhibition";
   const number = 8;
 
-  console.log(context.storefront);
+  // console.log(context.storefront);
+  // console.log("exhibition loaded")
   
   const page = await context.storefront.query(COLLECTION_QUERY, {
     variables: {
@@ -49,10 +50,11 @@ export function meta(parentsData) {
 export default function Exhibition() {
   const {page} = useLoaderData();
   
+  
   // console.log(page.collection.title);
 
   const paintings = page.metaobjects.nodes.sort((paint1, paint2) => (paint1.order.value > paint2.order.value ? 1 : -1))
-  console.log(paintings);
+  // console.log(paintings);
   return (
     <div id="exhibition" className="">
       <div>
