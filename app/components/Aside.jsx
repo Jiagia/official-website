@@ -29,7 +29,7 @@ export function Aside({children, heading, id = 'aside'}) {
   );
 }
 
-export function DropDown({children, heading, id = 'aside', className = ""}) {
+export function DropDown({children, heading, id = 'dropdown', className = ""}) {
   return (
     <div aria-modal className={"overlay dropdown " + className} id={id} role="dialog">
       <button

@@ -1,6 +1,5 @@
-import {defer} from '@shopify/remix-oxygen';
-import {useLocation} from '@remix-run/react';
-import {useRef, useEffect} from 'react';
+import {defer, json} from '@shopify/remix-oxygen';
+import {useRef, useEffect, useState} from 'react';
 // import {useShopifyCookies} from '@shopify/hydrogen';  
 import {
   AnalyticsEventName,
@@ -18,6 +17,8 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useActionData,
+  useLocation 
 } from '@remix-run/react';
 
 import appStyles from './styles/app.css';
@@ -28,6 +29,8 @@ import {Layout} from './components/Layout';
 // import {CartProvider} from './components/CartProvider';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
 // import KlaviyoOnsite from './components/klaviyo/KlaviyoOnsite.client';
+import { CookieBannerToggle, CookieForm } from './components/Cookie';
+
 
 export const links = () => {
   return [
@@ -62,6 +65,8 @@ export async function loader({context}) {
   
   const {storefront, session, cart} = context;
   const customerAccessToken = await session.get('customerAccessToken');
+  const cookieConsent = await session.get('cookieConsent');
+  console.log(cookieConsent)
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   // validate the customer access token is valid
@@ -96,6 +101,7 @@ export async function loader({context}) {
       header: await headerPromise,
       isLoggedIn,
       publicStoreDomain,
+      cookieConsent,
       analytics: {
         pageType: AnalyticsPageType.home,
       }
@@ -104,36 +110,37 @@ export async function loader({context}) {
   );
 }
 
+export async function action({request, context}) {
+  const {session} = context;
+  const body = await request.formData();
+  const consent = body.get("consent");
+
+  const headers = new Headers();
+  
+  // update session consent variable
+  session.set("cookieConsent", consent);
+
+  // update session & need to return headers
+  headers.append('Set-Cookie', await session.commit());
+
+  return json(
+    consent,
+    {headers}
+    )
+}
 
 export default function App() {
   const data = useLoaderData();
   // need to obtain userconsent somehow
-  // console.log(data);
-  const hasUserConsent = true;
+  const hasUserConsent = (data.cookieConsent == "true") || false;
+  console.log(hasUserConsent);
+
   useShopifyCookies({hasUserConsent});
 
   const location = useLocation();
   const lastLocationKey = useRef('');
   const pageAnalytics = usePageAnalytics({hasUserConsent});
 
-  // // console.log(data);
-  // useEffect(() => {
-  //   // Filter out useEffect running twice
-  //   if (lastLocationKey.current === location.key) return;
-
-  //   lastLocationKey.current = location.key;
-
-  //   // This hook is where you can send a page view event to Shopify and other third-party analytics
-
-  //   	// Send page view analytics
-
-  //     console.log(pageAnalytics);
-  //     // pageAnalytics = {
-  //     //    shopId: 'gid://shopify/Shop/1',
-  //     //    pageType: 'product',
-  //     // }
-  
-  // }, [location, pageAnalytics]);
   useEffect(() => {
     // Filter out useEffect running twice
     if (lastLocationKey.current === location.key) return;
@@ -152,6 +159,9 @@ export default function App() {
     });
   }, [location, pageAnalytics]);
 
+  // show cookie consent form if consent is undefined
+  const cookieConsent = data.cookieConsent;
+  console.log("cookieConsent", cookieConsent)
 
   return (
     <html lang="en">
@@ -162,14 +172,15 @@ export default function App() {
         {/* <Seo /> */}
         <Meta />
         <Links />
-        {/* <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRiSq4"></script> */}
+        <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRiSq4"></script>
       </head>
       <body>
         {/* <CartProvider> */}
           <Layout {...data} >
-            {/* <KlaviyoOnsite /> */}
             <Outlet />
           </Layout>
+          {!cookieConsent ? <CookieForm /> : null}
+          {/* <CookieForm /> */}
           <ScrollRestoration />
           <Scripts />
         {/* </CartProvider> */}
