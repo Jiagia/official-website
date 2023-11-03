@@ -95,7 +95,7 @@ export default function Index() {
         />
         <span> </span>
       </div>
-      <div className='grid grid-cols-4 border-1'>
+      <div className='grid grid-cols-4 hidden border-1'>
         <div>1</div>
         <div>2</div>
         <div>2</div>
