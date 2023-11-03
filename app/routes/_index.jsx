@@ -95,6 +95,12 @@ export default function Index() {
         />
         <span> </span>
       </div>
+      <div className='grid grid-cols-4 border-1'>
+        <div>1</div>
+        <div>2</div>
+        <div>2</div>
+        <div>2</div>
+      </div>
       <div className="hidden md:flex px-4 md:px-6 lg:px-8">
         <ProductCarousel collection={collection} number={4} />
       </div>
