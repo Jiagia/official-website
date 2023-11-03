@@ -1,23 +1,25 @@
 import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
-import FeaturedCollection from '../components/FeaturedCollection';
+import {Carousel} from '~/components/Carousel';
+import {Image} from '@shopify/hydrogen';
+import {FeaturedProductCard} from '../components/FeaturedCollection';
 
 // GLOBAL VARIABLES
 // Featured Collection
-const FeaturedCollectionHandle = "season-4";
+const FeaturedCollectionHandle = 'season-4';
 const FeaturedCollectionNumber = 5;
 
 export function meta({matches}) {
   // console.log(matches[0]?.data?.header?.shop);
   return [
-    { title: "Jiagia Studios - JIAGIA"},
+    {title: 'Jiagia Studios - JIAGIA'},
     {
-      property: "og:title",
-      content: "JIAGIA",
+      property: 'og:title',
+      content: 'JIAGIA',
     },
     {
-      name: "description",
-      content: matches[0]?.data?.header?.shop?.description ?? "Jiagia Studios",
+      name: 'description',
+      content: matches[0]?.data?.header?.shop?.description ?? 'Jiagia Studios',
     },
   ];
 }
@@ -27,35 +29,94 @@ export function meta({matches}) {
   They always run on the server and pass the returned data to the JSX component
 */
 export async function loader({context}) {
-    const handle = FeaturedCollectionHandle;
-    const number = FeaturedCollectionNumber;
-  
-    const {collection} = await context.storefront.query(COLLECTION_QUERY, {
-      variables: {
-        handle,
-        number
-      },
-    });
-  
-    // console.log(collection);
+  const handle = FeaturedCollectionHandle;
+  const number = FeaturedCollectionNumber;
 
-    // Handle 404s
-    if (!collection) {
-      throw new Response(null, {status: 404});
-    }
-  
-    // json is a Remix utility for creating application/json responses
-    // https://remix.run/docs/en/v1/utils/json
-    return json({
-      collection,
-    });
+  const {collection} = await context.storefront.query(COLLECTION_QUERY, {
+    variables: {
+      handle,
+      number,
+    },
+  });
+
+  // console.log(collection);
+
+  // Handle 404s
+  if (!collection) {
+    throw new Response(null, {status: 404});
   }
+
+  // json is a Remix utility for creating application/json responses
+  // https://remix.run/docs/en/v1/utils/json
+  return json({
+    collection,
+  });
+}
 
 export default function Index() {
   // hook that retrieves queries data from the loader function
   const {collection} = useLoaderData();
-  // console.log(collection);
-  return <FeaturedCollection collection={collection} />;
+  const images = [
+    'https://picsum.photos/id/1/400/500',
+    'https://picsum.photos/id/2/400/500',
+    'https://picsum.photos/id/3/400/500',
+    'https://picsum.photos/id/4/400/500',
+    'https://picsum.photos/id/5/400/500',
+  ];
+
+  const array = images.map((image, i) => {
+    return <Image src={image} key={i} style={{float: 'left'}} width="25%" />;
+  });
+
+  return (
+    <div>
+      <div className="relative" >
+        <Carousel array={array} number={4} wrap={true} 
+          leftbtn={<div></div>}
+          lbtnclass="absolute h-full w-1/4"
+          rightbtn={<div></div>}
+          rbtnclass="absolute h-full w-1/4 right-0"
+          className="hidden md:block"
+        />
+        <span> </span>
+      </div>
+      <div className="relative" >
+        <Carousel array={images.map((image, i) => (<Image src={image} key={i} width="100%" />))} 
+          number={1} wrap={true} 
+          leftbtn={<div></div>}
+          lbtnclass="absolute h-full w-1/4"
+          rightbtn={<div></div>}
+          rbtnclass="absolute h-full w-1/4 right-0 top-0"
+          className="md:hidden"
+        />
+        <span> </span>
+      </div>
+      <div className="hidden md:flex px-4 md:px-6 lg:px-8">
+        <ProductCarousel collection={collection} number={4} />
+      </div>
+      <div className="flex md:hidden px-4">
+        <ProductCarousel collection={collection} number={1} />
+      </div>
+    </div>
+  );
+}
+
+function ProductCarousel({collection, number}) {
+  return (
+    <Carousel
+      number={number}
+      array={collection.products.nodes.map((product) => (
+        <FeaturedProductCard key={product.id} product={product} />
+      ))}
+      className={`grid-flow-row grid gap-2 gap-y-6 md:gap-4 lg:gap-6 grid-cols-${number} relative`}
+      leftbtn={
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-8 h-8"><g data-name="91-Arrow Left"><path d="M16 32a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm0-30a14 14 0 1 0 14 14A14 14 0 0 0 16 2z"/><path d="m18.29 24.71-8-8a1 1 0 0 1 0-1.41l8-8 1.41 1.41L12.41 16l7.29 7.29z"/></g></svg>
+      }
+      rightbtn={
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-8 h-8"><g data-name="92-Arrow Right"><path d="M16 32a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm0-30a14 14 0 1 0 14 14A14 14 0 0 0 16 2z"/><path d="M13.71 24.71 12.3 23.3l7.29-7.3-7.3-7.29L13.7 7.3l8 8a1 1 0 0 1 0 1.41z"/></g></svg>
+      }
+    />
+  )
 }
 
 const COLLECTION_QUERY = `#graphql
