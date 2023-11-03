@@ -70,8 +70,11 @@ export default function Index() {
 
   return (
     <div>
-      <div className="relative" >
-        <Carousel array={array} number={4} wrap={true} 
+      <div className="relative">
+        <Carousel
+          array={array}
+          number={4}
+          wrap={true}
           leftbtn={<div></div>}
           lbtnclass="absolute h-full w-1/4"
           rightbtn={<div></div>}
@@ -80,8 +83,9 @@ export default function Index() {
         />
         <span> </span>
       </div>
-      <div className="relative" >
-        <Carousel array={images.map((image, i) => (<Image src={image} key={i} width="100%" />))} 
+      <div className="relative">
+        <Carousel
+          array={images.map((image, i) => (<Image src={image} key={i} width="100%" />))}
           number={1} wrap={true} 
           leftbtn={<div></div>}
           lbtnclass="absolute h-full w-1/4"
