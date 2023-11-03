@@ -78,10 +78,10 @@ export default function Index() {
           leftbtn={<div></div>}
           lbtnclass="absolute h-full w-1/4"
           rightbtn={<div></div>}
-          rbtnclass="absolute h-full w-1/4 right-0"
+          rbtnclass="absolute h-full w-1/4 right-0 top-0"
           className="hidden md:block"
         />
-        <span> </span>
+        <span className="text-transparent">Jigia</span>
       </div>
       <div className="relative">
         <Carousel
