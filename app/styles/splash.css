@@ -1,0 +1,93 @@
+/******************************************
+Desktop version
+******************************************/
+
+/* The animation code */
+@keyframes gallery-left-true {
+    0%   {transform: translateX(-25%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-left-false {
+    0%   {transform: translateX(-25%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-right-true {
+    0%   {transform: translateX(25%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-right-false {
+    0%   {transform: translateX(25%)}
+    100% {transform: translateX(0%)}
+}
+
+/* Carousel */
+  
+#gallery-desktop.carousel-clicked-left-true, #prod-carousel-desktop.carousel-clicked-left-true{
+    animation-name: gallery-left-true;
+    animation-duration: 1s;
+} 
+
+#gallery-desktop.carousel-clicked-left-false, #prod-carousel-desktop.carousel-clicked-left-false{
+    animation-name: gallery-left-false;
+    animation-duration: 1s;
+} 
+
+#gallery-desktop.carousel-clicked-right-true, #prod-carousel-desktop.carousel-clicked-right-true{
+    animation-name: gallery-right-true;
+    animation-duration: 1s;
+} 
+
+#gallery-desktop.carousel-clicked-right-false, #prod-carousel-desktop.carousel-clicked-right-false{
+    animation-name: gallery-right-false;
+    animation-duration: 1s;
+} 
+
+/******************************************
+Mobile version
+******************************************/
+
+/* The animation code */
+@keyframes prod-carousel-left-true {
+    0%   {transform: translateX(-50%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes prod-carousel-left-false {
+    0%   {transform: translateX(-50%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes prod-carousel-right-true {
+    0%   {transform: translateX(50%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes prod-carousel-right-false {
+    0%   {transform: translateX(50%)}
+    100% {transform: translateX(0%)}
+}
+
+/* Carousel */
+  
+#gallery-mobile.carousel-clicked-left-true, #prod-carousel-mobile.carousel-clicked-left-true{
+    animation-name: prod-carousel-left-true;
+    animation-duration: 1s;
+} 
+
+#gallery-mobile.carousel-clicked-left-false, #prod-carousel-mobile.carousel-clicked-left-false{
+    animation-name: prod-carousel-left-false;
+    animation-duration: 1s;
+} 
+
+#gallery-mobile.carousel-clicked-right-true, #prod-carousel-mobile.carousel-clicked-right-true{
+    animation-name: prod-carousel-right-true;
+    animation-duration: 1s;
+} 
+
+#gallery-mobile.carousel-clicked-right-false, #prod-carousel-mobile.carousel-clicked-right-false{
+    animation-name: prod-carousel-right-false;
+    animation-duration: 1s;
+} 
