@@ -29,7 +29,7 @@ function FooterMenu({menu}) {
         if (!item.url) return null;
         // if the url is internal, we strip the domain
         const url =
-          item.url.includes('myshopify.com') ||
+          item.url.includes('jiagia.com') ||
           item.url.includes(publicStoreDomain)
             ? new URL(item.url).pathname
             : item.url;
