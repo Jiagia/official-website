@@ -76,7 +76,7 @@ export default function Index() {
         <nav className="grid grid-cols-1 place-content-end" style={{color: "white", position: "absolute", width: "100%", top: "25vh"}}>
         
           <NavLink to="/" className="justify-self-center" style={{fontSize: "5vh"}}>JIAGIA STUDIOS</NavLink>
-          <NavLink to="/aboutus" className="justify-self-center">ABOUT</NavLink>
+          <NavLink to="/about" className="justify-self-center">ABOUT</NavLink>
           <NavLink to="https://www.instagram.com/jiagia_studios/" className="justify-self-center">INSTAGRAM</NavLink>
           
         </nav>
@@ -87,7 +87,7 @@ export default function Index() {
           <nav className="grid grid-cols-1 place-content-center" style={{position: "absolute", color: "white", height: "80vh", width: "40vw"}}>
           
             <NavLink to="/" className="justify-self-center" style={{fontSize: "40px"}}>JIAGIA STUDIOS</NavLink>
-            <NavLink to="/aboutus" className="justify-self-center">ABOUT</NavLink>
+            <NavLink to="/about" className="justify-self-center">ABOUT</NavLink>
             <NavLink to="https://www.instagram.com/jiagia_studios/" className="justify-self-center">INSTAGRAM</NavLink>
             
           </nav>
