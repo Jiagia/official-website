@@ -6,6 +6,7 @@ import {FeaturedProductCard} from '../components/FeaturedCollection';
 // import {useState} from 'react';
 // import {motion, AnimatePresence} from 'framer-motion'
 import splashcss from '../styles/splash.css';
+import {Await, NavLink, useMatches} from '@remix-run/react';
 
 // GLOBAL VARIABLES
 // Featured Collection
@@ -36,142 +37,86 @@ export function meta({matches}) {
   They always run on the server and pass the returned data to the JSX component
 */
 export async function loader({context}) {
-  const handle = FeaturedCollectionHandle;
-  const number = FeaturedCollectionNumber;
+  // const handle = FeaturedCollectionHandle;
+  // const number = FeaturedCollectionNumber;
+  const handle = 'home-page';
+  const type = 'file';
 
-  const {collection} = await context.storefront.query(COLLECTION_QUERY, {
+  const img = await context.storefront.query(COLLECTION_QUERY, {
     variables: {
       handle,
-      number,
+      type,
     },
   });
 
-  // console.log(collection);
-
   // Handle 404s
-  if (!collection) {
+  if (!img) {
     throw new Response(null, {status: 404});
   }
 
   // json is a Remix utility for creating application/json responses
   // https://remix.run/docs/en/v1/utils/json
   return json({
-    collection,
+    img,
   });
 }
 
 export default function Index() {
   // hook that retrieves queries data from the loader function
-  const {collection} = useLoaderData();
+  const {img} = useLoaderData();
+
+  console.log(img);
 
   
 
-  const images = [
-    'https://picsum.photos/id/1/400/500',
-    'https://picsum.photos/id/2/400/500',
-    'https://picsum.photos/id/3/400/500',
-    'https://picsum.photos/id/4/400/500',
-    'https://picsum.photos/id/5/400/500',
-  ];
-
-  const array = images.map((image, i) => (<Image src={image} key={i} style={{float: 'left'}} width="25%" />));
-
   return (
-    <div>
-      <div className="relative">
-        <Carousel
-          array={array}
-          number={4}
-          wrap={true}
-          leftbtn={<div></div>}
-          lbtnclass="absolute h-full w-1/4"
-          rightbtn={<div></div>}
-          rbtnclass="absolute h-full w-1/4 right-0 top-0"
-          className="hidden md:block h-full"
-          id="gallery-desktop"
-        />
-        <span className="text-transparent">Jigia</span>
-      </div>
-      <div className="relative">
-        <Carousel
-          array={images.map((image, i) => (<Image src={image} key={i} width="100%" />))}
-          number={1} wrap={true} 
-          leftbtn={<div></div>}
-          lbtnclass="absolute h-full w-1/4"
-          rightbtn={<div></div>}
-          rbtnclass="absolute h-full w-1/4 right-0 top-0"
-          className="md:hidden h-full"
-          id="gallery-mobile"
-        />
-        <span> </span>
-      </div>
-      <div className='grid grid-cols-4 hidden border-1'>
-        <div>1</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-      </div>
-      <div className="hidden md:flex px-4 md:px-6 lg:px-8">
-        <ProductCarousel collection={collection} number={4} id="prod-carousel-desktop" />
-      </div>
-      <div className="flex md:hidden px-4">
-        <ProductCarousel collection={collection} number={1} id="prod-carousel-mobile" />
-      </div>
+    <>
+      <div className="md:hidden" style={{position: "relative"}}>
+        <div style={{height: "30vh", backgroundColor: "black"}}></div>
+        <nav className="grid grid-cols-1 place-content-end" style={{color: "white", position: "absolute", width: "100%", top: "25vh"}}>
+        
+          <NavLink to="/" className="justify-self-center" style={{fontSize: "5vh"}}>JIAGIA STUDIOS</NavLink>
+          <NavLink to="/aboutus" className="justify-self-center">ABOUT</NavLink>
+          <NavLink to="https://www.instagram.com/jiagia_studios/" className="justify-self-center">INSTAGRAM</NavLink>
+          
+        </nav>
+      <Image style={{zIndex: "-10", backgroundColor: "black", height: "70vh", objectFit: "cover", objectPosition: "50% 0%"}} data={img.home.image.reference.image} />
     </div>
+      <div className="hidden md:block" style={{position: "relative", height: "100vh"}}>
+        
+          <nav className="grid grid-cols-1 place-content-center" style={{position: "absolute", color: "white", height: "80vh", width: "40vw"}}>
+          
+            <NavLink to="/" className="justify-self-center" style={{fontSize: "40px"}}>JIAGIA STUDIOS</NavLink>
+            <NavLink to="/aboutus" className="justify-self-center">ABOUT</NavLink>
+            <NavLink to="https://www.instagram.com/jiagia_studios/" className="justify-self-center">INSTAGRAM</NavLink>
+            
+          </nav>
+        <Image style={{zIndex: "-10", height: "100vh", position: "absolute", backgroundColor: "black", objectFit: "contain", objectPosition: "50% 0%"}} data={img.home.image.reference.image} />
+      </div>
+    </>
   );
 }
 
-function ProductCarousel({collection, number, id = ''}) {
-  return (
-    <Carousel
-      number={number}
-      array={collection.products.nodes.map((product) => (
-        <FeaturedProductCard key={product.id} product={product} />
-      ))}
-      className={`grid-flow-row grid gap-2 gap-y-6 md:gap-4 lg:gap-6 grid-cols-${number} relative w-full`}
-      leftbtn={
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-8 h-8"><g data-name="91-Arrow Left"><path d="M16 32a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm0-30a14 14 0 1 0 14 14A14 14 0 0 0 16 2z"/><path d="m18.29 24.71-8-8a1 1 0 0 1 0-1.41l8-8 1.41 1.41L12.41 16l7.29 7.29z"/></g></svg>
-      }
-      rightbtn={
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-8 h-8"><g data-name="92-Arrow Right"><path d="M16 32a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm0-30a14 14 0 1 0 14 14A14 14 0 0 0 16 2z"/><path d="M13.71 24.71 12.3 23.3l7.29-7.3-7.3-7.29L13.7 7.3l8 8a1 1 0 0 1 0 1.41z"/></g></svg>
-      }
-      id={id}
-    />
-  )
-}
 
 const COLLECTION_QUERY = `#graphql
-  query CollectionDetails($handle: String!, $number: Int) {
-    collection(handle: $handle) {
-      id
-      title
-      description
-      handle
-      products(first: $number) {
-        nodes {
-          id
-          title
-          handle
-          variants(first: 1) {
-            nodes {
-              id
-              image {
-                url
-                altText
-                width
-                height
-              }
-              price {
-                amount
-                currencyCode
-              }
-              compareAtPrice {
-                amount
-                currencyCode
-              }
+  query HomePage($handle: String!, $type: String!) {
+    home: metaobject(handle: {handle: $handle, type: $type} ) {
+      id,
+      handle,
+      type,
+      image: field(key:"image") {
+        key,
+        value,
+        reference {
+          ... on MediaImage {
+            __typename
+            image {
+              url
+              width
+              height
             }
           }
-        }
+      }
       }
     }
   }

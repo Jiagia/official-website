@@ -38,7 +38,6 @@ export const links = () => {
     {rel: 'stylesheet', href: appStyles},
     {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Jomolhari"},
     {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Poppins"},
-    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Inter"},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -177,9 +176,9 @@ export default function App() {
       </head>
       <body>
         {/* <CartProvider> */}
-          {/* <Layout {...data} > */}
+          <Layout {...data} >
             <Outlet />
-          {/* </Layout> */}
+          </Layout>
           {!cookieConsent ? <CookieForm /> : null}
           {/* <CookieForm /> */}
           <ScrollRestoration />
