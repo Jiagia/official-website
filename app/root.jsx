@@ -1,6 +1,6 @@
 import {defer, json} from '@shopify/remix-oxygen';
 import {useRef, useEffect, useState} from 'react';
-// import {useShopifyCookies} from '@shopify/hydrogen';  
+// import {useShopifyCookies} from '@shopify/hydrogen';
 import {
   AnalyticsEventName,
   getClientBrowserParameters,
@@ -18,7 +18,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useActionData,
-  useLocation 
+  useLocation,
 } from '@remix-run/react';
 
 import appStyles from './styles/app.css';
@@ -29,16 +29,21 @@ import {Layout} from './components/Layout';
 // import {CartProvider} from './components/CartProvider';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
 // import KlaviyoOnsite from './components/klaviyo/KlaviyoOnsite.client';
-import { CookieBannerToggle, CookieForm } from './components/Cookie';
-
+import {CookieBannerToggle, CookieForm} from './components/Cookie';
 
 export const links = () => {
   return [
     {rel: 'stylesheet', href: tailwindCss},
     {rel: 'stylesheet', href: appStyles},
-    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Jomolhari"},
-    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Poppins"},
-    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Inter"},
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css?family=Jomolhari',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css?family=Poppins',
+    },
+    {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Inter'},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -48,10 +53,8 @@ export const links = () => {
       href: 'https://shop.app',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
-    
   ];
 };
-
 
 // export const handle = {
 //   seo: {
@@ -63,11 +66,10 @@ export const links = () => {
 // };
 
 export async function loader({context}) {
-  
   const {storefront, session, cart} = context;
   const customerAccessToken = await session.get('customerAccessToken');
   const cookieConsent = await session.get('cookieConsent');
-  console.log(cookieConsent)
+  console.log(cookieConsent);
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   // validate the customer access token is valid
@@ -105,7 +107,7 @@ export async function loader({context}) {
       cookieConsent,
       analytics: {
         pageType: AnalyticsPageType.home,
-      }
+      },
     },
     {headers},
   );
@@ -114,26 +116,23 @@ export async function loader({context}) {
 export async function action({request, context}) {
   const {session} = context;
   const body = await request.formData();
-  const consent = body.get("consent");
+  const consent = body.get('consent');
 
   const headers = new Headers();
-  
+
   // update session consent variable
-  session.set("cookieConsent", consent);
+  session.set('cookieConsent', consent);
 
   // update session & need to return headers
   headers.append('Set-Cookie', await session.commit());
 
-  return json(
-    consent,
-    {headers}
-    )
+  return json(consent, {headers});
 }
 
 export default function App() {
   const data = useLoaderData();
   // need to obtain userconsent somehow
-  const hasUserConsent = (data.cookieConsent == "true") || false;
+  const hasUserConsent = data.cookieConsent == 'true' || false;
   console.log(hasUserConsent);
 
   useShopifyCookies({hasUserConsent});
@@ -162,28 +161,40 @@ export default function App() {
 
   // show cookie consent form if consent is undefined
   const cookieConsent = data.cookieConsent;
-  console.log("cookieConsent", cookieConsent)
+  console.log('cookieConsent', cookieConsent);
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link
+          rel="stylesheet"
+          href="https://use.typekit.net/ntq8pat.css"
+        ></link>
+        <link
+          rel="stylesheet"
+          href="https://use.typekit.net/wyv0dnu.css"
+        ></link>
         {/* <Seo /> needs to be before <Meta /> and <Link /> */}
         {/* <Seo /> */}
         <Meta />
         <Links />
-        <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRiSq4"></script>
+        <script
+          async
+          type="text/javascript"
+          src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRiSq4"
+        ></script>
       </head>
       <body>
         {/* <CartProvider> */}
-          {/* <Layout {...data} > */}
-            <Outlet />
-          {/* </Layout> */}
-          {!cookieConsent ? <CookieForm /> : null}
-          {/* <CookieForm /> */}
-          <ScrollRestoration />
-          <Scripts />
+        {/* <Layout {...data} > */}
+        <Outlet />
+        {/* </Layout> */}
+        {!cookieConsent ? <CookieForm /> : null}
+        {/* <CookieForm /> */}
+        <ScrollRestoration />
+        <Scripts />
         {/* </CartProvider> */}
       </body>
     </html>
@@ -230,9 +241,6 @@ async function validateCustomerAccessToken(customerAccessToken, session) {
 
   return {isLoggedIn, headers};
 }
-
-
-
 
 const MENU_FRAGMENT = `#graphql
   fragment MenuItem on MenuItem {

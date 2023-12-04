@@ -13,9 +13,7 @@ import {Await, NavLink, useMatches} from '@remix-run/react';
 const FeaturedCollectionHandle = 'season-4';
 const FeaturedCollectionNumber = 5;
 
-export const links = () => [
-  {rel: "stylesheet", href: splashcss},
-]
+export const links = () => [{rel: 'stylesheet', href: splashcss}];
 
 export function meta({matches}) {
   // console.log(matches[0]?.data?.header?.shop);
@@ -67,36 +65,92 @@ export default function Index() {
 
   console.log(img);
 
-  
-
   return (
     <>
-      <div className="md:hidden" style={{position: "relative"}}>
-        <div style={{height: "30vh", backgroundColor: "black"}}></div>
-        <nav className="grid grid-cols-1 place-content-end" style={{color: "white", position: "absolute", width: "100%", top: "25vh"}}>
-        
-          <NavLink to="/" className="justify-self-center" style={{fontSize: "5vh"}}>JIAGIA STUDIOS</NavLink>
-          <NavLink to="/about" className="justify-self-center">ABOUT</NavLink>
-          <NavLink to="https://www.instagram.com/jiagia_studios/" className="justify-self-center">INSTAGRAM</NavLink>
-          
+      <div className="md:hidden" style={{position: 'relative'}}>
+        <div style={{height: '30vh', backgroundColor: 'black'}}></div>
+        <nav
+          className="grid grid-cols-1 place-content-end"
+          style={{
+            color: 'white',
+            position: 'absolute',
+            width: '100%',
+            top: '25vh',
+          }}
+        >
+          <NavLink
+            to="/"
+            className="justify-self-center"
+            style={{fontSize: '5vh'}}
+          >
+            <h1>JIAGIA STUDIOS</h1>
+          </NavLink>
+          <NavLink to="/about" className="justify-self-center">
+            ABOUT
+          </NavLink>
+          <NavLink
+            to="https://www.instagram.com/jiagia_studios/"
+            className="justify-self-center"
+          >
+            INSTAGRAM
+          </NavLink>
         </nav>
-      <Image style={{zIndex: "-10", backgroundColor: "black", height: "70vh", objectFit: "cover", objectPosition: "50% 0%"}} data={img.home.image.reference.image} />
-    </div>
-      <div className="hidden md:block" style={{position: "relative", height: "100vh"}}>
-        
-          <nav className="grid grid-cols-1 place-content-center" style={{position: "absolute", color: "white", height: "80vh", width: "40vw"}}>
-          
-            <NavLink to="/" className="justify-self-center" style={{fontSize: "40px"}}>JIAGIA STUDIOS</NavLink>
-            <NavLink to="/about" className="justify-self-center">ABOUT</NavLink>
-            <NavLink to="https://www.instagram.com/jiagia_studios/" className="justify-self-center">INSTAGRAM</NavLink>
-            
-          </nav>
-        <Image style={{zIndex: "-10", height: "100vh", position: "absolute", backgroundColor: "black", objectFit: "contain", objectPosition: "50% 0%"}} data={img.home.image.reference.image} />
+        <Image
+          style={{
+            zIndex: '-10',
+            backgroundColor: 'black',
+            height: '70vh',
+            objectFit: 'cover',
+            objectPosition: '50% 0%',
+          }}
+          data={img.home.image.reference.image}
+        />
+      </div>
+      <div
+        className="hidden md:block"
+        style={{position: 'relative', height: '100vh'}}
+      >
+        <nav
+          className="grid grid-cols-1 place-content-center"
+          style={{
+            position: 'absolute',
+            color: 'white',
+            height: '80vh',
+            width: '40vw',
+          }}
+        >
+          <NavLink
+            to="/"
+            className="justify-self-center"
+            style={{fontSize: '40px'}}
+          >
+            <h1>JIAGIA STUDIOS</h1>
+          </NavLink>
+          <NavLink to="/about" className="justify-self-center">
+            ABOUT
+          </NavLink>
+          <NavLink
+            to="https://www.instagram.com/jiagia_studios/"
+            className="justify-self-center"
+          >
+            INSTAGRAM
+          </NavLink>
+        </nav>
+        <Image
+          style={{
+            zIndex: '-10',
+            height: '100vh',
+            position: 'absolute',
+            backgroundColor: 'black',
+            objectFit: 'contain',
+            objectPosition: '50% 0%',
+          }}
+          data={img.home.image.reference.image}
+        />
       </div>
     </>
   );
 }
-
 
 const COLLECTION_QUERY = `#graphql
   query HomePage($handle: String!, $type: String!) {
