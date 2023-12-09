@@ -22,11 +22,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
       <div className="flex flex-col min-h-screen antialiased bg-neutral-50">
         <Header cart={cart} shop={shop} menu={menu} />
 
-        <main
-          role="main"
-          id="mainContent"
-          className="flex-grow"
-        >
+        <main role="main" id="mainContent" className="flex-grow">
           {children}
         </main>
         <Footer menu={footer.menu} />

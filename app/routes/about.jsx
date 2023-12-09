@@ -75,7 +75,7 @@ export default function About() {
           />
         </svg>
       </NavLink>
-      <div className="grid grid-cols-1 gap-3 px-4 mt-10 place-content-center text-center">
+      <div className="grid grid-cols-1 gap-3 px-4 mt-20 place-content-center text-center">
         <div className="justify-self-center" style={{fontSize: '5vh'}}>
           <h1>JIAGIA STUDIOS</h1>
         </div>
@@ -129,6 +129,8 @@ export default function About() {
           width: '100%',
           objectFit: 'contain',
           objectPosition: '50% 100%',
+          position: 'relative',
+          bottom: '-6rem',
         }}
         data={img.home.image.reference.image}
       />
