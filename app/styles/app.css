@@ -12,7 +12,11 @@
     --header-shop-name-size: 50px;
   }
 
-body {
+code, kbd, samp, pre, p {
+  font-size: 12px;
+}
+
+body, code, kbd, samp, pre {
   font-family: var(--paragraph-font);
 }
 
