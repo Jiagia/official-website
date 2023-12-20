@@ -8,9 +8,9 @@ export function Header({cart, shop, menu}) {
     <header
       role="banner"
       className={`header flex items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 
-          justify-center w-full leading-none gap-4 antialiased transition`}
+          justify-center w-full leading-none gap-4 antialiased transition shadow-sm`}
     >
-      <nav className="flex align-middle items-center justify-start content-start w-11/12 ">
+      <nav className="flex align-top items-start justify-between content-start w-11/12 ">
         <HeaderMenuMobileToggle />
         <NavLink
           to="/"
@@ -19,18 +19,17 @@ export function Header({cart, shop, menu}) {
           prefetch="intent"
           style={activeLinkStyle}
         >
-          {"Jiagia Studios"} 
+          {shop.name}
         </NavLink>
         <HeaderMenuItem item={menu.items[0]} />
         <HeaderMenuItem item={menu.items[1]} />
-        
         {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null}
         {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null}
 
-        {/* <nav className="header-ctas" role="navigation">
+        <nav className="header-ctas" role="navigation">
           <SearchToggle />
           <CartToggle cart={cart} />
-        </nav> */}
+        </nav>
       </nav>
     </header>
   );
