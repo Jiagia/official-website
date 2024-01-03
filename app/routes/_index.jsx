@@ -63,7 +63,7 @@ export default function Index() {
   // hook that retrieves queries data from the loader function
   const {img} = useLoaderData();
 
-  console.log(img);
+  // console.log(img);
 
   return (
     <>
