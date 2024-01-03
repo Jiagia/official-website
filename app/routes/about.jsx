@@ -46,7 +46,7 @@ export default function About() {
   // hook that retrieves queries data from the loader function
   const {img} = useLoaderData();
 
-  console.log(img);
+  // console.log(img);
 
   return (
     <div
@@ -99,7 +99,7 @@ export default function About() {
             CHANNELS
           </div>
         </div>
-        <div className="justify-self-center">More Info 12/13/23</div>
+        {/*<div className="justify-self-center">More Info 12/13/23</div>*/}
         <NavLink
           to="https://www.instagram.com/jiagia_studios/"
           className="justify-self-center"
