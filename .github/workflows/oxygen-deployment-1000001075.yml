@@ -5,7 +5,7 @@ name: Storefront 1000001075
 on:
   push:
     branches:
-      - main
+      - develop
 
 permissions:
   contents: read
@@ -53,6 +53,6 @@ jobs:
         if: always()
         with:
           token: ${{ github.token }}
-          environment: 'production'
+          environment: 'preview'
           preview_url: ${{ steps.deploy.outputs.url }}
           description: ${{ github.event.head_commit.message }}
