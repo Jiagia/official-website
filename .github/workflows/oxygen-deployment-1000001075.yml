@@ -2,7 +2,10 @@
 #! oxygen_storefront_id: 1000001075
 
 name: Storefront 1000001075
-on: [push]
+on:
+  push:
+    branches:
+      main
 
 permissions:
   contents: read
@@ -50,6 +53,6 @@ jobs:
         if: always()
         with:
           token: ${{ github.token }}
-          environment: 'preview'
+          environment: 'production'
           preview_url: ${{ steps.deploy.outputs.url }}
           description: ${{ github.event.head_commit.message }}
