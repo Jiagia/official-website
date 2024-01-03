@@ -23,7 +23,7 @@ import {
 
 import appStyles from './styles/app.css';
 import tailwindCss from './styles/tailwind.css';
-import favicon from '../public/favicon.svg';
+import favicon from '../public/logo-square.png';
 import {Layout} from './components/Layout';
 // import {usePageAnalytics} from './utils';
 // import {CartProvider} from './components/CartProvider';
@@ -52,7 +52,7 @@ export const links = () => {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'icon', type: 'image/png', href: favicon},
   ];
 };
 
