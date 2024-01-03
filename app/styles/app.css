@@ -3,13 +3,13 @@
     --cart-aside-summary-height-with-discount: 300px;
     --cart-aside-summary-height: 250px;
     --grid-item-width: 355px;
-    --header-height: 94px;
     --color-dark: #000;
     --color-light: #fff;
-    --header-font: "adobe-garamond-pro";
+    --heading-font: "adobe-garamond-pro";
     --paragraph-font: "forma-djr-micro";
-    --header-menu-size: 25px;
-    --header-shop-name-size: 50px;
+    --header-height: 50px;
+    --header-menu-size: 18px;
+    --header-shop-name-size: 24px;
   }
 
 code, kbd, samp, pre, p {
@@ -21,7 +21,7 @@ body, code, kbd, samp, pre {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--header-font);
+  font-family: var(--heading-font);
 }
 
 /*

@@ -14,12 +14,11 @@ import {useCart} from './CartProvider';
 
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   const {shop, menu} = header;
-
   return (
     <>
       <MobileMenuAside menu={menu} />
       <SearchDropDown />
-      <div className="flex flex-col min-h-screen antialiased bg-neutral-50">
+      <div className="flex flex-col min-h-screen antialiased">
         <Header cart={cart} shop={shop} menu={menu} />
 
         <main role="main" id="mainContent" className="flex-grow">

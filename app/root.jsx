@@ -69,7 +69,7 @@ export async function loader({context}) {
   const {storefront, session, cart} = context;
   const customerAccessToken = await session.get('customerAccessToken');
   const cookieConsent = await session.get('cookieConsent');
-  console.log(cookieConsent);
+  // console.log(cookieConsent);
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   // validate the customer access token is valid
@@ -133,7 +133,6 @@ export default function App() {
   const data = useLoaderData();
   // need to obtain userconsent somehow
   const hasUserConsent = data.cookieConsent == 'true' || false;
-  console.log(hasUserConsent);
 
   useShopifyCookies({hasUserConsent});
 
@@ -161,7 +160,6 @@ export default function App() {
 
   // show cookie consent form if consent is undefined
   const cookieConsent = data.cookieConsent;
-  console.log('cookieConsent', cookieConsent);
 
   return (
     <html lang="en">

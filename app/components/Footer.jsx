@@ -3,10 +3,13 @@ import {useMatches, NavLink} from '@remix-run/react';
 export function Footer({menu}) {
   const FBLink = 'https://www.facebook.com/profile.php?id=100083105601746';
   const IGLink = 'https://www.instagram.com/jiagia_studios/';
-  return (
-    <footer className="footer grid md:grid-cols-2 p-4 mb-16">
-      <div className="text-center md:text-left">
-        <FooterMenu menu={menu} />
+  return ( 
+    <footer className="footer grid md:grid-cols-3 justify-items-center md: mb-16">
+      <div className="" >
+        <div className="klaviyo-form-XgeEVP" style={{maxWidth: "240px"}}></div>
+      </div>
+      <div className="text-center md:text-left justify-items-center ">
+        <FooterMenu menu={menu} className="justify-self-center width-fit" />
       </div>
       <div className="justify-self-center pt-2 md:justify-self-end md:pr-20 md:pt-0">
         <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} />
@@ -15,12 +18,12 @@ export function Footer({menu}) {
   );
 }
 
-function FooterMenu({menu}) {
+function FooterMenu({menu, className, style}) {
   const [root] = useMatches();
   const publicStoreDomain = root?.data?.publicStoreDomain;
   return (
-    <nav className="footer-menu" role="navigation">
-      <ul>
+    <nav className={`footer-menu ${className}`} style={style} role="navigation">
+      <ul style={{width: "fit-content"}}>
         {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
           if (!item.url) return null;
           // if the url is internal, we strip the domain
