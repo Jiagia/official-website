@@ -3,16 +3,17 @@ import {useMatches, NavLink} from '@remix-run/react';
 export function Footer({menu}) {
   const FBLink = 'https://www.facebook.com/profile.php?id=100083105601746';
   const IGLink = 'https://www.instagram.com/jiagia_studios/';
-  return ( 
-    <footer className="footer grid md:grid-cols-3 justify-items-center md: mb-16">
-      <div className="" >
-        <div className="klaviyo-form-XgeEVP" style={{maxWidth: "240px"}}></div>
+  const XLink = 'https://twitter.com/jiagia_studios';
+  return (
+    <footer className="footer grid md:grid-cols-3 justify-items-center items-center md:mb-16">
+      <div className="px-8">
+        <div className="klaviyo-form-XgeEVP" style={{maxWidth: '100vw'}}></div>
       </div>
-      <div className="text-center md:text-left justify-items-center ">
+      <div className="justify-self-center pt-2 md:pr-20 md:pt-0">
+        <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} XLink={XLink} />
+      </div>
+      <div className="text-center md:text-right justify-items-center ">
         <FooterMenu menu={menu} className="justify-self-center width-fit" />
-      </div>
-      <div className="justify-self-center pt-2 md:justify-self-end md:pr-20 md:pt-0">
-        <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} />
       </div>
     </footer>
   );
@@ -23,7 +24,7 @@ function FooterMenu({menu, className, style}) {
   const publicStoreDomain = root?.data?.publicStoreDomain;
   return (
     <nav className={`footer-menu ${className}`} style={style} role="navigation">
-      <ul style={{width: "fit-content"}}>
+      <ul style={{width: 'fit-content'}}>
         {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
           if (!item.url) return null;
           // if the url is internal, we strip the domain
@@ -58,13 +59,13 @@ function FooterMenu({menu, className, style}) {
   );
 }
 
-function SocialIcon({FacebookLink, InstaLink}) {
+export function SocialIcon({FacebookLink, InstaLink, XLink}) {
   return (
     <div className="social-icons">
       <a
         target="_blank"
         href={FacebookLink}
-        className="social-link m-5"
+        className="social-link m-3 md:m-5"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -84,7 +85,7 @@ function SocialIcon({FacebookLink, InstaLink}) {
       <a
         target="_blank"
         href={InstaLink}
-        className="social-link m-5"
+        className="social-link m-3 md:m-5"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -102,6 +103,32 @@ function SocialIcon({FacebookLink, InstaLink}) {
               fill="currentColor"
               d="M8.8 4a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 7.43a2.92 2.92 0 110-5.85 2.92 2.92 0 010 5.85zM13.43 5a1.05 1.05 0 100-2.1 1.05 1.05 0 000 2.1z"
             ></path>
+          </svg>
+        </div>
+      </a>
+      <a
+        target="_blank"
+        href={XLink}
+        className="social-link m-3 md:m-5"
+        rel="noreferrer"
+      >
+        <div className="w-7 h-7" style={{display: 'inline-block'}}>
+          <svg
+            className="icon icon-x"
+            xmlns="http://www.w3.org/2000/svg"
+            shapeRendering="geometricPrecision"
+            textRendering="geometricPrecision"
+            imageRendering="optimizeQuality"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            viewBox="0 0 512 509.64"
+          >
+            <rect width="512" height="509.64" rx="115.61" ry="115.61" />
+            <path
+              fill="#fff"
+              fillRule="nonzero"
+              d="M323.74 148.35h36.12l-78.91 90.2 92.83 122.73h-72.69l-56.93-74.43-65.15 74.43h-36.14l84.4-96.47-89.05-116.46h74.53l51.46 68.04 59.53-68.04zm-12.68 191.31h20.02l-129.2-170.82H180.4l130.66 170.82z"
+            />
           </svg>
         </div>
       </a>

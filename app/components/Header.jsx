@@ -2,6 +2,7 @@ import {Link} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
+import {SocialIcon} from './Footer';
 
 export function Header({cart, shop, menu}) {
   return (
@@ -10,20 +11,21 @@ export function Header({cart, shop, menu}) {
       className={`header flex items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 
           justify-center w-full leading-none gap-4 antialiased transition`}
     >
-      <nav className="flex align-middle items-center justify-start content-start w-11/12 ">
+      <nav className="flex align-middle items-center justify-start content-start max-w-full w-11/12 ">
         <HeaderMenuMobileToggle />
         <NavLink
+          id="logo"
           to="/"
           end
-          className="shop-name"
+          className="shop-name font-black"
           prefetch="intent"
-          style={activeLinkStyle}
+          // style={activeLinkStyle}
         >
-          {"Jiagia Studios"} 
+          {'>Jiagia Studios<'}
         </NavLink>
         <HeaderMenuItem item={menu.items[0]} />
         <HeaderMenuItem item={menu.items[1]} />
-        
+
         {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null}
         {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null}
 
@@ -85,6 +87,10 @@ export function HeaderMenu({menu, viewport}) {
   const publicStoreDomain = root?.data?.publicStoreDomain;
   const className = `header-menu-${viewport}`;
 
+  const FBLink = 'https://www.facebook.com/profile.php?id=100083105601746';
+  const IGLink = 'https://www.instagram.com/jiagia_studios/';
+  const XLink = 'https://twitter.com/jiagia_studios';
+
   function closeAside(event) {
     if (viewport === 'mobile') {
       event.preventDefault();
@@ -94,7 +100,7 @@ export function HeaderMenu({menu, viewport}) {
 
   return (
     <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
+      {/* {viewport === 'mobile' && (
         <NavLink
           end
           onClick={closeAside}
@@ -104,7 +110,7 @@ export function HeaderMenu({menu, viewport}) {
         >
           Home
         </NavLink>
-      )}
+      )} */}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
@@ -128,6 +134,11 @@ export function HeaderMenu({menu, viewport}) {
           </NavLink>
         );
       })}
+      {viewport === 'mobile' && (
+        <div className="justify-self-center pt-32 md:pr-20 md:pt-0">
+          <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} XLink={XLink} />
+        </div>
+      )}
     </nav>
   );
 }

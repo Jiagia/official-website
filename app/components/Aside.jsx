@@ -8,6 +8,9 @@
  * </Aside>
  * ```
  */
+
+import {Link} from '@remix-run/react';
+
 export function Aside({children, heading, id = 'aside'}) {
   return (
     <div aria-modal className="overlay aside" id={id} role="dialog">
@@ -20,7 +23,9 @@ export function Aside({children, heading, id = 'aside'}) {
       />
       <aside>
         <header>
-          <h3>{heading}</h3>
+          <Link to="/">
+            <h3>{heading}</h3>
+          </Link>
           <CloseAside />
         </header>
         <main>{children}</main>
@@ -29,9 +34,14 @@ export function Aside({children, heading, id = 'aside'}) {
   );
 }
 
-export function DropDown({children, heading, id = 'dropdown', className = ""}) {
+export function DropDown({children, heading, id = 'dropdown', className = ''}) {
   return (
-    <div aria-modal className={"overlay dropdown " + className} id={id} role="dialog">
+    <div
+      aria-modal
+      className={'overlay dropdown ' + className}
+      id={id}
+      role="dialog"
+    >
       <button
         className="close-outside"
         onClick={() => {

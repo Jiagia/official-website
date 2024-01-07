@@ -90,7 +90,7 @@ function SearchDropDown() {
 
 function MobileMenuAside({menu}) {
   return (
-    <Aside id="mobile-menu-aside" heading="MENU">
+    <Aside id="mobile-menu-aside" heading=">Jiagia Studios<">
       <HeaderMenu menu={menu} viewport="mobile" />
     </Aside>
   );

@@ -9,14 +9,14 @@ export default function World() {
     height: 'auto',
   };
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto mb-16 p-4">
       <div className="flex flex-col space-between items-center m-10 gap-5 text-center">
         <h2 className="font-bold">LOCATIONS</h2>
         <p>LEARN ABOUT OUR VARIOUS PROJECTS AND EXPLORATIONS</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <Link to="/world/the-laboratory">
-          <div className="flex flex-initial flex-col text-center">
+      <div className="flex justify-center gap-4 mx-auto">
+        <Link to="/world/the-laboratory" className="block md:w-1/3 sm:w-full">
+          <div className="flex flex-col text-center">
             <Image data={imgData} alt="The Laboratory" />
             <div className="border border-black flex flex-1 flex-col flex-wrap p-4 gap-2">
               <h3>
@@ -26,7 +26,7 @@ export default function World() {
             </div>
           </div>
         </Link>
-        <Link to="/world/daydream-universe">
+        {/* <Link to="/world/daydream-universe">
           <div className="flex flex-initial flex-col text-center">
             <Image data={imgData} alt="The Laboratory" />
             <div className="border border-black flex flex-1 flex-col flex-wrap p-4 gap-2">
@@ -47,7 +47,7 @@ export default function World() {
               <p>AN EXPANSE OF ABSTRACT FLOWERS</p>
             </div>
           </div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
