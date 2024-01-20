@@ -5,11 +5,11 @@ export function Footer({menu}) {
   const IGLink = 'https://www.instagram.com/jiagia_studios/';
   const XLink = 'https://twitter.com/jiagia_studios';
   return (
-    <footer className="footer grid md:grid-cols-3 justify-items-center items-center md:mb-16">
+    <footer className="footer grid md:grid-cols-3 gap-y-4 justify-items-center items-center pt-2 mb-16">
       <div className="px-8">
         <div className="klaviyo-form-XgeEVP" style={{maxWidth: '100vw'}}></div>
       </div>
-      <div className="justify-self-center pt-2 md:pr-20 md:pt-0">
+      <div className="justify-self-center py-4 md:pr-20 md:pt-0">
         <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} XLink={XLink} />
       </div>
       <div className="text-center md:text-right justify-items-center ">

@@ -42,7 +42,13 @@
   }
 
 code, kbd, samp, pre, p {
-  font-size: 16px;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .text-xxs {
+    font-size: 10px;
+  }
 }
 
 body, code, kbd, samp, pre {
@@ -54,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 #logo {
