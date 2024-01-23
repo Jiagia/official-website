@@ -5,11 +5,14 @@ export function CookieForm() {
     return (
         <Form 
         method="POST"
-        className="cookieform fixed inset-x-0 bottom-0 "
+        className="cookieform fixed inset-x-0 bottom-0 border border-black"
         >
             <p>This website uses cookies to offer you a better browsing experience. Find out more on how we use cookies and how you can change your settings</p>
-            <button name="consent" type="submit" value="true">Accept Cookie</button>
-            <button name="consent" type="submit" value="false">Decline Cookie</button>
+            <div className='flex mx-auto'>
+              <button className="mx-auto my-4"name="consent" type="submit" value="true">Accept Cookie</button>
+            <button className="mx-auto my-4" name="consent" type="submit" value="false">Decline Cookie</button>
+            </div>
+            
         </Form>
     )
 }

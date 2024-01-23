@@ -455,7 +455,8 @@ h2 {
 
 .cookieform button {
   border: solid 1px var(--color-dark);
-  margin: 16px;
+  /* margin-left: auto;
+  margin-right: auto; */
   padding: 8px;
 }
 

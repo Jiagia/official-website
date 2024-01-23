@@ -33,8 +33,8 @@ export default function Laboratory() {
   console.log(season.metaobject);
   var page = season.metaobject;
   return (
-    <div className="container mx-auto mb-16 p-8">
-      <div className="flex flex-col space-between items-center m-10 gap-5 text-center">
+    <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
+      <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">
         <h2 className="font-bold">{page.title.value}</h2>
         <p>{page.description.value}</p>
       </div>
