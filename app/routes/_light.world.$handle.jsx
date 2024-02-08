@@ -1,16 +1,12 @@
 import {useLoaderData} from '@remix-run/react';
-// import {Image} from '@shopify/hydrogen-react';
 import {json} from '@shopify/remix-oxygen';
-import { useState } from 'react';
-// import img1 from '../../public/Lab2.png'
-// import img2 from '../../public/Lab3.png'
-// import img3 from '../../public/Lab5.png'
-// import img4 from '../../public/Lab6.png'
+import {useState} from 'react';
 
-export async function loader({context}) {
+export async function loader({params, context}) {
   // const handle = 'the-founders';
   // const type = 'discovery';
-  const handle="the-laboratory";
+  // const handle="the-laboratory";
+  const {handle} = params;
   const type="season"
 
   const season = await context.storefront.query(METAOBJECT_QUERY, {
@@ -20,7 +16,7 @@ export async function loader({context}) {
     },
   });
 
-  if (!season) {
+  if (!season || !season.metaobject) {
     throw new Response(null, {status: 404});
   }
 
