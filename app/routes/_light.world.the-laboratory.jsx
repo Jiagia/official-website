@@ -1,11 +1,11 @@
 import {useLoaderData} from '@remix-run/react';
-import {Image} from '@shopify/hydrogen-react';
+// import {Image} from '@shopify/hydrogen-react';
 import {json} from '@shopify/remix-oxygen';
 import { useState } from 'react';
-import img1 from '../../public/Lab2.png'
-import img2 from '../../public/Lab3.png'
-import img3 from '../../public/Lab5.png'
-import img4 from '../../public/Lab6.png'
+// import img1 from '../../public/Lab2.png'
+// import img2 from '../../public/Lab3.png'
+// import img3 from '../../public/Lab5.png'
+// import img4 from '../../public/Lab6.png'
 
 export async function loader({context}) {
   // const handle = 'the-founders';
@@ -29,16 +29,11 @@ export async function loader({context}) {
   });
 }
 
+// Render page
 export default function Laboratory() {
   const {season} = useLoaderData();
-  console.log(season.metaobject);
+  // console.log(season.metaobject);
   var page = season.metaobject;
-
-  // const [dropshow, setDropshow] = useState("hidden");
-  // const showBodyText = () => {
-  //   dropshow == "hidden" ? setDropshow("") : setDropshow("hidden")
-  // } 
-
 
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
@@ -59,8 +54,10 @@ export default function Laboratory() {
   );
 }
 
+// Render the text boxes for each block
+// contains the show/hide buttons
 function TextBox({box}) {
-
+  
   const [dropshow, setDropshow] = useState("hidden");
   const showBodyText = () => {
     dropshow == "hidden" ? setDropshow("") : setDropshow("hidden")
