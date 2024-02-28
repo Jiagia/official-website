@@ -41,7 +41,7 @@
     --header-shop-name-size: 30px;
   }
 
-code, kbd, samp, pre, p {
+code, kbd, samp, pre, p, main {
   font-size: 12px;
 }
 

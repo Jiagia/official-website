@@ -37,9 +37,12 @@ export function meta({data, matches}){
 export default function Page() {
     const {page} = useLoaderData();
 
-    // console.log(page);
-
-    return <div dangerouslySetInnerHTML={{__html: page.body}}></div>;
+    return (
+      <div className='p-4 md:p-8'>
+        <div dangerouslySetInnerHTML={{__html: page.body}}></div>
+      </div>
+    )
+    
 }
 
 
