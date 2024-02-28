@@ -51,7 +51,7 @@ code, kbd, samp, pre, p, main {
   }
 }
 
-body, code, kbd, samp, pre {
+body, code, kbd, samp, pre, main {
   font-family: var(--paragraph-font);
 }
 
@@ -211,7 +211,7 @@ h2 {
 */
 .header {
     align-items: center;
-    background: #fff;
+    /* background: #fff; */
     display: flex;
     height: var(--header-height);
     padding: 0 1rem;

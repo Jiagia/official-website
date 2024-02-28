@@ -12,19 +12,37 @@ import {Aside, DropDown, CloseAside} from '~/components/Aside';
 import searchIcon from '~/../public/search-icon.svg';
 import {useCart} from './CartProvider';
 
-export function Layout({cart, children = null, footer, header, isLoggedIn}) {
+export function LayoutLight({cart, children = null, footer, header, isLoggedIn, newsletterLink}) {
   const {shop, menu} = header;
   return (
     <>
       <MobileMenuAside menu={menu} />
       <SearchDropDown />
-      <div className="flex flex-col min-h-screen antialiased">
+      <div className="flex flex-col min-h-screen antialiased bg-white">
         <Header cart={cart} shop={shop} menu={menu} />
 
         <main role="main" id="mainContent" className="flex-grow">
           {children}
         </main>
-        <Footer menu={footer.menu} />
+        <Footer menu={footer.menu} newsletterLink={newsletterLink} />
+      </div>
+    </>
+  );
+}
+
+export function LayoutDark({cart, children = null, footer, header, isLoggedIn, newsletterLink}) {
+  const {shop, menu} = header;
+  return (
+    <>
+      <MobileMenuAside menu={menu} />
+      <SearchDropDown />
+      <div className="flex flex-col min-h-screen antialiased bg-black text-white">
+        {/* <Header cart={cart} shop={shop} menu={menu} /> */}
+
+        <main role="main" id="mainContent" className="flex-grow">
+          {children}
+        </main>
+        <Footer menu={footer.menu} newsletterLink={newsletterLink} />
       </div>
     </>
   );

@@ -24,7 +24,7 @@ import {
 import appStyles from './styles/app.css';
 import tailwindCss from './styles/tailwind.css';
 import favicon from '../public/favicon.svg';
-import {Layout} from './components/Layout';
+// import {Layout} from './components/Layout';
 // import {usePageAnalytics} from './utils';
 // import {CartProvider} from './components/CartProvider';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';

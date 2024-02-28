@@ -8,7 +8,7 @@ export function Header({cart, shop, menu}) {
   return (
     <header
       role="banner"
-      className={`header flex items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 
+      className={`header flex bg-white items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 
           justify-center w-full leading-none gap-4 antialiased transition`}
     >
       <nav className="flex align-middle items-center justify-start content-start max-w-full w-11/12 ">
@@ -21,7 +21,7 @@ export function Header({cart, shop, menu}) {
           prefetch="intent"
           // style={activeLinkStyle}
         >
-          {'>Jiagia Studios<'}
+          {'Jiagia Studios'}
         </NavLink>
         <HeaderMenuItem item={menu.items[0]} />
         <HeaderMenuItem item={menu.items[1]} />

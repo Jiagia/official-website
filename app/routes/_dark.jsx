@@ -10,7 +10,7 @@ import {
   useActionData,
   useLocation,
 } from '@remix-run/react';
-import {LayoutLight} from '../components/Layout';
+import {LayoutDark} from '../components/Layout';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
 
 
@@ -61,13 +61,16 @@ export async function loader({context}) {
   );
 }
 
-export default function LightLayout() {
+export default function DarkLayout() {
   const data = useLoaderData();
 
   return (
-    <LayoutLight {...data} newsletterLink="klaviyo-form-XgeEVP">
-      <Outlet />
-    </LayoutLight>
+    <div className='dark'>
+      <LayoutDark {...data} newsletterLink="klaviyo-form-X5PmTV">
+        <Outlet />
+      </LayoutDark>
+    </div>
+    
   )
 }
 

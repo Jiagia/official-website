@@ -1,15 +1,16 @@
 import {useMatches, NavLink} from '@remix-run/react';
 
-export function Footer({menu}) {
+export function Footer({menu, newsletterLink}) {
   const FBLink = 'https://www.facebook.com/profile.php?id=100083105601746';
   const IGLink = 'https://www.instagram.com/jiagia_studios/';
   const XLink = 'https://twitter.com/jiagia_studios';
   return (
     <footer className="footer grid md:grid-cols-3 gap-y-4 justify-items-center items-center pt-2 mb-16">
       <div className="px-8">
-        <div className="klaviyo-form-XgeEVP" style={{maxWidth: '100vw'}}></div>
+        <div className={newsletterLink} style={{maxWidth: '100vw'}}></div>
+        {/* <div className="klaviyo-form-XgeEVP" style={{maxWidth: '100vw'}}></div> */}
       </div>
-      <div className="justify-self-center py-4 md:pr-20 md:pt-0">
+      <div className="justify-self-center py-4 md:pt-0">
         <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} XLink={XLink} />
       </div>
       <div className="text-center md:text-right justify-items-center ">
@@ -65,7 +66,7 @@ export function SocialIcon({FacebookLink, InstaLink, XLink}) {
       <a
         target="_blank"
         href={FacebookLink}
-        className="social-link m-3 md:m-5"
+        className="social-link m-3 md:m-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -85,7 +86,7 @@ export function SocialIcon({FacebookLink, InstaLink, XLink}) {
       <a
         target="_blank"
         href={InstaLink}
-        className="social-link m-3 md:m-5"
+        className="social-link m-3 md:m-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -109,7 +110,7 @@ export function SocialIcon({FacebookLink, InstaLink, XLink}) {
       <a
         target="_blank"
         href={XLink}
-        className="social-link m-3 md:m-5"
+        className="social-link m-3 md:m-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -121,14 +122,14 @@ export function SocialIcon({FacebookLink, InstaLink, XLink}) {
             imageRendering="optimizeQuality"
             fillRule="evenodd"
             clipRule="evenodd"
-            viewBox="0 0 512 509.64"
+            viewBox="0 0 512 462.799"
           >
-            <rect width="512" height="509.64" rx="115.61" ry="115.61" />
-            <path
-              fill="#fff"
-              fillRule="nonzero"
-              d="M323.74 148.35h36.12l-78.91 90.2 92.83 122.73h-72.69l-56.93-74.43-65.15 74.43h-36.14l84.4-96.47-89.05-116.46h74.53l51.46 68.04 59.53-68.04zm-12.68 191.31h20.02l-129.2-170.82H180.4l130.66 170.82z"
-            />
+            {/* <rect fill="currentColor" width="512" height="509.64" rx="115.61" ry="115.61" /> */}
+            <path 
+            xmlns="http://www.w3.org/2000/svg" 
+            fillRule="nonzero" 
+            fill="currentColor"
+            d="M403.229 0h78.506L310.219 196.04 512 462.799H354.002L230.261 301.007 88.669 462.799h-78.56l183.455-209.683L0 0h161.999l111.856 147.88L403.229 0zm-27.556 415.805h43.505L138.363 44.527h-46.68l283.99 371.278z"/>
           </svg>
         </div>
       </a>
@@ -181,6 +182,6 @@ const FALLBACK_FOOTER_MENU = {
 function activeLinkStyle({isActive, isPending}) {
   return {
     fontWeight: isActive ? 'normal' : 'normal',
-    color: isPending ? 'black' : 'black',
+    // color: isPending ? 'black' : 'black',
   };
 }
