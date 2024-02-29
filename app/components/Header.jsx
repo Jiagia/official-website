@@ -7,10 +7,9 @@ export function Header({cart, shop, menu}) {
   return (
     <header
       role="banner"
-      className={`header flex bg-white items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 
-          justify-center w-full leading-none gap-4 antialiased transition`}
+      className={`header flex bg-white items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 justify-start w-full leading-none gap-4 antialiased transition`}
     >
-      <nav className="flex align-middle items-center justify-start content-start max-w-full w-11/12 ">
+      <nav className="flex gap-12 align-middle items-center justify-start content-start max-w-full w-11/12 ">
         <HeaderMenuMobileToggle />
         <NavLink
           id="logo"
