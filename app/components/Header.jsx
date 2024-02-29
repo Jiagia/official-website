@@ -43,7 +43,7 @@ export function HeaderCenter({cart, shop, menu}) {
     
     <header
       role="banner"
-      className={`bg-black items-center sticky z-40 top-0 
+      className={`bg-black items-center z-40 top-0 
           p-4 w-full leading-none gap-4 antialiased transition`}
     >
       
