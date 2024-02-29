@@ -76,6 +76,7 @@ export default function Index() {
             position: 'absolute',
             width: '100%',
             top: '25vh',
+            zIndex:'1'
           }}
         >
           <NavLink
@@ -108,7 +109,7 @@ export default function Index() {
       </div>
       <div
         className="hidden md:block"
-        style={{position: 'relative', height: '100vh'}}
+        style={{position: 'relative', height: '100vh', }}
       >
         <nav
           className="grid grid-cols-1 place-content-center"
@@ -117,6 +118,7 @@ export default function Index() {
             color: 'white',
             height: '80vh',
             width: '40vw',
+            zIndex: '1'
           }}
         >
           <NavLink
@@ -138,7 +140,7 @@ export default function Index() {
         </nav>
         <Image
           style={{
-            zIndex: '-10',
+            zIndex: '0',
             height: '100vh',
             position: 'absolute',
             backgroundColor: 'black',

@@ -10,7 +10,7 @@ import {
   useActionData,
   useLocation,
 } from '@remix-run/react';
-import {LayoutLight} from '../components/Layout';
+import {Layout} from '../components/Layout';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
 
 
@@ -65,9 +65,9 @@ export default function LightLayout() {
   const data = useLoaderData();
 
   return (
-    <LayoutLight {...data} newsletterLink="klaviyo-form-XgeEVP">
+    <Layout {...data} colorMode="light" >
       <Outlet />
-    </LayoutLight>
+    </Layout>
   )
 }
 

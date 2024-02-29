@@ -1,5 +1,4 @@
 import {Link} from '@remix-run/react';
-import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense} from 'react';
 import {SocialIcon} from './Footer';
@@ -21,7 +20,7 @@ export function Header({cart, shop, menu}) {
           prefetch="intent"
           // style={activeLinkStyle}
         >
-          {'Jiagia Studios'}
+          {'>Jiagia Studios<'}
         </NavLink>
         <HeaderMenuItem item={menu.items[0]} />
         <HeaderMenuItem item={menu.items[1]} />
@@ -35,6 +34,51 @@ export function Header({cart, shop, menu}) {
         </nav> */}
       </nav>
     </header>
+  );
+}
+
+export function HeaderCenter({cart, shop, menu}) {
+  return (
+    <>
+    <div style={{height: "50px"}}></div>
+    
+    <header
+      role="banner"
+      className={`bg-black items-center sticky z-40 top-0 
+          p-4 w-full leading-none gap-4 antialiased transition`}
+    >
+      
+      <nav className="flex flex-col gap-3 align-middle items-center justify-center content-start text-center w-full ">
+        {/* <HeaderMenuMobileToggle /> */}
+        <NavLink
+          id="logo"
+          to="/"
+          end
+          className="text-4xl md:text-6xl"
+          prefetch="intent"
+        >
+          {'> Jiagia Studios <'}
+        </NavLink>
+        <h4>EXPLORERS OF THE DAYDREAM UNIVERSE </h4>
+        <nav className='flex flex-row gap-6 md:gap-14 mt-8'>
+          {menu.items.map((item, i) => <HeaderMenuItem item={item} key={i} colorMode="dark"/>)}
+
+          
+          {/* <HeaderMenuItem item={menu.items[0]} />
+          <HeaderMenuItem item={menu.items[1]} />
+
+          {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null}
+          {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null} */}
+        </nav>
+        
+
+        {/* <nav className="header-ctas" role="navigation">
+          <SearchToggle />
+          <CartToggle cart={cart} />
+        </nav> */}
+      </nav>
+    </header>
+    </>
   );
 }
 
@@ -143,7 +187,7 @@ export function HeaderMenu({menu, viewport}) {
   );
 }
 
-function HeaderMenuItem({item}) {
+function HeaderMenuItem({item, colorMode = 'light'}) {
   const [root] = useMatches();
   const publicStoreDomain = root?.data?.publicStoreDomain;
   if (!item.url) return null;
@@ -155,7 +199,7 @@ function HeaderMenuItem({item}) {
       : item.url;
   return (
     <NavLink
-      className="header-menu-item header-menu-desktop"
+      className={`header-menu-item md:text-lg ${colorMode == "dark" ? "text-base" : "text-lg header-menu-desktop"}`}
       end
       key={item.id}
       prefetch="intent"
@@ -169,8 +213,8 @@ function HeaderMenuItem({item}) {
 
 function activeLinkStyle({isActive, isPending}) {
   return {
-    fontWeight: isActive ? 'bold' : 'normal',
-    color: isPending ? 'grey' : 'black',
+    fontWeight: isActive ? 'bolder' : 'normal',
+    // color: isPending ? 'grey' : 'black',
   };
 }
 

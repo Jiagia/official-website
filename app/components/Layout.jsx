@@ -2,7 +2,7 @@ import {Link} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import {Suspense, useState} from 'react';
-import {Header, HeaderMenu} from './Header';
+import {Header, HeaderMenu, HeaderCenter} from './Header';
 import {Footer} from './Footer';
 import {
   PredictiveSearchForm,
@@ -12,33 +12,25 @@ import {Aside, DropDown, CloseAside} from '~/components/Aside';
 import searchIcon from '~/../public/search-icon.svg';
 import {useCart} from './CartProvider';
 
-export function LayoutLight({cart, children = null, footer, header, isLoggedIn, newsletterLink}) {
+export function Layout({cart, children = null, footer, header, isLoggedIn, colorMode="light"}) {
   const {shop, menu} = header;
+  const color = colorMode == "light" ? "bg-white text-black" : "bg-black text-white";
+  const newsletterLink = colorMode == "light" ? "klaviyo-form-XgeEVP" : "klaviyo-form-X5PmTV";
+  
   return (
     <>
-      <MobileMenuAside menu={menu} />
+      {colorMode == "light" ? <MobileMenuAside menu={menu} /> : null }
       <SearchDropDown />
-      <div className="flex flex-col min-h-screen antialiased bg-white">
-        <Header cart={cart} shop={shop} menu={menu} />
-
-        <main role="main" id="mainContent" className="flex-grow">
-          {children}
-        </main>
-        <Footer menu={footer.menu} newsletterLink={newsletterLink} />
-      </div>
-    </>
-  );
-}
-
-export function LayoutDark({cart, children = null, footer, header, isLoggedIn, newsletterLink}) {
-  const {shop, menu} = header;
-  return (
-    <>
-      <MobileMenuAside menu={menu} />
-      <SearchDropDown />
-      <div className="flex flex-col min-h-screen antialiased bg-black text-white">
-        {/* <Header cart={cart} shop={shop} menu={menu} /> */}
-
+      <div className={`flex flex-col min-h-screen antialiased ${color}`}>
+        {
+          colorMode == "light" ?
+          <Header cart={cart} shop={shop} menu={menu} /> 
+          : 
+          (<>
+            <HeaderCenter cart={cart} shop={shop} menu={menu} />
+            <div style={{height: "150px"}}></div>
+          </>)
+        }
         <main role="main" id="mainContent" className="flex-grow">
           {children}
         </main>

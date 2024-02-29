@@ -214,7 +214,7 @@ h2 {
     /* background: #fff; */
     display: flex;
     height: var(--header-height);
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
     position: sticky;
     top: 0;
     z-index: 1;
@@ -241,8 +241,8 @@ h2 {
   @media (min-width: 45em) {
     .header-menu-desktop {
     display: flex;
-    grid-gap: 1rem;
-    margin-left: 3rem;
+    gap: 3rem;
+    /* margin-left: 3rem; */
     /* justify-content: space-evenly;
     width: 100%; */
     }
@@ -261,7 +261,7 @@ h2 {
   
   .header-menu-item {
     cursor: pointer;
-    font-size: var(--header-menu-size);
+    /* font-size: var(--header-menu-size); */
     /* position: absolute;
     top: 0; */
   }

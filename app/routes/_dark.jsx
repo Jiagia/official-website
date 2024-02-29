@@ -10,7 +10,7 @@ import {
   useActionData,
   useLocation,
 } from '@remix-run/react';
-import {LayoutDark} from '../components/Layout';
+import {Layout} from '../components/Layout';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
 
 
@@ -66,9 +66,9 @@ export default function DarkLayout() {
 
   return (
     <div className='dark'>
-      <LayoutDark {...data} newsletterLink="klaviyo-form-X5PmTV">
+      <Layout {...data} colorMode="dark" >
         <Outlet />
-      </LayoutDark>
+      </Layout>
     </div>
     
   )
