@@ -2,10 +2,20 @@ import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import {useState} from 'react';
 
-export async function loader({params, context}) {
+export async function loader({params, context, request}) {
   // const handle = 'the-founders';
   // const type = 'discovery';
   // const handle="the-laboratory";
+  const url = new URL(request.url)
+  const pageTerm = url.searchParams.get('page')
+  // if (!searchTerm) {
+  //   return {
+  //     searchResults: {results: null, totalResults: 0},
+  //     searchTerm,
+  //   };
+  // }
+
+
   const {handle} = params;
   const type="season"
 
@@ -16,28 +26,41 @@ export async function loader({params, context}) {
     },
   });
 
+  
+
   if (!season || !season.metaobject) {
     throw new Response(null, {status: 404});
   }
 
   return json({
     season,
+    pageTerm
   });
 }
 
 // Render page
 export default function Laboratory() {
-  const {season} = useLoaderData();
+  const {season, pageTerm} = useLoaderData();
   // console.log(season.metaobject);
   // var page = season.metaobject;
-  var page=season.metaobject.pages.references.nodes[0]
+  const [pageNo, setPageNo] = useState(parseInt(pageTerm)-1);
+  const pages = season.metaobject.pages.references.nodes
+  var page = pages[pageNo]
 
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
       <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">
         <h2 className="font-bold">{season.metaobject.title.value}</h2>
         <p>{season.metaobject.description.value}</p>
+        <div>
+          {pages.map((page, index) => (
+            <button onClick={() => {setPageNo(index)}} key={index} className='border border-black m-2 p-2'>
+              Page {page.number.value} - {page.title.value}
+            </button>
+          ))}
+        </div>
       </div>
+      
       <div width="100%" className="flex flex-col text-xxs md:text-xs" style={{rowGap: "25px"}}>
         {page.rows.references.nodes.map((boxes, i) => (
           <div className="flex w-full flex-col md:flex-row" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
