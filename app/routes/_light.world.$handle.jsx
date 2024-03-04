@@ -29,13 +29,14 @@ export async function loader({params, context}) {
 export default function Laboratory() {
   const {season} = useLoaderData();
   // console.log(season.metaobject);
-  var page = season.metaobject;
+  // var page = season.metaobject;
+  var page=season.metaobject.pages.references.nodes[0]
 
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
       <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">
-        <h2 className="font-bold">{page.title.value}</h2>
-        <p>{page.description.value}</p>
+        <h2 className="font-bold">{season.metaobject.title.value}</h2>
+        <p>{season.metaobject.description.value}</p>
       </div>
       <div width="100%" className="flex flex-col text-xxs md:text-xs" style={{rowGap: "25px"}}>
         {page.rows.references.nodes.map((boxes, i) => (
@@ -135,10 +136,92 @@ query SeasonPage($handle: String!, $type: String!) {
       	}
       }
     }
+    pages:field(key:"pages"){
+      references (first: 10) {
+        	nodes {
+            ... on Metaobject {
+              title:field(key:"title"){value}
+              number:field(key:"number"){value}
+             rows:field(key:"row"){
+      references (first: 10) {
+        	nodes {
+            ... on Metaobject {
+              boxes:field(key:"box"){
+                references (first: 3){
+                  nodes {
+                    ... Box
+                }
+              }
+            }
+          }
+      	}
+      }
+    }
+          }
+      	}
+      }
+    }
   }
 }
-
 `
+
+// const METAOBJECT_QUERY = `#graphql
+// fragment Box on Metaobject{
+//   image: field(key: "image") {
+//       reference {
+//         ... on MediaImage {
+//           alt
+//           image {
+//             altText
+//             height
+//             id
+//             url
+//             width
+//           }
+//         }
+//       }
+//     }
+//     title: field(key: "title") {
+//       value
+//     }
+//     subtitle: field(key: "subtitle") {
+//       value
+//     }
+//     description: field(key: "description") {
+//       value
+//     }
+//     id_tag: field(key: "id_tag") {
+//       value
+//     }
+// }
+// query SeasonPage($handle: String!, $type: String!) {
+
+// 	metaobject(handle:{handle:$handle, type:$type}) {
+//     description:field(key:"description"){
+//       value
+//     }
+//     title: field(key:"title"){
+//       value
+//     }
+//     rows:field(key:"rows"){
+//       references (first: 10) {
+//         	nodes {
+//             ... on Metaobject {
+//               boxes:field(key:"box"){
+//                 references (first: 3){
+//                   nodes {
+//                     ... Box
+//                 }
+//               }
+//             }
+//           }
+//       	}
+//       }
+//     }
+//   }
+// }
+
+// `
 // const METAOBJECT_QUERY = `#graphql
 // query SeasonPage($handle: String!, $type: String!) {
 //   metaobject(handle: {handle: $handle, type: $type}) {
