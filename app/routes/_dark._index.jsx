@@ -1,4 +1,4 @@
-import {useLoaderData} from '@remix-run/react';
+import {useLoaderData, Link} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import {Carousel} from '~/components/Carousel';
 import {Image} from '@shopify/hydrogen';
@@ -81,41 +81,49 @@ export default function Index() {
 
   return (
     <>
-      <div className="md:hidden" style={{position: 'relative'}}>
-        <div style={{height: '30vh', backgroundColor: 'black'}}></div>
+      <div className=' text-center justify-center'>
+        <Link to="/about" className='border w-fit place-content-center justify-center p-2 text-sm font-black'>
+          {/* <p className=''> */}
+            &gt; ABOUT US &lt;
+          {/* </p> */}
+        </Link>
+        <div className='m-4 mt-12 mb-48 flex flex-col gap-4'>
+          <p>
+          WE ARE A CREATIVE LAB <b>EXPLORING</b> WORLDS WITHIN THE <i><b>“DAYDREAM UNIVERSE”</b></i> 
+          </p>
+          <p>
+          OUR MISSION IS TO <b>INVESTIGATE, DOCUMENT,</b> AND <b>SHOWCASE</b> OUR FINDINGS AND STORIES 
+          </p>
+          <p>
+          REPORTS OF OUR RESEARCH & EXPEDITIONS ARE PUBLISHED THROUGH VARIOUS CHANNELS
+          </p>
+        </div>
+        <div>
         <Image
           style={{
-            zIndex: '-10',
-            backgroundColor: 'black',
-            height: '70vh',
-            objectFit: 'cover',
-            objectPosition: '50% 0%',
+            // zIndex: '0',
+            // height: '100vh',
+            // position: 'absolute',
+            // backgroundColor: 'black',
+            // objectFit: 'contain',
+            // objectPosition: '50% 0%',
+            width: "100%"
           }}
+          className="my-4"
           data={img.home.image.reference.image}
         />
+        </div>
+        <h2 className="md:text-4xl">{latestUpdate.metaobject.title.value}</h2>
+        <h3 className="text-lg md:text-3xl">{latestUpdate.metaobject.subtitle.value}</h3>
+        <div className="hidden md:flex px-4 md:px-6 lg:px-8">
+          
+          <UpdateCarousel cards={latestUpdate.metaobject.items} number={3} id="prod-carousel-desktop" />
+        </div>
+        <div className="flex md:hidden px-4">
+          <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
+        </div>
       </div>
-      <div
-        className="hidden md:block"
-        style={{position: 'relative', height: '100vh', }}
-      >
-        <Image
-          style={{
-            zIndex: '0',
-            height: '100vh',
-            position: 'absolute',
-            backgroundColor: 'black',
-            objectFit: 'contain',
-            objectPosition: '50% 0%',
-          }}
-          data={img.home.image.reference.image}
-        />
-      </div>
-      <div className="hidden md:flex px-4 md:px-6 lg:px-8">
-        <UpdateCarousel cards={latestUpdate.metaobject.items} number={3} id="prod-carousel-desktop" />
-      </div>
-      <div className="flex md:hidden px-4">
-        <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
-      </div>
+      
     </>
   );
 }
@@ -129,12 +137,6 @@ function UpdateCarousel({cards, number, id = ''}) {
         <ImageCard key={id} card={card} />
       ))}
       className={`flex w-full flex-col md:flex-row gap-2`}
-      // leftbtn={
-      //   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-8 h-8"><g data-name="91-Arrow Left"><path d="M16 32a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm0-30a14 14 0 1 0 14 14A14 14 0 0 0 16 2z"/><path d="m18.29 24.71-8-8a1 1 0 0 1 0-1.41l8-8 1.41 1.41L12.41 16l7.29 7.29z"/></g></svg>
-      // }
-      // rightbtn={
-      //   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-8 h-8"><g data-name="92-Arrow Right"><path d="M16 32a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm0-30a14 14 0 1 0 14 14A14 14 0 0 0 16 2z"/><path d="M13.71 24.71 12.3 23.3l7.29-7.3-7.3-7.29L13.7 7.3l8 8a1 1 0 0 1 0 1.41z"/></g></svg>
-      // }
       leftbtn={<img className="px-4" src={arrowLeft} />}
       rightbtn = {<img className="px-4" src={arrowRight} />}
       id={id}
@@ -199,6 +201,9 @@ query Carousel($handle: String!, $type: String!) {
 
 	metaobject(handle:{handle:$handle, type:$type}) {
     title: field(key:"title"){
+      value
+    }
+    subtitle: field(key:"subtitle"){
       value
     }
     items:field(key:"items"){
