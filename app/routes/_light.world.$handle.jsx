@@ -60,7 +60,7 @@ function TextBox({box}) {
   } 
 
   return (
-    <div className='border border-black'>
+    <div className='border border-black' id={box.id_tag.value}>
       <img className='border border-black' src={box.image.reference.image.url} />
       <div className=' p-4'>
         <div>
@@ -105,6 +105,9 @@ fragment Box on Metaobject{
       value
     }
     description: field(key: "description") {
+      value
+    }
+    id_tag: field(key: "id_tag") {
       value
     }
 }
