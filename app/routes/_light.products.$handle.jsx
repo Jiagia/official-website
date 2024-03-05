@@ -53,34 +53,25 @@ export function meta({data}){
     ];
   };
 
-function PrintJson({data}) {
-    return (
-      <details className="outline outline-2 outline-blue-300 p-4 my-2">
-        <summary>Product JSON</summary>
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      </details>
-    );
-  }
-
 
   
   export default function ProductHandle() {
     const {product, selectedVariant, storeDomain} = useLoaderData();
-    console.log(product)
-    console.log(selectedVariant)
+    // console.log(product)
+    // console.log(selectedVariant)
     // console.log(product.recommendation.references.nodes);
     const orderable = selectedVariant?.availableForSale || false;
-
+    const sellable = product.tags.includes("Sellable")
 
     return (
       <section className="w-full grid p-6 md:p-8 lg:p-12">
-        <div className="grid items-start md:grid-cols-2 lg:grid-cols-5">
-          <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3">
-            <div className="md:col-span-2 snap-center card-image aspect-square md:w-full w-[80vw] shadow rounded">
+        <div className="grid items-start md:grid-cols-2 lg:grid-cols-3">
+          {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
+            <div className="md:col-span-2 snap-center card-image  md:w-full w-[80vw] ">
                 <ProductGallery media={product.media.nodes} />
-            </div>
+            {/* </div> */}
           </div>
-          <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2 top-[6rem] lg:top-[8rem] xl:top-[10rem]  lg:col-span-2" >
+          <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2  " >
             <div className="grid gap-2">
               <h1 className="text-4xl font-bold leading-10 whitespace-normal">
                 {product.title}
@@ -89,30 +80,34 @@ function PrintJson({data}) {
                 {product.vendor}
               </span>
             </div>
-            <ProductOptions
-            options={product.options}
-            selectedVariant={selectedVariant}
-            />
-            <Money
-            withoutTrailingZeros
-            data={selectedVariant.price}
-            className="text-xl font-semibold mb-2"
-            />
-            {orderable ? (
-                <div className="space-y-2 w-11/12 max-w-[400px]">
-                  <ShopPayButton
-                      storeDomain={storeDomain}
-                      variantIds={[selectedVariant?.id]}
-                      width="100%"
-                  />
-                  <ProductForm 
-                  variantId={selectedVariant?.id} 
-                  width="100%" 
-                  productAnalytics={product?.handle} />
-                </div>
-            ) : (
-              <div className="text-xl font-bold mb-2">Sold Out</div>
-            )}
+            {sellable ? (
+              <>
+                <ProductOptions
+                options={product.options}
+                selectedVariant={selectedVariant}
+                />
+                <Money
+                withoutTrailingZeros
+                data={selectedVariant.price}
+                className="text-xl font-semibold mb-2"
+                />
+                {orderable ? (
+                    <div className="space-y-2 w-11/12 max-w-[400px]">
+                      <ShopPayButton
+                          storeDomain={storeDomain}
+                          variantIds={[selectedVariant?.id]}
+                          width="100%"
+                      />
+                      <ProductForm 
+                      variantId={selectedVariant?.id} 
+                      width="100%" 
+                      productAnalytics={product?.handle} />
+                    </div>
+                ) : (
+                  <div className="text-xl font-bold mb-2">Sold Out</div>
+                )}
+              </> 
+            ) : null}
 
             <div
               className="prose border-t border-gray-200 pt-6 text-black text-md"
@@ -151,7 +146,7 @@ function PrintJson({data}) {
   
     return (
       <div
-        className={`grid gap-4 overflow-x-scroll grid-flow-col md:grid-flow-row  md:p-0 md:overflow-x-auto md:grid-cols-2 w-[90vw] md:w-full lg:col-span-2`}
+        className={`grid gap-4 grid-flow-col md:grid-flow-row  md:p-0 md:overflow-x-auto md:grid-cols-2 w-[90vw] md:w-full `}
       >
         {media.map((med, i) => {
           let extraProps = {};
@@ -177,14 +172,12 @@ function PrintJson({data}) {
   
           return (
             <div
-              className={`${
-                i % 3 === 0 ? 'md:col-span-2' : 'md:col-span-1'
-              } snap-center card-image bg-white aspect-square md:w-full w-[80vw] shadow-sm rounded`}
+              className={`snap-center card-image bg-white aspect-square md:w-full w-[80vw] shadow-sm rounded`}
               key={data.id || data.image.id}
             >
               <MediaFile
                 tabIndex="0"
-                className={`w-full h-full aspect-square object-cover`}
+                className={`w-full aspect-square object-cover`}
                 data={data}
                 {...extraProps}
               />
@@ -232,6 +225,7 @@ function PrintJson({data}) {
     publishedAt
     handle
     availableForSale
+    tags
     variants(first: 1) {
       nodes {
         id
@@ -260,6 +254,7 @@ function PrintJson({data}) {
       handle
       vendor
       descriptionHtml
+      tags
       media(first: 10) {
         nodes {
           ... on MediaImage {
