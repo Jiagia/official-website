@@ -41,12 +41,15 @@ export async function loader({params, context, request}) {
 // Render page
 export default function Laboratory() {
   const {season, pageTerm} = useLoaderData();
+
   // console.log(season.metaobject);
   // var page = season.metaobject;
-  const [pageNo, setPageNo] = useState(parseInt(pageTerm)-1);
+  // console.log(pageTerm);
+  const [pageNo, setPageNo] = useState(pageTerm ? parseInt(pageTerm) - 1: 0);
+  
   const pages = season.metaobject.pages.references.nodes
   var page = pages[pageNo]
-
+  console.log(page)
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
       <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">

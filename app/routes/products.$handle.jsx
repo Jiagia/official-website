@@ -120,7 +120,7 @@ function PrintJson({data}) {
             ></div>
           </div>
         </div>
-        {product.recommendation ? (
+        {/* {product.recommendation ? (
         <div className='pt-5 grid'>
           <hr />
           <h2>Recommendation</h2>
@@ -132,7 +132,7 @@ function PrintJson({data}) {
         </div>
         </div>
         ) : null
-        }
+        } */}
       </section>
     );
   }

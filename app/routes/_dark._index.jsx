@@ -6,7 +6,7 @@ import {FeaturedProductCard} from '../components/FeaturedCollection';
 import { ImageCard } from '~/components/ImageCard';
 // import {useState} from 'react';
 // import {motion, AnimatePresence} from 'framer-motion'
-import splashcss from '../styles/splash.css';
+// import splashcss from '../styles/splash.css';
 import {Await, NavLink, useMatches} from '@remix-run/react';
 import arrowRight from '../../public/arrow-right.svg'
 import arrowLeft from '../../public/arrow-left.svg'
@@ -16,7 +16,7 @@ import arrowLeft from '../../public/arrow-left.svg'
 const FeaturedCollectionHandle = 'season-4';
 const FeaturedCollectionNumber = 5;
 
-export const links = () => [{rel: 'stylesheet', href: splashcss}];
+// export const links = () => [{rel: 'stylesheet', href: splashcss}];
 
 export function meta({matches}) {
   // console.log(matches[0]?.data?.header?.shop);
@@ -101,12 +101,6 @@ export default function Index() {
         <div>
         <Image
           style={{
-            // zIndex: '0',
-            // height: '100vh',
-            // position: 'absolute',
-            // backgroundColor: 'black',
-            // objectFit: 'contain',
-            // objectPosition: '50% 0%',
             width: "100%"
           }}
           className="my-4"

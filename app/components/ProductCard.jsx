@@ -1,5 +1,6 @@
 import {Link} from '@remix-run/react';
 import {Image, Money} from '@shopify/hydrogen';
+import {RotatingImage} from '~/components/Image';
 
 export default function ProductCard({product}) {
   const {price, compareAtPrice} = product.variants?.nodes[0] || {};
@@ -9,17 +10,17 @@ export default function ProductCard({product}) {
 
   return (
     <Link to={`/products/${product.handle}`}>
-      <div className="grid gap-6 text-center">
-        <div className="relative">
+      <div className="grid text-center ">
+        <div className="relative border border-black">
           {isDiscounted && (
             <label className="subpixel-antialiased absolute top-0 right-0 m-4 text-right text-notice text-red-600 text-xs">
               Sale
             </label>
           )}
-          <Image
-            data={product.variants.nodes[0].image}
-            alt={product.title}
-            sizes="(min-width: 45em) 50vw, 100vw"
+          <RotatingImage
+            // length={product.media.nodes.length}
+            length={2}
+            media={product.media.nodes}
           />
           {!product.availableForSale && (
             <label className="subpixel-antialiased absolute top-0 right-0 m-4 text-right text-notice text-red-600">
@@ -27,8 +28,8 @@ export default function ProductCard({product}) {
             </label>
           )}
         </div>
-        <div className="grid gap-1">
-          <h3 className="max-w-prose text-copy w-full overflow-hidden whitespace-normal ">
+        <div className="grid border border-black">
+          <h3 className="max-w-prose text-copy w-full overflow-hidden whitespace-normal text-lg ">
             {product.title}
           </h3>
           <div className="flex gap-4">
