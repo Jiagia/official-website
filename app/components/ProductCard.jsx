@@ -21,6 +21,7 @@ export default function ProductCard({product}) {
             // length={product.media.nodes.length}
             length={2}
             media={product.media.nodes}
+            style={{width: 100}}
           />
           {!product.availableForSale && (
             <label className="subpixel-antialiased absolute top-0 right-0 m-4 text-right text-notice text-red-600">
