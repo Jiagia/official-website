@@ -2,14 +2,8 @@ import {useState} from 'react';
 import {Image} from '@shopify/hydrogen'
 
 export function RotatingImage({length, media}) {
-  const [bgColor, setBgColor] = useState('white');
-
-  function changeColor(color) {
-    setBgColor(color);
-  }
-
-  console.log(length);
-  console.log(media);
+  // console.log(length);
+  // console.log(media);
 
   const [bgImg, setBgImg] = useState(`url("${media[0].image.url}")`);
 
@@ -29,7 +23,7 @@ export function RotatingImage({length, media}) {
     <div
       className={`grid grid-cols-${length} h-full w-full absolute top-0 `}
       style={{
-        backgroundColor: bgColor,
+        // backgroundColor: bgColor,
         // height: '42vw',
         // maxWidth: '450px',
         // width: "100",

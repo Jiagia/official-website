@@ -6,8 +6,8 @@ export async function loader({params, context, request}) {
   // const handle = 'the-founders';
   // const type = 'discovery';
   // const handle="the-laboratory";
-  const url = new URL(request.url)
-  const pageTerm = url.searchParams.get('page')
+  // const url = new URL(request.url)
+  // const pageTerm = url.searchParams.get('page')
   // if (!searchTerm) {
   //   return {
   //     searchResults: {results: null, totalResults: 0},
@@ -16,10 +16,13 @@ export async function loader({params, context, request}) {
   // }
 
 
-  const {handle} = params;
-  const type="season"
+  // const {handle} = params;
+  // const type="season"
 
-  const season = await context.storefront.query(METAOBJECT_QUERY, {
+  const handle = "objects"
+  const type = "objects"
+
+  const objects = await context.storefront.query(METAOBJECT_QUERY, {
     variables: {
       handle,
       type,
@@ -28,40 +31,46 @@ export async function loader({params, context, request}) {
 
   
 
-  if (!season || !season.metaobject) {
+  if (!objects || !objects.metaobject) {
     throw new Response(null, {status: 404});
   }
 
   return json({
-    season,
-    pageTerm
+    objects,
+    // pageTerm
   });
 }
 
 // Render page
-export default function WorldPage() {
-  const {season, pageTerm} = useLoaderData();
-
+export default function Object() {
+  // const {season, pageTerm} = useLoaderData();
+  const {objects} = useLoaderData();
   // console.log(season.metaobject);
   // var page = season.metaobject;
   // console.log(pageTerm);
-  const [pageNo, setPageNo] = useState(pageTerm ? parseInt(pageTerm) - 1: 0);
+  // const [pageNo, setPageNo] = useState(pageTerm ? parseInt(pageTerm) - 1: 0);
   
-  const pages = season.metaobject.pages.references.nodes
-  var page = pages[pageNo]
-  console.log(page)
+  // const pages = season.metaobject.pages.references.nodes
+  // var page = pages[pageNo]
+  // console.log(page)
+  // console.log(objects)
+  const page = objects.metaobject
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
       <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">
-        <h2 className="font-bold">{season.metaobject.title.value}</h2>
-        <p>{season.metaobject.description.value}</p>
         <div>
+        <h2 className="font-bold">{objects.metaobject.title.value}</h2>
+        <h2 className="">{objects.metaobject.subtitle.value}</h2>
+        </div>
+        <p>{objects.metaobject.description.value}</p>
+        {/* page buttons */}
+        {/* <div>
           {pages.map((page, index) => (
             <button onClick={() => {setPageNo(index)}} key={index} className='border border-black m-2 p-2'>
               Page {page.number.value} - {page.title.value}
             </button>
           ))}
-        </div>
+        </div> */}
       </div>
       
       <div width="100%" className="flex flex-col text-xxs md:text-xs" style={{rowGap: "25px"}}>
@@ -145,6 +154,9 @@ query SeasonPage($handle: String!, $type: String!) {
       value
     }
     title: field(key:"title"){
+      value
+    }
+    subtitle: field(key:"subtitle"){
       value
     }
     rows:field(key:"rows"){
