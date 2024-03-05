@@ -67,7 +67,7 @@ export function meta({data}){
       <section className="w-full grid p-6 md:p-8 lg:p-12">
         <div className="grid items-start md:grid-cols-2 lg:grid-cols-3">
           {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
-            <div className="md:col-span-2 snap-center card-image  md:w-full w-[80vw] ">
+            <div className="scroll-smooth snap-x md:col-span-2 snap-center card-image  md:w-full w-[80vw] ">
                 <ProductGallery media={product.media.nodes} />
             {/* </div> */}
           </div>
@@ -80,6 +80,10 @@ export function meta({data}){
                 {product.vendor}
               </span>
             </div>
+            <div
+              className="prose border-t border-gray-200 pt-6 text-black text-md"
+              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+            ></div>
             {sellable ? (
               <>
                 <ProductOptions
@@ -109,10 +113,7 @@ export function meta({data}){
               </> 
             ) : null}
 
-            <div
-              className="prose border-t border-gray-200 pt-6 text-black text-md"
-              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-            ></div>
+            
           </div>
         </div>
         {/* {product.recommendation ? (
@@ -146,7 +147,7 @@ export function meta({data}){
   
     return (
       <div
-        className={`grid gap-4 grid-flow-col md:grid-flow-row  md:p-0 md:overflow-x-auto md:grid-cols-2 w-[90vw] md:w-full `}
+        className={`grid gap-4 overflow-x-auto grid-flow-col md:grid-flow-row  md:p-0 md:overflow-y-auto md:grid-cols-2 w-[90vw] md:w-full `}
       >
         {media.map((med, i) => {
           let extraProps = {};
