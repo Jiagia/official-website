@@ -71,15 +71,18 @@ export default function Explore() {
     <>
       
       <div className=' text-center justify-center bg-white text-black mt-8'>
-        <h1 className='text-2xl md:text-6xl my-12'> &gt; Archive &lt; </h1>
+        <h1 className='text-6xl my-12'> &gt; Archive &lt; </h1>
         <h2 className="md:text-4xl">{discovery.metaobject.title.value}</h2>
         <p className="">{discovery.metaobject.subtitle.value}</p>
         <div className="hidden md:flex px-4 md:p-6 lg:p-8">
           
           <UpdateCarousel cards={discovery.metaobject.items} number={3} id="prod-carousel-desktop" />
         </div>
-        <div className="flex md:hidden px-4">
-          <UpdateCarousel cards={discovery.metaobject.items} number={1} id="prod-carousel-mobile" />
+        <div className="flex flex-col gap-4 md:hidden px-4">
+          {/* <UpdateCarousel cards={discovery.metaobject.items} number={1} id="prod-carousel-mobile" /> */}
+          {discovery.metaobject.items.references.nodes.map((card, id) => (
+            <ImageCard key={id} card={card} />
+          ))}
         </div>
       {/* </div> */}
 
@@ -92,8 +95,11 @@ export default function Explore() {
           
           <UpdateCarousel cards={collection.metaobject.items} number={3} id="prod-carousel-desktop" />
         </div>
-        <div className="flex md:hidden px-4">
-          <UpdateCarousel cards={collection.metaobject.items} number={1} id="prod-carousel-mobile" />
+        <div className="flex flex-col gap-4 md:hidden px-4">
+          {/* <UpdateCarousel cards={collection.metaobject.items} number={1} id="prod-carousel-mobile" /> */}
+          {collection.metaobject.items.references.nodes.map((card, id) => (
+            <ImageCard key={id} card={card} />
+          ))}
         </div>
       </div>
       
@@ -111,8 +117,10 @@ function UpdateCarousel({cards, number, id = ''}) {
         <ImageCard key={id} card={card} />
       ))}
       className={`flex w-full flex-col md:flex-row gap-2`}
-      leftbtn={<img className="px-4" src={arrowLeft} />}
-      rightbtn = {<img className="px-4" src={arrowRight} />}
+      // leftbtn={<img className="px-4" src={arrowLeft} />}
+      // rightbtn = {<img className="px-4" src={arrowRight} />}
+      leftbtn=""
+      rightbtn=""
       id={id}
     />
   )

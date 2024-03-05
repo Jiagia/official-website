@@ -89,20 +89,27 @@ function TextBox({box}) {
   return (
     <div className='border border-black' id={box.id_tag.value}>
       <img className='border border-black' src={box.image.reference.image.url} />
-      <div className=' p-4'>
-        <div>
-          <b>{box.title.value}</b>
-          <button onClick={showBodyText}>+</button>
+      <div className='flex flex-row p-4'>
+        <div className='grow '>
+          <div>
+            <b>{box.title.value}</b>
+            
+          </div>
+          <div>
+            <i>{box.subtitle.value}</i> 
+          </div>
+          <div className={`mt-4 ${dropshow}`}>
+            {box.description.value
+              .split('\n')
+              .map((desc, index) => (
+              <div key={index}>{desc}</div>
+            ))}
+          </div>
         </div>
-        <div>
-          <i>{box.subtitle.value}</i> 
-        </div>
-        <div className={`mt-4 ${dropshow}`}>
-          {box.description.value
-            .split('\n')
-            .map((desc, index) => (
-            <div key={index}>{desc}</div>
-          ))}
+        <div className="w-16 text-right">
+          <button onClick={showBodyText}>
+            {dropshow=="hidden" ? (<b>EXPAND [+]</b>) : (<b>HIDE [-]</b>)}
+          </button>
         </div>
       </div>
     </div>

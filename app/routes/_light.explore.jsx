@@ -71,7 +71,7 @@ export default function Explore() {
     <>
       
       <div className=' text-center justify-center bg-white text-black mt-8'>
-        <h1 className='text-2xl md:text-6xl my-12'> &gt; Explore &lt; </h1>
+        <h1 className='text-6xl my-12'> &gt; Explore &lt; </h1>
         <h2 className="md:text-4xl">{discovery.metaobject.title.value}</h2>
         <p className="">{discovery.metaobject.subtitle.value}</p>
         <div className="hidden md:flex px-4 md:p-6 lg:p-8">
