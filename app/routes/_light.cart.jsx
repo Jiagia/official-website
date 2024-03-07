@@ -79,7 +79,7 @@ export default function Cart() {
   const {cart} = useLoaderData();
   const fetcher = useFetcher();
 
-  // console.log(cart);
+  console.log(cart?.quantity);
   // console.log(fetcher.data);
 
   const errors = fetcher.data?.errors;
@@ -91,7 +91,9 @@ export default function Cart() {
         <div className="w-full text-center">
           <h2>&gt; Cart &lt;</h2>
         </div>
-        <div className="w-full max-w-6xl mx-auto pb-12 grid md:grid-cols-2 md:items-start gap-8 md:gap-8 lg:gap-12">
+
+          <div className="w-full max-w-6xl mx-auto pb-12 grid md:grid-cols-2 md:items-start gap-8 md:gap-8 lg:gap-12">
+          
           <div className="flex-grow md:translate-y-4">
             <CartLineItems linesObj={cart.lines} fetcher={fetcher}/>
           </div>
@@ -106,20 +108,19 @@ export default function Cart() {
       </>
     );
 
+      
   return (
-    <>
-      <div className="flex flex-col space-y-7 justify-center items-center md:py-8 md:px-12 px-4 py-6 h-screen">
-        <img src="https://cdn.shopify.com/s/files/1/0753/7868/8295/files/cart.png?v=1709820108" />
-        <h2 className="whitespace-pre-wrap max-w-prose font-bold text-4xl">
-          Your cart is empty
-        </h2>
-        <Link
-          to="/collections/all"
-          className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
-        >
-          BACK TO STORE
-        </Link>
-      </div>
-    </>
+    <div className="flex flex-col space-y-7 justify-center items-center md:py-8 md:px-12 px-4 py-6 h-fit">
+      <img src="https://cdn.shopify.com/s/files/1/0753/7868/8295/files/cart.png?v=1709820108" />
+      <h2 className="whitespace-pre-wrap max-w-prose font-bold text-4xl">
+        Your cart is empty
+      </h2>
+      <Link
+        to="/collections/all"
+        className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
+      >
+        BACK TO STORE
+      </Link>
+    </div>
   );
 }

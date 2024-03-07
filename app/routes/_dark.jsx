@@ -61,13 +61,16 @@ export async function loader({context}) {
   );
 }
 
-export default function LightLayout() {
+export default function DarkLayout() {
   const data = useLoaderData();
 
   return (
-    <Layout {...data} colorMode="light" >
-      <Outlet />
-    </Layout>
+    <div className='dark'>
+      <Layout {...data} colorMode="dark" >
+        <Outlet />
+      </Layout>
+    </div>
+    
   )
 }
 

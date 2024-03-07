@@ -1,18 +1,20 @@
 import {useMatches, NavLink} from '@remix-run/react';
 
-export function Footer({menu}) {
+export function Footer({menu, newsletterLink}) {
   const FBLink = 'https://www.facebook.com/profile.php?id=100083105601746';
   const IGLink = 'https://www.instagram.com/jiagia_studios/';
-  return ( 
-    <footer className="footer grid md:grid-cols-3 justify-items-center md: mb-16">
-      <div className="" >
-        <div className="klaviyo-form-XgeEVP" style={{maxWidth: "240px"}}></div>
+  const XLink = 'https://twitter.com/jiagia_studios';
+  return (
+    <footer className="footer grid md:grid-cols-3 gap-y-4 justify-items-center items-center pt-2 mb-16">
+      <div className="px-8">
+        <div className={newsletterLink} style={{maxWidth: '100vw'}}></div>
+        {/* <div className="klaviyo-form-XgeEVP" style={{maxWidth: '100vw'}}></div> */}
       </div>
-      <div className="text-center md:text-left justify-items-center ">
+      <div className="justify-self-center py-4 md:pt-0">
+        <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} XLink={XLink} />
+      </div>
+      <div className="text-center md:text-right justify-items-center ">
         <FooterMenu menu={menu} className="justify-self-center width-fit" />
-      </div>
-      <div className="justify-self-center pt-2 md:justify-self-end md:pr-20 md:pt-0">
-        <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} />
       </div>
     </footer>
   );
@@ -23,7 +25,7 @@ function FooterMenu({menu, className, style}) {
   const publicStoreDomain = root?.data?.publicStoreDomain;
   return (
     <nav className={`footer-menu ${className}`} style={style} role="navigation">
-      <ul style={{width: "fit-content"}}>
+      <ul style={{width: 'fit-content'}}>
         {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
           if (!item.url) return null;
           // if the url is internal, we strip the domain
@@ -58,13 +60,13 @@ function FooterMenu({menu, className, style}) {
   );
 }
 
-function SocialIcon({FacebookLink, InstaLink}) {
+export function SocialIcon({FacebookLink, InstaLink, XLink}) {
   return (
     <div className="social-icons">
       <a
         target="_blank"
         href={FacebookLink}
-        className="social-link m-5"
+        className="social-link m-3 md:m-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -84,7 +86,7 @@ function SocialIcon({FacebookLink, InstaLink}) {
       <a
         target="_blank"
         href={InstaLink}
-        className="social-link m-5"
+        className="social-link m-3 md:m-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -102,6 +104,32 @@ function SocialIcon({FacebookLink, InstaLink}) {
               fill="currentColor"
               d="M8.8 4a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 7.43a2.92 2.92 0 110-5.85 2.92 2.92 0 010 5.85zM13.43 5a1.05 1.05 0 100-2.1 1.05 1.05 0 000 2.1z"
             ></path>
+          </svg>
+        </div>
+      </a>
+      <a
+        target="_blank"
+        href={XLink}
+        className="social-link m-3 md:m-5 w-7 h-7"
+        rel="noreferrer"
+      >
+        <div className="w-7 h-7" style={{display: 'inline-block'}}>
+          <svg
+            className="icon icon-x"
+            xmlns="http://www.w3.org/2000/svg"
+            shapeRendering="geometricPrecision"
+            textRendering="geometricPrecision"
+            imageRendering="optimizeQuality"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            viewBox="0 0 512 462.799"
+          >
+            {/* <rect fill="currentColor" width="512" height="509.64" rx="115.61" ry="115.61" /> */}
+            <path 
+            xmlns="http://www.w3.org/2000/svg" 
+            fillRule="nonzero" 
+            fill="currentColor"
+            d="M403.229 0h78.506L310.219 196.04 512 462.799H354.002L230.261 301.007 88.669 462.799h-78.56l183.455-209.683L0 0h161.999l111.856 147.88L403.229 0zm-27.556 415.805h43.505L138.363 44.527h-46.68l283.99 371.278z"/>
           </svg>
         </div>
       </a>
@@ -154,6 +182,6 @@ const FALLBACK_FOOTER_MENU = {
 function activeLinkStyle({isActive, isPending}) {
   return {
     fontWeight: isActive ? 'normal' : 'normal',
-    color: isPending ? 'black' : 'black',
+    // color: isPending ? 'black' : 'black',
   };
 }

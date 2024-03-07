@@ -199,6 +199,28 @@ const COLLECTION_QUERY = `#graphql
           publishedAt
           handle
           availableForSale
+          media(first: 10) {
+            nodes {
+              ... on MediaImage {
+                mediaContentType
+                image {
+                  id
+                  altText
+                  url
+                  height
+                  width
+                }
+              }
+              ... on Model3d {
+                id
+                mediaContentType
+                sources {
+                  mimeType
+                  url
+                }
+              }
+            }
+          }
           variants(first: 1) {
             nodes {
               id
