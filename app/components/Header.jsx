@@ -27,10 +27,10 @@ export function Header({cart, shop, menu}) {
         {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null}
         {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null}
 
-        {/* <nav className="header-ctas" role="navigation">
-          <SearchToggle />
+        <nav className="header-ctas" role="navigation">
+          {/* <SearchToggle /> */}
           <CartToggle cart={cart} />
-        </nav> */}
+        </nav>
       </nav>
     </header>
   );

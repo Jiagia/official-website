@@ -87,33 +87,39 @@ export default function Cart() {
 
   if (cart?.totalQuantity > 0)
     return (
-      <div className="w-full max-w-6xl mx-auto pb-12 grid md:grid-cols-2 md:items-start gap-8 md:gap-8 lg:gap-12">
-        <div className="flex-grow md:translate-y-4">
-          <CartLineItems linesObj={cart.lines} fetcher={fetcher}/>
+      <>
+        <div className="w-full text-center">
+          <h2>&gt; Cart &lt;</h2>
         </div>
-        <div className="fixed left-0 right-0 bottom-0 md:sticky md:top-[65px] grid gap-6 p-4 md:px-6 md:translate-y-4 bg-gray-100 rounded-md w-full">
-          <div className="text-red-600 text-sm"></div>
-          <CartError errors={errors} />
-          <CartSummary cost={cart.cost} />
-          <CartActions checkoutUrl={cart.checkoutUrl} />
+        <div className="w-full max-w-6xl mx-auto pb-12 grid md:grid-cols-2 md:items-start gap-8 md:gap-8 lg:gap-12">
+          <div className="flex-grow md:translate-y-4">
+            <CartLineItems linesObj={cart.lines} fetcher={fetcher}/>
+          </div>
+          <div className="fixed left-0 right-0 bottom-0 md:sticky md:top-[65px] grid gap-6 p-4 md:px-6 md:translate-y-4 bg-gray-100 rounded-md w-full">
+            <div className="text-red-600 text-sm"></div>
+            <CartError errors={errors} />
+            <CartSummary cost={cart.cost} />
+            <CartActions checkoutUrl={cart.checkoutUrl} />
 
+          </div>
         </div>
-      </div>
+      </>
     );
 
-      
   return (
-    <div className="flex flex-col space-y-7 justify-center items-center md:py-8 md:px-12 px-4 py-6 h-screen">
-      <img src="https://cdn.shopify.com/s/files/1/0753/7868/8295/files/cart.png?v=1709820108" />
-      <h2 className="whitespace-pre-wrap max-w-prose font-bold text-4xl">
-        Your cart is empty
-      </h2>
-      <Link
-        to="/collections/all"
-        className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
-      >
-        BACK TO STORE
-      </Link>
-    </div>
+    <>
+      <div className="flex flex-col space-y-7 justify-center items-center md:py-8 md:px-12 px-4 py-6 h-screen">
+        <img src="https://cdn.shopify.com/s/files/1/0753/7868/8295/files/cart.png?v=1709820108" />
+        <h2 className="whitespace-pre-wrap max-w-prose font-bold text-4xl">
+          Your cart is empty
+        </h2>
+        <Link
+          to="/collections/all"
+          className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
+        >
+          BACK TO STORE
+        </Link>
+      </div>
+    </>
   );
 }

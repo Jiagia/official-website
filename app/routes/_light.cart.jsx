@@ -79,7 +79,7 @@ export default function Cart() {
   const {cart} = useLoaderData();
   const fetcher = useFetcher();
 
-  // console.log(cart);
+  console.log(cart?.quantity);
   // console.log(fetcher.data);
 
   const errors = fetcher.data?.errors;
@@ -87,18 +87,25 @@ export default function Cart() {
 
   if (cart?.totalQuantity > 0)
     return (
-      <div className="w-full max-w-6xl mx-auto pb-12 grid md:grid-cols-2 md:items-start gap-8 md:gap-8 lg:gap-12">
-        <div className="flex-grow md:translate-y-4">
-          <CartLineItems linesObj={cart.lines} fetcher={fetcher}/>
+      <>
+        <div className="w-full text-center">
+          <h2>&gt; Cart &lt;</h2>
         </div>
-        <div className="fixed left-0 right-0 bottom-0 md:sticky md:top-[65px] grid gap-6 p-4 md:px-6 md:translate-y-4 bg-gray-100 rounded-md w-full">
-          <div className="text-red-600 text-sm"></div>
-          <CartError errors={errors} />
-          <CartSummary cost={cart.cost} />
-          <CartActions checkoutUrl={cart.checkoutUrl} />
 
+          <div className="w-full max-w-6xl mx-auto pb-12 grid md:grid-cols-2 md:items-start gap-8 md:gap-8 lg:gap-12">
+          
+          <div className="flex-grow md:translate-y-4">
+            <CartLineItems linesObj={cart.lines} fetcher={fetcher}/>
+          </div>
+          <div className="fixed left-0 right-0 bottom-0 md:sticky md:top-[65px] grid gap-6 p-4 md:px-6 md:translate-y-4 bg-gray-100 rounded-md w-full">
+            <div className="text-red-600 text-sm"></div>
+            <CartError errors={errors} />
+            <CartSummary cost={cart.cost} />
+            <CartActions checkoutUrl={cart.checkoutUrl} />
+
+          </div>
         </div>
-      </div>
+      </>
     );
 
       
