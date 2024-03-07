@@ -55,12 +55,8 @@ export default function Shop() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="text-center m-10">
-        <h2>DREAMSCAPE REPORT: ILLUSIVE FLORA</h2>
-        <p className="italic">FIRST DISCOVERED ____</p>
-        <p className="pt-4">
-          TAGLINE: WORLD FULL OF PLANTS AND CUBISM. DON'T FRET AS THESE
-          CREATURES MOVE
-        </p>
+        <h2 className="font-bold">&gt; SHOW &lt;</h2>
+        <p>CURRENT PROJECTS AND PROTOTYPES AVAILABLE FOR DREAMERS</p>
       </div>
       
       <ProductGrid

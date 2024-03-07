@@ -3,7 +3,7 @@ import {json} from '@shopify/remix-oxygen';
 import {Carousel} from '~/components/Carousel';
 import {Image} from '@shopify/hydrogen';
 import {FeaturedProductCard} from '../components/FeaturedCollection';
-import { ImageCard } from '~/components/ImageCard';
+import {ImageCard} from '~/components/ImageCard';
 // import {useState} from 'react';
 // import {motion, AnimatePresence} from 'framer-motion'
 // import splashcss from '../styles/splash.css';
@@ -13,20 +13,8 @@ import arrowLeft from '../../public/arrow-left-black.svg'
 
 
 export async function loader({context}) {
-  // const handle = FeaturedCollectionHandle;
-  // const number = FeaturedCollectionNumber;
-  var handle = 'home-page';
-  var type = 'file';
-
-  // const img = await context.storefront.query(COLLECTION_QUERY, {
-  //   variables: {
-  //     handle,
-  //     type,
-  //   },
-  // });
-
-  handle = "active-discovery-experiment-sites"
-  type =  "carousel"
+  let handle = 'exploration-highlights';
+  let type = 'carousel';
   const discovery = await context.storefront.query(UPDATE_QUERY, {
     variables: {
       handle,
@@ -34,8 +22,8 @@ export async function loader({context}) {
     },
   });
 
-  handle = "collections"
-  type =  "carousel"
+  handle = 'active-exploration-sites';
+  type = 'carousel';
   const collection = await context.storefront.query(UPDATE_QUERY, {
     variables: {
       handle,
@@ -43,10 +31,8 @@ export async function loader({context}) {
     },
   });
 
-  // Handle 404s
-  // if (!img) {
-  //   throw new Response(null, {status: 404});
-  // }
+  console.log(discovery);
+  console.log(collection);
 
   if (!discovery.metaobject) throw new Response(null, {status: 404});
   if (!collection.metaobject) throw new Response(null, {status: 404});
@@ -54,9 +40,8 @@ export async function loader({context}) {
   // json is a Remix utility for creating application/json responses
   // https://remix.run/docs/en/v1/utils/json
   return json({
-    // img,
     discovery,
-    collection
+    collection,
   });
 }
 
@@ -69,34 +54,31 @@ export default function Explore() {
 
   return (
     <>
-      
-      <div className=' text-center justify-center bg-white text-black mt-8'>
+      <div className='text-center justify-center bg-white text-black mt-8'>
         <h1 className='text-6xl my-12'> &gt; Explore &lt; </h1>
         <h2 className="md:text-4xl">{discovery.metaobject.title.value}</h2>
         <p className="">{discovery.metaobject.subtitle.value}</p>
-        <div className="hidden md:flex px-4 md:p-6 lg:p-8">
-          
+        <div className="hidden md:flex p-4 md:p-6 lg:p-8">
           <UpdateCarousel cards={discovery.metaobject.items} number={3} id="prod-carousel-desktop" />
         </div>
-        <div className="flex md:hidden px-4">
+        <div className="flex gap-4 md:hidden p-4">
           <UpdateCarousel cards={discovery.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
-      {/* </div> */}
 
-      <div className='m-12  mx-auto w-4/5 border border-black'></div>
+        <div className='m-12 mx-auto w-4/5 border border-black'></div>
 
-      {/* <div className=' text-center justify-center bg-white text-black'> */}
         <h2 className="md:text-4xl">{collection.metaobject.title.value}</h2>
         <p className="">{collection.metaobject.subtitle.value}</p>
-        <div className="hidden md:flex px-4 md:p-6 lg:p-8">
-          
-          <UpdateCarousel cards={collection.metaobject.items} number={3} id="prod-carousel-desktop" />
+        <div className="hidden md:flex md:gap-x-2 justify-center p-4 md:p-6 lg:p-8">
+          {/* <UpdateCarousel cards={collection.metaobject.items} number={2} id="prod-carousel-desktop" /> */}
+          {collection.metaobject.items.references.nodes.map((card, id) => (
+            <ImageCard key={id} card={card} />
+          ))}
         </div>
-        <div className="flex md:hidden px-4">
+        <div className="flex gap-4 md:hidden p-4">
           <UpdateCarousel cards={collection.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
       </div>
-      
     </>
   );
 }

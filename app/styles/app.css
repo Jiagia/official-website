@@ -42,7 +42,7 @@
   }
 
 code, kbd, samp, pre, p, main {
-  font-size: 12px;
+  font-size: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -59,8 +59,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font);
 }
 
+h1 {
+  font-size: 3.75rem;
+}
+
 h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
 }
 
 #logo {

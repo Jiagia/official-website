@@ -19,7 +19,7 @@ export function meta({matches}) {
 
 export async function loader({params, context}) {
   // const {handle} = params;
-  const handle = "about";
+  let handle = 'about';
 
   const {page} = await context.storefront.query(PAGE_QUERY, {
     variables: {
@@ -67,12 +67,15 @@ export async function loader({params, context}) {
 export default function About() {
   const {page} = useLoaderData();
 
-    return (
-      <div className='p-4 md:p-8'>
-        <div dangerouslySetInnerHTML={{__html: page.body}}></div>
-      </div>
-    )
-
+  return (
+    <>
+      <div className="md:h-[150px]"></div>
+      <div
+        className="p-4 md:p-8"
+        dangerouslySetInnerHTML={{__html: page.body}}
+      ></div>
+    </>
+  );
 }
 
 // export default function About() {
@@ -171,7 +174,6 @@ export default function About() {
 //   );
 // }
 
-
 const PAGE_QUERY = `#graphql
     query PageDetails($handle: String!) {
         page(handle: $handle) {
@@ -183,7 +185,6 @@ const PAGE_QUERY = `#graphql
         }
     }
 `;
-
 
 const COLLECTION_QUERY = `#graphql
 query HomePage($handle: String!, $type: String!) {

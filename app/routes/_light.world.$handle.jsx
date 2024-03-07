@@ -7,7 +7,8 @@ export async function loader({params, context, request}) {
   // const type = 'discovery';
   // const handle="the-laboratory";
   const url = new URL(request.url)
-  const pageTerm = url.searchParams.get('page')
+  const pageTerm = url.searchParams.get('page');
+  console.log(pageTerm);
   // if (!searchTerm) {
   //   return {
   //     searchResults: {results: null, totalResults: 0},
@@ -44,12 +45,14 @@ export default function WorldPage() {
 
   // console.log(season.metaobject);
   // var page = season.metaobject;
-  // console.log(pageTerm);
+  console.log(pageTerm);
   const [pageNo, setPageNo] = useState(pageTerm ? parseInt(pageTerm) - 1: 0);
+  console.log(pageNo);
   
-  const pages = season.metaobject.pages.references.nodes
-  var page = pages[pageNo]
-  console.log(page)
+  const pages = season.metaobject.pages.references.nodes;
+  console.log(pages);
+  var page = pages[pageNo];
+  console.log(page);
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
       <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">
@@ -57,7 +60,7 @@ export default function WorldPage() {
         <p>{season.metaobject.description.value}</p>
         <div>
           {pages.map((page, index) => (
-            <button onClick={() => {setPageNo(index)}} key={index} className='border border-black m-2 p-2'>
+            <button onClick={() => {setPageNo(index)}} key={index} className={`border border-black m-2 p-2 ${((page.number.value - 1) == pageNo) ? "bg-orange-100" : ""}`}>
               Page {page.number.value} - {page.title.value}
             </button>
           ))}
@@ -83,22 +86,21 @@ function TextBox({box}) {
   
   const [dropshow, setDropshow] = useState("hidden");
   const showBodyText = () => {
-    dropshow == "hidden" ? setDropshow("") : setDropshow("hidden")
-  } 
+    setDropshow((prevDropshow) => (prevDropshow === "hidden" ? "" : "hidden"));
+  };
 
   return (
     <div className='border border-black' id={box.id_tag.value}>
       <img className='border border-black' src={box.image.reference.image.url} />
       <div className='flex flex-row p-4'>
-        <div className='grow '>
+        <div className='text-wrap grow'>
           <div>
             <b>{box.title.value}</b>
-            
           </div>
           <div>
             <i>{box.subtitle.value}</i> 
           </div>
-          <div className={`mt-4 ${dropshow}`}>
+          <div className={`text-wrap mt-4 ${dropshow}`}>
             {box.description.value
               .split('\n')
               .map((desc, index) => (

@@ -1,6 +1,7 @@
 import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import {useState} from 'react';
+import {Image} from '@shopify/hydrogen-react';
 
 export async function loader({params, context, request}) {
   // const handle = 'the-founders';
@@ -19,7 +20,7 @@ export async function loader({params, context, request}) {
   // const {handle} = params;
   // const type="season"
 
-  const handle = 'objects';
+  const handle = 'prototypes';
   const type = 'objects';
 
   const objects = await context.storefront.query(METAOBJECT_QUERY, {
@@ -53,6 +54,7 @@ export default function Object() {
   // console.log(page)
   // console.log(objects)
   const page = objects.metaobject;
+  console.log(page);
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
       <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">
@@ -66,29 +68,22 @@ export default function Object() {
           </button>
           ))}
         </div> */}
-      <div width="100%" className="flex flex-col text-xxs md:text-xs" style={{rowGap: "25px"}}>
+      {/* <div width="100%" className="flex flex-col text-xxs md:text-xs" style={{rowGap: "25px"}}>
         {page.rows.references.nodes.map((boxes, i) => (
-          // <div className="flex w-full flex-col md:flex-row" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
-          <div className="grid grid-cols-1 md:grid-cols-2 w-full" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
+          // <div className="grid grid-cols-1 md:grid-cols-2 w-full" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
+          <div className="flex w-full flex-col md:flex-row" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
             {boxes.boxes.references.nodes.map((box, j) => (
               <TextBox box={box} key={j} />
             ))}
           </div>
         ))}
-      </div> 
+      </div> */}
     </div>
   );
 }
 
-// Render the text boxes for each block
-// contains the show/hide buttons
 function TextBox({box}) {
-  
-  const [dropshow, setDropshow] = useState("hidden");
-  const showBodyText = () => {
-    setDropshow((prevDropshow) => (prevDropshow === "hidden" ? "" : "hidden"));
-  };
-
+  console.log(box.subtitle);
   return (
     <div className='border border-black' id={box.id_tag.value}>
       <img className='border border-black' src={box.image.reference.image.url} />
@@ -98,25 +93,13 @@ function TextBox({box}) {
             <b>{box.title.value}</b>
           </div>
           <div>
-            <i>{box.subtitle.value}</i> 
+            <i>{box.subtitle.value}</i>
           </div>
-          <div className={`text-wrap mt-4 ${dropshow}`}>
-            {box.description.value
-              .split('\n')
-              .map((desc, index) => (
-              <div key={index}>{desc}</div>
-            ))}
-          </div>
-        </div>
-        <div className="w-16 text-right">
-          <button onClick={showBodyText}>
-            {dropshow=="hidden" ? (<b>EXPAND [+]</b>) : (<b>HIDE [-]</b>)}
-          </button>
         </div>
       </div>
     </div>
   )
-}
+ }
 
 const METAOBJECT_QUERY = `#graphql
 fragment Box on Metaobject{

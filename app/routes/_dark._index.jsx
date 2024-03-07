@@ -50,8 +50,8 @@ export async function loader({context}) {
     },
   });
 
-  handle = "latest-dreamscape-update"
-  type =  "carousel"
+  handle = 'latest-laboratory-update';
+  type = 'carousel';
   const latestUpdate = await context.storefront.query(UPDATE_QUERY, {
     variables: {
       handle,
@@ -81,11 +81,10 @@ export default function Index() {
 
   return (
     <>
+      <div style={{height: "150px"}}></div>
       <div className=' text-center justify-center'>
         <Link to="/about" className='border w-fit place-content-center justify-center p-2 text-sm font-black'>
-          {/* <p className=''> */}
             &gt; ABOUT US &lt;
-          {/* </p> */}
         </Link>
         <div className='m-4 mt-12 mb-48 flex flex-col gap-4'>
           <p>
@@ -108,16 +107,17 @@ export default function Index() {
         />
         </div>
         <h2 className="md:text-4xl">{latestUpdate.metaobject.title.value}</h2>
-        <h3 className="text-lg md:text-3xl">{latestUpdate.metaobject.subtitle.value}</h3>
-        <div className="hidden md:flex px-4 md:px-6 lg:px-8">
+        <div className="hidden md:flex p-4 md:p-6 lg:p-8">
           
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={3} id="prod-carousel-desktop" />
         </div>
-        <div className="flex md:hidden px-4">
+        <div className="flex md:hidden p-4">
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
+        <Link to="/explore" className='border w-fit place-content-center justify-center p-2 text-sm font-black'>
+            &gt; EXPLORE MORE &lt;
+        </Link>
       </div>
-      
     </>
   );
 }

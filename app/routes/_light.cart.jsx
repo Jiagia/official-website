@@ -103,7 +103,7 @@ export default function Cart() {
 
       
   return (
-    <div className="flex flex-col space-y-7 justify-center items-center md:py-8 md:px-12 px-4 py-6 h-screen">
+    <div className="flex flex-col space-y-7 justify-center items-center md:py-8 md:px-12 px-4 py-6 h-fit">
       <img src="https://cdn.shopify.com/s/files/1/0753/7868/8295/files/cart.png?v=1709820108" />
       <h2 className="whitespace-pre-wrap max-w-prose font-bold text-4xl">
         Your cart is empty

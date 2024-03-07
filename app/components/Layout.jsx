@@ -28,7 +28,6 @@ export function Layout({cart, children = null, footer, header, isLoggedIn, color
           : 
           (<>
             <HeaderCenter cart={cart} shop={shop} menu={menu} />
-            <div style={{height: "150px"}}></div>
           </>)
         }
         <main role="main" id="mainContent" className="flex-grow">
