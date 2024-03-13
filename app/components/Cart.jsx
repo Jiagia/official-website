@@ -107,7 +107,7 @@ function ItemRemoveButton({lineIds}) {
         }
       >
         <button
-          className="bg-white border-black text-black hover:text-white hover:bg-black rounded-md font-small text-center my-2 max-w-xl leading-none border w-10 h-10 flex items-center justify-center"
+          className="bg-white text-black hover:text-white hover:bg-black rounded-md font-small text-center my-2 max-w-xl leading-none w-5 h-5 flex items-center justify-center"
           type="submit"
         >
           <IconRemove />
@@ -152,25 +152,27 @@ function LineItem({lineItem, fetcher}) {
   const {merchandise, quantity} = lineItem;
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 border border-black pr-2">
       <Link
         to={`/products/${merchandise.product.handle}`}
         className="flex-shrink-0"
       >
-        <Image data={merchandise.image} width={110} height={110} />
+        <Image data={merchandise.image} className="border-r border-black" width={110} height="auto" />
       </Link>
       <div className="flex-1">
         <Link
           to={`/products/${merchandise.product.handle}`}
-          className="no-underline hover:underline"
+          className="font-bold no-underline hover:underline"
         >
           {merchandise.product.title}
         </Link>
         <div className="text-gray-800 text-sm">{merchandise.title}</div>
-        <div className="text-gray-800 text-sm"><Money data={merchandise.price} /></div>
+        <div className="text-gray-800 text-sm"><Money data={merchandise.price}/> </div>
         {/* <div className="text-gray-800 text-sm">Qty: {quantity}</div> */}
-        <CartLineQuantity line={lineItem} fetcher={fetcher}/>
-        <ItemRemoveButton lineIds={[lineItem.id]} />
+        <div className="flex flex-row gap-4">
+          <CartLineQuantity line={lineItem} fetcher={fetcher}/>
+          <ItemRemoveButton lineIds={[lineItem.id]} />
+        </div>
 
       </div>
       <Money data={lineItem.cost.totalAmount} />
@@ -185,8 +187,7 @@ function CartLineQuantity({line, fetcher}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantiy">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+    <div className="cart-line-quantiy flex flex-row items-center">
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]} fetcher={fetcher}>
         <button
           aria-label="Decrease quantity"
@@ -195,10 +196,10 @@ function CartLineQuantity({line, fetcher}) {
           value={prevQuantity}
           type="submit"
         >
-          <span>&#8722; </span>
+          <span className="text-[14px]">&#8722; </span>
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      <small className="text-[14px]">&nbsp; {quantity} &nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]} fetcher={fetcher}>
         <button
           aria-label="Increase quantity"
@@ -206,10 +207,9 @@ function CartLineQuantity({line, fetcher}) {
           value={nextQuantity}
           type="submit"
         >
-          <span>&#43;</span>
+          <span className="text-[14px]">&#43;</span>
         </button>
       </CartLineUpdateButton>
-      &nbsp;
       {/* <CartLineRemoveButton lineIds={[lineId]} /> */}
     </div>
   );

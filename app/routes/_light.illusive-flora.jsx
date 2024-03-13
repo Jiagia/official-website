@@ -58,7 +58,7 @@ export default function Shop() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="text-center m-10">
-        <h2 className="font-bold">&gt; Illusive Flora &lt;</h2>
+        <h2 className="font-bold">&gt; ILLUSIFLORA &lt;</h2>
         <p>Come Daydream in A Sharp Garden</p>
       </div>
       

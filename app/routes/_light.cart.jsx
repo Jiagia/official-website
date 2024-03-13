@@ -88,8 +88,8 @@ export default function Cart() {
   if (cart?.totalQuantity > 0)
     return (
       <>
-        <div className="w-full text-center">
-          <h2>&gt; Cart &lt;</h2>
+        <div className="w-full text-center my-8">
+          <h2 className="font-bold text-4xl">&gt; Cart &lt;</h2>
         </div>
 
           <div className="w-full max-w-6xl mx-auto pb-12 grid md:grid-cols-2 md:items-start gap-8 md:gap-8 lg:gap-12">
@@ -116,7 +116,7 @@ export default function Cart() {
         Your cart is empty
       </h2>
       <Link
-        to="/collections/all"
+        to="/shop"
         className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
       >
         BACK TO STORE

@@ -54,7 +54,7 @@ export default function Object() {
   // console.log(page)
   // console.log(objects)
   const page = objects.metaobject;
-  console.log(page);
+  console.info(page);
   return (
     <div className="container mx-auto mb-16 p-8 md:p-10 xl:p-32">
       <div className="flex flex-col space-between items-center mx-10 mb-10 gap-5 text-center">

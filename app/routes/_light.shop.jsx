@@ -57,7 +57,7 @@ export default function Shop() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="text-center m-10">
-        <h2 className="font-bold">&gt; SHOW &lt;</h2>
+        <h2 className="font-bold">&gt; SHOP &lt;</h2>
         <p>CURRENT PROJECTS AND PROTOTYPES AVAILABLE FOR DREAMERS</p>
       </div>
       

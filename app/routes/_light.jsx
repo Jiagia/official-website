@@ -65,7 +65,7 @@ export default function LightLayout() {
   const data = useLoaderData();
 
   return (
-    <Layout {...data} colorMode="light" >
+    <Layout {...data} colorMode="light">
       <Outlet />
     </Layout>
   )

@@ -61,7 +61,7 @@ export function meta({data}){
     // console.log(selectedVariant)
     // console.log(product.recommendation.references.nodes);
     const orderable = selectedVariant?.availableForSale || false;
-    const sellable = product.tags.includes("Sellable")
+    const sellable = product.tags.includes("Sellable");
 
     return (
       <section className="w-full grid p-6 md:p-8 lg:p-12">

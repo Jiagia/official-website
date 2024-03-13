@@ -91,7 +91,7 @@ function TextBox({box}) {
 
   return (
     <div className='border border-black' id={box.id_tag.value}>
-      <img className='border border-black' src={box.image.reference.image.url} />
+      <img src={box.image.reference.image.url} />
       <div className='flex flex-row p-4'>
         <div className='text-wrap grow'>
           <div>
@@ -115,7 +115,7 @@ function TextBox({box}) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 const METAOBJECT_QUERY = `#graphql

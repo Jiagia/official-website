@@ -20,6 +20,7 @@ import {
   useActionData,
   useLocation,
 } from '@remix-run/react';
+import { cssBundleHref } from "@remix-run/css-bundle";
 
 import appStyles from './styles/app.css';
 import tailwindCss from './styles/tailwind.css';
@@ -33,6 +34,7 @@ import {CookieBannerToggle, CookieForm} from './components/Cookie';
 
 export const links = () => {
   return [
+    ...(cssBundleHref ? [{rel: 'stylesheet', href: cssBundleHref}] : []),
     {rel: 'stylesheet', href: tailwindCss},
     {rel: 'stylesheet', href: appStyles},
     {

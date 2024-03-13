@@ -55,9 +55,9 @@ export default function Explore() {
   return (
     <>
       <div className=' text-center justify-center bg-white text-black mt-8'>
-        <h1 className='text-6xl my-12'> &gt; Archive &lt; </h1>
+        <h1 className='text-6xl my-12'>Archive</h1>
         <h2 className="md:text-4xl">{discovery.metaobject.title.value}</h2>
-        <p className="">{discovery.metaobject.subtitle.value}</p>
+        <p className="">{discovery.metaobject.subtitle.value.toUpperCase()}</p>
         <div className={`hidden md:flex md:gap-x-2 justify-center p-4 md:p-6 lg:p-8`}>
           {/* <UpdateCarousel cards={discovery.metaobject.items} number={num_discoveries} id="prod-carousel-desktop" /> */}
           {discovery.metaobject.items.references.nodes.map((card, id) => (
@@ -75,8 +75,8 @@ export default function Explore() {
 
         <div className=' text-center justify-center bg-white text-black'>
           <h2 className="md:text-4xl">{collection.metaobject.title.value}</h2>
-          <p className="">{collection.metaobject.subtitle.value}</p>
-          <div className="hidden md:flex md:gap-x-2 p-4 md:p-6 lg:p-8">
+          <p className="">{collection.metaobject.subtitle.value.toUpperCase()}</p>
+          <div className="hidden md:flex md:gap-x-2 justify-center p-4 md:p-6 lg:p-8">
             {collection.metaobject.items.references.nodes.map((card, id) => (
               <ImageCard key={id} card={card} />
             ))}
@@ -100,7 +100,7 @@ function UpdateCarousel({cards, number, id = ''}) {
       array={cards.references.nodes.map((card, id) => (
         <ImageCard key={id} card={card} />
       ))}
-      className={`flex w-full flex-col md:flex-row gap-2`}
+      className={`flex w-full justify-center flex-col md:flex-row gap-2`}
       leftbtn={<img className="px-4" src={arrowLeft} />}
       rightbtn = {<img className="px-4" src={arrowRight} />}
       // leftbtn=""
