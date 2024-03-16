@@ -77,6 +77,19 @@ export default function WorldPage() {
           </div>
         ))}
       </div> 
+
+      <div className='flex flex-row justify-between my-10'>
+        {pageNo === 0 ? <div></div> :
+          <button onClick={() => {setPageNo(pageNo-1)}} className={`border border-black  p-2`}>
+            &#x27F5; prev
+          </button>
+        }
+        {pageNo + 1 === pages.length ? <div></div> :
+          <button onClick={() => {setPageNo(pageNo+1)}} className={`border border-black  p-2`}>
+            next  &#x27F6;
+          </button>
+        }
+      </div>
     </div>
   );
 }
