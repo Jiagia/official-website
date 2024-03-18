@@ -45,12 +45,12 @@ export default function WorldPage() {
 
   // console.log(season.metaobject);
   // var page = season.metaobject;
-  console.log(pageTerm);
+  // console.log(pageTerm);
   const [pageNo, setPageNo] = useState(pageTerm ? parseInt(pageTerm) - 1: 0);
-  console.log(pageNo);
+  // console.log(pageNo);
   
   const pages = season.metaobject.pages.references.nodes;
-  console.log(pages);
+  // console.log(pages);
   var page = pages[pageNo];
   console.log(page);
   return (
@@ -69,13 +69,27 @@ export default function WorldPage() {
       
       <div width="100%" className="flex flex-col text-xxs md:text-xs" style={{rowGap: "25px"}}>
         {page.rows.references.nodes.map((boxes, i) => (
-          <div className="flex w-full flex-col md:flex-row" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
+          // <div className="flex w-full flex-col md:flex-row" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
+          <div className="grid grid-cols-1 md:grid-cols-6 w-full" style={{rowGap: "25px", columnGap: "10px"}} key={i}>
             {boxes.boxes.references.nodes.map((box, j) => (
               <TextBox box={box} key={j} />
             ))}
           </div>
         ))}
       </div> 
+
+      <div className='flex flex-row justify-between my-10'>
+        {pageNo === 0 ? <div></div> :
+          <button onClick={() => {setPageNo(pageNo-1)}} className={`border border-black  p-2`}>
+            &#x27F5; prev
+          </button>
+        }
+        {pageNo + 1 === pages.length ? <div></div> :
+          <button onClick={() => {setPageNo(pageNo+1)}} className={`border border-black  p-2`}>
+            next  &#x27F6;
+          </button>
+        }
+      </div>
     </div>
   );
 }
@@ -88,12 +102,40 @@ function TextBox({box}) {
   const showBodyText = () => {
     setDropshow((prevDropshow) => (prevDropshow === "hidden" ? "" : "hidden"));
   };
+  console.log(box);
+  
+  let colspan;
+  if (!box.col_span) colspan = "col-span-1"
+  else {
+    switch (box.col_span.value) {
+      case "1":
+        colspan = "col-span-1";
+        break;
+      case "2":
+        colspan = "col-span-2";
+        break;
+      case "3":
+        colspan = "col-span-3";
+        break;
+      case "4":
+        colspan = "col-span-4";
+        break;
+      case "5":
+        colspan = "col-span-5";
+        break;
+      case "6":
+        colspan = "col-span-6";
+        break;
+      default:
+        colspan = "col-span-1";
+    }
+  }
 
   return (
-    <div className='border border-black' id={box.id_tag.value}>
-      <img className='border border-black' src={box.image.reference.image.url} />
-      <div className='flex flex-row p-4'>
-        <div className='text-wrap grow'>
+    <div className={`border border-black ${colspan}`} id={box.id_tag.value}>
+      <img src={box.image.reference.image.url} />
+      <div className='flex flex-row p-4 justify-between'>
+        <div className='flex-initial text-wrap '>
           <div>
             <b>{box.title.value}</b>
           </div>
@@ -115,37 +157,40 @@ function TextBox({box}) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 const METAOBJECT_QUERY = `#graphql
-fragment Box on Metaobject{
+fragment Box on Metaobject {
   image: field(key: "image") {
-      reference {
-        ... on MediaImage {
-          alt
-          image {
-            altText
-            height
-            id
-            url
-            width
-          }
+    reference {
+      ... on MediaImage {
+        alt
+        image {
+          altText
+          height
+          id
+          url
+          width
         }
       }
     }
-    title: field(key: "title") {
-      value
-    }
-    subtitle: field(key: "subtitle") {
-      value
-    }
-    description: field(key: "description") {
-      value
-    }
-    id_tag: field(key: "id_tag") {
-      value
-    }
+  }
+  title: field(key: "title") {
+    value
+  }
+  subtitle: field(key: "subtitle") {
+    value
+  }
+  description: field(key: "description") {
+    value
+  }
+  id_tag: field(key: "id_tag") {
+    value
+  }
+  col_span: field(key: "col_span") {
+    value
+  }
 }
 query SeasonPage($handle: String!, $type: String!) {
 

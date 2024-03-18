@@ -5,7 +5,7 @@ export function Footer({menu, newsletterLink}) {
   const IGLink = 'https://www.instagram.com/jiagia_studios/';
   const XLink = 'https://twitter.com/jiagia_studios';
   return (
-    <footer className="footer grid md:grid-cols-3 gap-y-4 justify-items-center items-center pt-2 mb-16">
+    <footer className="footer border-t border-black grid md:grid-cols-3 gap-y-4 justify-items-center items-center pt-2">
       <div className="px-8">
         <div className={newsletterLink} style={{maxWidth: '100vw'}}></div>
         {/* <div className="klaviyo-form-XgeEVP" style={{maxWidth: '100vw'}}></div> */}

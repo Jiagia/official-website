@@ -54,29 +54,38 @@ export default function Explore() {
 
   return (
     <>
-      <div className='text-center justify-center bg-white text-black mt-8'>
-        <h1 className='text-6xl my-12'> &gt; Explore &lt; </h1>
-        <h2 className="md:text-4xl">{discovery.metaobject.title.value}</h2>
-        <p className="">{discovery.metaobject.subtitle.value}</p>
-        <div className="hidden md:flex p-4 md:p-6 lg:p-8">
-          <UpdateCarousel cards={discovery.metaobject.items} number={3} id="prod-carousel-desktop" />
+      <div className='text-center justify-center bg-white text-black my-8'>
+        <h1 className='text-6xl my-12'>Explore</h1>
+        <div className="mx-4">
+          <h2 className="md:text-4xl">{discovery.metaobject.title.value}</h2>
+          <p className="">{discovery.metaobject.subtitle.value.toUpperCase()}</p>
         </div>
-        <div className="flex gap-4 md:hidden p-4">
-          <UpdateCarousel cards={discovery.metaobject.items} number={1} id="prod-carousel-mobile" />
+        <div className="m-4">
+          <div className="hidden md:flex p-4 md:p-6 lg:p-8">
+            <UpdateCarousel cards={discovery.metaobject.items} number={4} id="prod-carousel-desktop" />
+          </div>
+          <div className="flex gap-4 md:hidden p-4">
+            <UpdateCarousel cards={discovery.metaobject.items} number={1} id="prod-carousel-mobile" />
+          </div>
         </div>
 
         <div className='m-12 mx-auto w-4/5 border border-black'></div>
 
-        <h2 className="md:text-4xl">{collection.metaobject.title.value}</h2>
-        <p className="">{collection.metaobject.subtitle.value}</p>
-        <div className="hidden md:flex md:gap-x-2 justify-center p-4 md:p-6 lg:p-8">
-          {/* <UpdateCarousel cards={collection.metaobject.items} number={2} id="prod-carousel-desktop" /> */}
-          {collection.metaobject.items.references.nodes.map((card, id) => (
-            <ImageCard key={id} card={card} />
-          ))}
+        <div className="mx-4">
+          <h2 className="md:text-4xl">{collection.metaobject.title.value}</h2>
+          <p className="">{collection.metaobject.subtitle.value.toUpperCase()}</p>
         </div>
-        <div className="flex gap-4 md:hidden p-4">
-          <UpdateCarousel cards={collection.metaobject.items} number={1} id="prod-carousel-mobile" />
+        <div className="m-4">
+          <div className="hidden md:flex md:gap-x-2 justify-center p-4 md:p-6 lg:p-8">
+            {/* <UpdateCarousel cards={collection.metaobject.items} number={2} id="prod-carousel-desktop" /> */}
+            {collection.metaobject.items.references.nodes.map((card, id) => (
+              <ImageCard key={id} card={card} />
+            ))}
+          </div>
+          <div className="flex gap-4 md:hidden p-4">
+            <UpdateCarousel cards={collection.metaobject.items} number={1} id="prod-carousel-mobile" />
+          </div>
+
         </div>
       </div>
     </>

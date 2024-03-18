@@ -1,6 +1,36 @@
+:root {
+  --aside-width: 400px;
+  --cart-aside-summary-height-with-discount: 300px;
+  --cart-aside-summary-height: 250px;
+  --grid-item-width: 355px;
+  --color-dark: #000;
+  --color-light: #fff;
+  --heading-font: "adobe-garamond-pro";
+  --paragraph-font: "Montserrat";
+  --header-height: 45px;
+  --header-menu-size: 18px;
+  --header-shop-name-size: 30px;
+}
+
 @font-face {
   font-family: "Montserrat";
   src: url("./fonts/Montserrat-VariableFont_wght.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat-VariableFont_wght.ttf");
+  font-weight: 900;
+  font-style: black;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat-VariableFont_wght.ttf");
+  font-weight: 700;
+  font-style: bold;
 }
 
 /* @font-face {
@@ -26,20 +56,6 @@
   font-weight: 700;
   font-style: italic;
 } */
-
-:root {
-    --aside-width: 400px;
-    --cart-aside-summary-height-with-discount: 300px;
-    --cart-aside-summary-height: 250px;
-    --grid-item-width: 355px;
-    --color-dark: #000;
-    --color-light: #fff;
-    --heading-font: "adobe-garamond-pro";
-    --paragraph-font: "Montserrat";
-    --header-height: 75px;
-    --header-menu-size: 18px;
-    --header-shop-name-size: 30px;
-  }
 
 code, kbd, samp, pre, p, main {
   font-size: 1rem;
@@ -69,6 +85,10 @@ h2 {
 
 h3 {
   font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1rem;
 }
 
 #logo {

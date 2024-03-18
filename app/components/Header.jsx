@@ -7,15 +7,15 @@ export function Header({cart, shop, menu}) {
   return (
     <header
       role="banner"
-      className={`header flex bg-white items-center h-16 p-6 md:p-8 lg:p-12 sticky z-40 top-0 justify-start w-full leading-none gap-4 antialiased transition`}
+      className={`header flex border-b border-black bg-white items-center h-16 px-6 md:px-8 lg:px-12 sticky z-40 top-0 justify-start align-middle w-full leading-none gap-4 antialiased transition`}
     >
-      <nav className="flex gap-12 align-middle items-center justify-start content-start max-w-full w-11/12 ">
-        <HeaderMenuMobileToggle />
+      <HeaderMenuMobileToggle />
+      <nav className="flex gap-12 align-middle items-center justify-start content-start max-w-full">
         <NavLink
           id="logo"
           to="/"
           end
-          className="shop-name font-black"
+          className="shop-name font-bold text-center"
           prefetch="intent"
           // style={activeLinkStyle}
         >
@@ -27,10 +27,10 @@ export function Header({cart, shop, menu}) {
         {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null}
         {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null}
 
-        <nav className="header-ctas" role="navigation">
-          {/* <SearchToggle /> */}
-          <CartToggle cart={cart} />
-        </nav>
+      </nav>
+      <nav className="header-ctas" role="navigation" className="w-[40px] ml-auto">
+        {/* <SearchToggle /> */}
+        <CartToggle cart={cart} />
       </nav>
     </header>
   );
@@ -90,7 +90,7 @@ function CartBadge({count}) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 40 40"
           fill="currentColor"
-          className={`w-10 h-10`}
+          className={`ml-auto w-10 h-10`}
         >
           <title>Bag</title>
           <path
@@ -198,11 +198,11 @@ function HeaderMenuItem({item, colorMode = 'light'}) {
       : item.url;
   return (
     <NavLink
-      className={`header-menu-item md:text-lg ${colorMode == "dark" ? "text-base" : "text-lg header-menu-desktop"}`}
+      className={`header-menu-item md:text-lg ${colorMode == "dark" ? "text-base font-bold" : "text-lg header-menu-desktop"}`}
       end
       key={item.id}
       prefetch="intent"
-      style={activeLinkStyle}
+      style={colorMode == "dark" ? {} : activeLinkStyle}
       to={url}
     >
       {item.title}
@@ -212,7 +212,7 @@ function HeaderMenuItem({item, colorMode = 'light'}) {
 
 function activeLinkStyle({isActive, isPending}) {
   return {
-    fontWeight: isActive ? 'bolder' : 'normal',
+    fontWeight: isActive ? 'bold' : 'normal',
     // color: isPending ? 'grey' : 'black',
   };
 }

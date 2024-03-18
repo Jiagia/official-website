@@ -76,12 +76,12 @@ export function meta({data}){
               <h1 className="text-4xl font-bold leading-10 whitespace-normal">
                 {product.title}
               </h1>
-              <span className="max-w-prose whitespace-pre-wrap inherit text-copy opacity-50 font-medium">
+              {/* <span className="max-w-prose whitespace-pre-wrap inherit text-copy opacity-50 font-medium">
                 {product.vendor}
-              </span>
+              </span> */}
             </div>
             <div
-              className="prose border-t border-gray-200 pt-6 text-black text-md"
+              className="prose border-t border-gray-200 pt-6 text-black text-md mb-8"
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             ></div>
             {sellable ? (
@@ -89,6 +89,7 @@ export function meta({data}){
                 <ProductOptions
                 options={product.options}
                 selectedVariant={selectedVariant}
+                className="mt-32"
                 />
                 <Money
                 withoutTrailingZeros
@@ -97,15 +98,15 @@ export function meta({data}){
                 />
                 {orderable ? (
                     <div className="space-y-2 w-11/12 max-w-[400px]">
+                      <ProductForm 
+                      variantId={selectedVariant?.id} 
+                      width="100%" 
+                      productAnalytics={product?.handle} />
                       <ShopPayButton
                           storeDomain={storeDomain}
                           variantIds={[selectedVariant?.id]}
                           width="100%"
                       />
-                      <ProductForm 
-                      variantId={selectedVariant?.id} 
-                      width="100%" 
-                      productAnalytics={product?.handle} />
                     </div>
                 ) : (
                   <div className="text-xl font-bold mb-2">Sold Out</div>

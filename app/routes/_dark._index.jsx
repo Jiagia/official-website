@@ -68,7 +68,7 @@ export async function loader({context}) {
   // https://remix.run/docs/en/v1/utils/json
   return json({
     img,
-    latestUpdate
+    latestUpdate,
   });
 }
 
@@ -83,10 +83,10 @@ export default function Index() {
     <>
       <div style={{height: "150px"}}></div>
       <div className=' text-center justify-center'>
-        <Link to="/about" className='border w-fit place-content-center justify-center p-2 text-sm font-black'>
+        <Link to="/about" className='border hover:border-2 w-fit place-content-center justify-center p-2 text-sm font-bold hover:font-black'>
             &gt; ABOUT US &lt;
         </Link>
-        <div className='m-4 mt-12 mb-48 flex flex-col gap-4'>
+        <div className='m-4 mt-12 flex flex-col gap-4'>
           <p>
           WE ARE A CREATIVE LAB <b>EXPLORING</b> WORLDS WITHIN THE <i><b>“DAYDREAM UNIVERSE”</b></i> 
           </p>
@@ -102,7 +102,7 @@ export default function Index() {
           style={{
             width: "100%"
           }}
-          className="my-4"
+          className="mb-8"
           data={img.home.image.reference.image}
         />
         </div>
@@ -114,7 +114,7 @@ export default function Index() {
         <div className="flex md:hidden p-4">
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
-        <Link to="/explore" className='border w-fit place-content-center justify-center p-2 text-sm font-black'>
+        <Link to="/explore" className='border hover:border-2 w-fit place-content-center justify-center p-2 text-sm font-bold hover:font-black'>
             &gt; EXPLORE MORE &lt;
         </Link>
       </div>
@@ -130,7 +130,7 @@ function UpdateCarousel({cards, number, id = ''}) {
       array={cards.references.nodes.map((card, id) => (
         <ImageCard key={id} card={card} />
       ))}
-      className={`flex w-full flex-col md:flex-row gap-2`}
+      className={`flex w-full justify-center flex-col md:flex-row gap-2`}
       leftbtn={<img className="px-4" src={arrowLeft} />}
       rightbtn = {<img className="px-4" src={arrowRight} />}
       id={id}
