@@ -83,7 +83,7 @@ export default function Index() {
     <>
       <div style={{height: "150px"}}></div>
       <div className=' text-center justify-center'>
-        <Link to="/about" className='border w-fit place-content-center justify-center p-2 text-sm font-black'>
+        <Link to="/about" className='border hover:border-2 w-fit place-content-center justify-center p-2 text-sm font-bold hover:font-black'>
             &gt; ABOUT US &lt;
         </Link>
         <div className='m-4 mt-12 flex flex-col gap-4'>
@@ -114,7 +114,7 @@ export default function Index() {
         <div className="flex md:hidden p-4">
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
-        <Link to="/explore" className='border w-fit place-content-center justify-center p-2 text-sm font-black'>
+        <Link to="/explore" className='border hover:border-2 w-fit place-content-center justify-center p-2 text-sm font-bold hover:font-black'>
             &gt; EXPLORE MORE &lt;
         </Link>
       </div>

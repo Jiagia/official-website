@@ -15,7 +15,7 @@ export function Header({cart, shop, menu}) {
           id="logo"
           to="/"
           end
-          className="shop-name font-black text-center"
+          className="shop-name font-bold text-center"
           prefetch="intent"
           // style={activeLinkStyle}
         >
@@ -198,7 +198,7 @@ function HeaderMenuItem({item, colorMode = 'light'}) {
       : item.url;
   return (
     <NavLink
-      className={`header-menu-item md:text-lg ${colorMode == "dark" ? "text-base font-black" : "text-lg header-menu-desktop"}`}
+      className={`header-menu-item md:text-lg ${colorMode == "dark" ? "text-base font-bold" : "text-lg header-menu-desktop"}`}
       end
       key={item.id}
       prefetch="intent"
@@ -212,7 +212,7 @@ function HeaderMenuItem({item, colorMode = 'light'}) {
 
 function activeLinkStyle({isActive, isPending}) {
   return {
-    fontWeight: isActive ? 'bolder' : 'normal',
+    fontWeight: isActive ? 'bold' : 'normal',
     // color: isPending ? 'grey' : 'black',
   };
 }

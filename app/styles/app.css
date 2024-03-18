@@ -22,6 +22,13 @@
 @font-face {
   font-family: "Montserrat";
   src: url("./fonts/Montserrat-VariableFont_wght.ttf");
+  font-weight: 900;
+  font-style: black;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat-VariableFont_wght.ttf");
   font-weight: 700;
   font-style: bold;
 }
