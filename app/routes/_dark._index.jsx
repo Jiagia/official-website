@@ -111,12 +111,12 @@ export default function Index() {
           
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={3} id="prod-carousel-desktop" />
         </div>
-        <div className="flex md:hidden p-4">
+        {/* <div className="flex md:hidden p-4">
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
         <Link to="/explore" className='border hover:border-2 w-fit place-content-center justify-center p-2 text-sm font-bold hover:font-black'>
             &gt; EXPLORE MORE &lt;
-        </Link>
+        </Link> */}
       </div>
     </>
   );
