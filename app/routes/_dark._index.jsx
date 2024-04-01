@@ -106,11 +106,10 @@ export default function Index() {
           data={img.home.image.reference.image}
         />
         </div>
-        <h2 className="md:text-4xl">{latestUpdate.metaobject.title.value}</h2>
-        <div className="hidden md:flex p-4 md:p-6 lg:p-8">
+        {/* <div className="hidden md:flex p-4 md:p-6 lg:p-8">
           
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={3} id="prod-carousel-desktop" />
-        </div>
+        </div> */}
         {/* <div className="flex md:hidden p-4">
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
