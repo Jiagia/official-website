@@ -31,7 +31,7 @@ jobs:
         restore-keys: "${{ runner.os }}-yarn-\n"
     - name: Install dependencies
       id: install-dependencies
-      run: yarn
+      run: yarn install --frozen-lockfile
     - name: Build and Publish to Oxygen
       id: deploy
       run: npx shopify hydrogen deploy --build-command "yarn build"
