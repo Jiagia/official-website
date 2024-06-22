@@ -20,12 +20,12 @@ import {
   useActionData,
   useLocation,
 } from '@remix-run/react';
-import { cssBundleHref } from "@remix-run/css-bundle";
+import {cssBundleHref} from '@remix-run/css-bundle';
 
 import appStyles from './styles/app.css';
 import tailwindCss from './styles/tailwind.css';
 import favicon from '../public/favicon.svg';
-// import {Layout} from './components/Layout';
+import {Layout} from './components/Layout';
 // import {usePageAnalytics} from './utils';
 // import {CartProvider} from './components/CartProvider';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
@@ -188,9 +188,9 @@ export default function App() {
       </head>
       <body>
         {/* <CartProvider> */}
-        {/* <Layout {...data} > */}
-        <Outlet />
-        {/* </Layout> */}
+        <Layout {...data}>
+          <Outlet />
+        </Layout>
         {!cookieConsent ? <CookieForm /> : null}
         {/* <CookieForm /> */}
         <ScrollRestoration />
