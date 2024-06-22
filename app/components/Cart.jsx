@@ -41,7 +41,9 @@ export function CartSummary({cost}) {
             </dd>
           </div> */}
       </dl>
-      <div className="text-center md:text-right">Taxes and shipping calculated at checkout</div>
+      <div className="text-center md:text-right">
+        Taxes and shipping calculated at checkout
+      </div>
     </>
   );
 }
@@ -160,7 +162,10 @@ function LineItem({lineItem, fetcher}) {
     <tr className="table-row align-top">
       <td className="table-cell">
         <div className="flex flex-row">
-          <Link to={`/products/${merchandise.product.handle}`} className="inline">
+          <Link
+            to={`/products/${merchandise.product.handle}`}
+            className="inline"
+          >
             <Image data={merchandise.image} width={110} height="auto" />
           </Link>
           <div className="ml-8">
@@ -173,13 +178,8 @@ function LineItem({lineItem, fetcher}) {
             <div className="text-gray-800 text-sm">
               <Money data={merchandise.price} />{' '}
             </div>
-            <div className="text-gray-800 text-sm">Size: {merchandise.title}</div>
-            <div>
-              <CartLineQuantity
-                className="md:hidden"
-                line={lineItem}
-                fetcher={fetcher}
-              />
+            <div className="text-gray-800 text-sm">
+              Size: {merchandise.title}
             </div>
           </div>
         </div>
