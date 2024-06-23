@@ -17,6 +17,8 @@ export async function action({request, context}) {
   const {action, inputs} = CartForm.getFormInput(formData);
 
   let result;
+  // console.log('inputs');
+  // console.log( inputs);
 
   switch (action) {
     case CartForm.ACTIONS.LinesAdd:
@@ -54,6 +56,18 @@ export async function action({request, context}) {
         inputs.selectedDeliveryOptions,
       );
       break;
+    case CartForm.ACTIONS.BuyerIdentityUpdate:
+      const zipcode = String(formData.get('zipcode') || '');
+      // console.log(zipcode);
+      const BuyerId = {deliveryAddressPreferences: {deliveryAddress: {firstName: "anom",
+          lastName: "guest",
+          address1: "5555 Center Dr",
+          city: "Los Angeles",
+          zip: zipcode, country: "US"}, deliveryAddressValidationStrategy: "STRICT"}}
+      result = await cart.updateBuyerIdentity(BuyerId);
+      console.log(result.cart.id);
+      // console.log(result.userErrors[0].field)
+      break;
     default:
       invariant(false, `${action} cart action is not defined`);
   }
@@ -82,6 +96,8 @@ export default function Cart() {
   // const result = useActionData();
   const {cart} = useLoaderData();
   const fetcher = useFetcher();
+
+  console.log(cart);
 
   console.log(cart?.quantity);
   // console.log(fetcher.data);
@@ -112,7 +128,7 @@ export default function Cart() {
           <div className="grid gap-6 p-4 md:px-6 bg-gray-100 rounded-md ml-auto w-full md:w-[25rem]">
             <div className="text-red-600 text-sm"></div>
             <CartError errors={errors} />
-            <CartSummary cost={cart.cost} />
+            <CartSummary cost={cart.cost} id={cart.id}/>
             <CartActions checkoutUrl={cart.checkoutUrl} />
           </div>
         </div>

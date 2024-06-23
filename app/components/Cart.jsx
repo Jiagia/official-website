@@ -13,7 +13,7 @@ export function CartLineItems({linesObj, fetcher}) {
   );
 }
 
-export function CartSummary({cost}) {
+export function CartSummary({cost, id}) {
   return (
     <>
       <dl className="space-y-2">
@@ -27,22 +27,36 @@ export function CartSummary({cost}) {
             )}
           </dd>
         </div>
-        {/* <div className="flex items-center justify-between">
-            <dt className="flex items-center">
-              <span></span>
-            </dt>
-            
-            <dd>
-              {cost?.totalTaxAmount?.amount ? (
-                <Money data={cost?.totalTaxAmount} />
-              ) : (
-                '-'
-              )}
-            </dd>
-          </div> */}
+        <div className="flex items-center justify-center md:justify-end gap-4">
+          <dt className="text-lg">
+            Estimated Tax
+          </dt>
+
+          <dd>
+            {cost?.totalTaxAmount?.amount ? (
+              <Money data={cost?.totalTaxAmount} />
+            ) : (
+              <p>-</p>
+            )}
+          </dd>
+          
+        </div>
+        <div className="flex items-center justify-center md:justify-end gap-4">
+        Zipcode: <CartBuyerUpdate CartId={id} />
+        </div>
+        <div className="flex items-center justify-center md:justify-end gap-4">
+          <dt className="text-xl font-bold">Estimated Total</dt>
+          <dd>
+            {cost?.totalAmount?.amount ? (
+              <Money data={cost?.totalAmount} />
+            ) : (
+              '-'
+            )}
+          </dd>
+        </div>
       </dl>
       <div className="text-center md:text-right">
-        Taxes and shipping calculated at checkout
+        Shipping calculated at checkout
       </div>
     </>
   );
@@ -266,5 +280,18 @@ export function JiagiaCartForm({children, action, inputs, route, fetcher}) {
       )}
       {typeof children === 'function' ? children(fetcher) : children}
     </fetcher.Form>
+  );
+}
+
+function CartBuyerUpdate({CartId}) {
+  return (
+    <CartForm
+      route="/cart"
+      action={CartForm.ACTIONS.BuyerIdentityUpdate}
+      inputs={{cartId: CartId}}
+    >
+      <input type="text" name="zipcode" size={7}/>
+      <button>Calculate</button>
+    </CartForm>
   );
 }
