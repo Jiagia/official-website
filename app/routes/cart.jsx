@@ -10,6 +10,20 @@ import {
 
 var error = null;
 
+export function meta({matches}) {
+  return [
+    {title: 'Cart | Jiagia Studios'},
+    {
+      property: 'og:title',
+      content: 'JIAGIA',
+    },
+    {
+      name: 'description',
+      content: 'cart page: ' + matches[0]?.data?.header?.shop?.description ?? 'Jiagia Studios',
+    },
+  ];
+}
+
 export async function action({request, context}) {
   const {cart, session} = context;
 
