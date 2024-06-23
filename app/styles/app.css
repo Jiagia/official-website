@@ -248,12 +248,6 @@ h4 {
     z-index: 1;
   }
   
-  /* .header-menu-mobile-toggle {
-    @media (min-width: 48em) {
-      display: none;
-    }
-  } */
-  
   .header-menu-mobile {
     display: flex;
     flex-direction: column;
@@ -276,14 +270,11 @@ h4 {
     }
     .header-menu-mobile-toggle {
         display: none;
+        width: 100px;
     }
 
     .header-ctas {
         grid-gap: 1rem;
-    }
-
-    .header-menu-mobile-toggle {
-        width: 76px;
     }
   }
   
@@ -310,9 +301,9 @@ h4 {
   }
 
   .header-menu-mobile-toggle {
-    width: 60px;
-    height: 40px;
-    line-height: 50px;
+    width: 20px;
+    height: 45px;
+    line-height: 45px;
   }
 
   .cart-badge {

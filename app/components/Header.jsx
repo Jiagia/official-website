@@ -7,10 +7,11 @@ export function Header({cart, shop, menu}) {
   return (
     <header
       role="banner"
-      className={`header flex border-b border-black bg-white items-center h-16 px-6 md:px-8 lg:px-12 sticky z-40 top-0 justify-start align-middle w-full leading-none gap-4 antialiased transition`}
+      className={`flex h-[45px] border-b border-black bg-white justify-between items-center px-6 md:px-8 lg:px-12 sticky z-40 top-0 w-full leading-none gap-4 antialiased transition`}
     >
-      <HeaderMenuMobileToggle />
-      <nav className="flex gap-12 align-middle items-center justify-start content-start max-w-full">
+      <nav className="flex gap-12 items-center justify-between max-w-full w-full">
+        <HeaderMenuMobileToggle />
+        <HeaderMenuItem item={menu.items[0]} />
         <NavLink
           id="logo"
           to="/"
@@ -19,19 +20,20 @@ export function Header({cart, shop, menu}) {
           prefetch="intent"
           // style={activeLinkStyle}
         >
-          {'>Jiagia Studios<'}
+          {'>JIAGIA<'}
         </NavLink>
-        <HeaderMenuItem item={menu.items[0]} />
-        <HeaderMenuItem item={menu.items[1]} />
 
-        {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null}
-        {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null}
-
-      </nav>
-      <nav className="header-ctas" role="navigation" className="w-[40px] ml-auto">
-        {/* <SearchToggle /> */}
         <CartToggle cart={cart} />
+
+        {/* <HeaderMenuItem item={menu.items[1]} />
+        {menu.items[2] ? <HeaderMenuItem item={menu.items[2]} /> : null}
+        {menu.items[3] ? <HeaderMenuItem item={menu.items[3]} /> : null} */}
+
       </nav>
+      {/* <nav className="header-ctas" role="navigation" className="w-[40px] ml-auto"> */}
+        {/* <SearchToggle /> */}
+        {/* <CartToggle cart={cart} />
+      </nav> */}
     </header>
   );
 }
