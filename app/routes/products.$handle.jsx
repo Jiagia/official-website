@@ -73,7 +73,7 @@ export default function ProductHandle() {
     <section className="w-full grid ">
       <div className="grid items-start md:grid-cols-2">
         {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
-        <div className="scroll-smooth snap-x md:col-span-2 snap-center card-image  ">
+        <div className="relative md:col-span-2 card-image ">
           <ProductGallery media={product.media.nodes} />
           {/* </div> */}
         </div>
@@ -161,7 +161,7 @@ function ProductGallery({media}) {
       // leftbtn={<img className="px-4" src={arrowLeft} />}
       // rightbtn = {<img className="px-4" src={arrowRight} />}
       leftbtn={
-        <svg height="60px" width="60px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 197.402 197.402" xml:space="preserve">
+        <svg height="60px" width="60px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 197.402 197.402" xmlSpace="preserve">
         <g>
           <g>
             <g>
@@ -172,7 +172,7 @@ function ProductGallery({media}) {
         </svg>
       }
       rightbtn={
-      <svg height="60px" width="60px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223.413 223.413" xml:space="preserve">
+      <svg height="60px" width="60px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 223.413 223.413" xmlSpace="preserve">
         <g>
           <g>
             <g>
@@ -184,6 +184,7 @@ function ProductGallery({media}) {
         }
       lbtnclass={`absolute left-0 inset-y-0 `}
       rbtnclass={`absolute right-0 inset-y-0`}
+      indicatorclass={'absolute bottom-0 inset-x-0'}
       array={media.map((med) => {
         let extraProps = {};
 
