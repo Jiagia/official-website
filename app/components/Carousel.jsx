@@ -1,11 +1,33 @@
 // import {Image} from '@shopify/hydrogen';
 import {useState} from 'react';
 
-export function Carousel({array = [], number = 3, wrap = true, id = "carousel", className = "", leftbtn = <>&lt;</>, rightbtn = <>&gt;</>, lbtnclass = "", rbtnclass = ""}) {
+/*
+Inputs:
+array: array of HTML elements of the carousel
+number: number of items to display at a time
+wrap: boolean 
+id: id of the the carousel 
+className: classname of the carousel
+leftbtn: HTML element of the left button
+rightbtn: HTML element of the right button
+lbtnclass: classname of the left button
+rbtnclass: classname of the right button
+*/
+export function Carousel({
+  array = [],
+  number = 3,
+  wrap = true,
+  id = 'carousel',
+  className = '',
+  leftbtn = <>&lt;</>,
+  rightbtn = <>&gt;</>,
+  lbtnclass = '',
+  rbtnclass = '',
+}) {
   const length = array.length - 1;
   const temp = array.concat(array);
   const [start, setStart] = useState(0);
-  const [state, setState] = useState("");
+  const [state, setState] = useState('');
   const [aniNo, setAniNo] = useState(true);
 
   let display = temp.slice(start, start + number);
@@ -27,15 +49,19 @@ export function Carousel({array = [], number = 3, wrap = true, id = "carousel", 
 
   return (
     <>
-      <button className={"carousel-prev z-10 "+lbtnclass} onClick={prev}>{leftbtn}</button>
-      <div className={`carousel carousel${state} ${className}`} id={id}>
+      <button className={'carousel-prev z-10 ' + lbtnclass} onClick={prev}>
+        {leftbtn}
+      </button>
+      <div className={`carousel carousel-${number} carousel${state} ${className}`} id={id}>
         {display.map((element) => {
           // return <Image src={image} key={i} style={{float: 'left'}} width='25%' />;
-          
+
           return element;
         })}
       </div>
-      <button className={"carousel-next z-10 "+rbtnclass} onClick={next}>{rightbtn}</button>
+      <button className={'carousel-next z-10 ' + rbtnclass} onClick={next}>
+        {rightbtn}
+      </button>
     </>
   );
 }

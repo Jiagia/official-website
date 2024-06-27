@@ -1,0 +1,144 @@
+/******************************************
+Desktop version
+******************************************/
+
+/* The animation code */
+@keyframes gallery-left-1-t{
+    0%   {transform: translateX(-100%)}
+    100% {transform: translateX(0%)}
+}
+@keyframes gallery-left-1-f{
+    0%   {transform: translateX(-100%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-right-1-t {
+    0%   {transform: translateX(100%)}
+    100% {transform: translateX(0%)}
+}
+@keyframes gallery-right-1-f {
+    0%   {transform: translateX(100%)}
+    100% {transform: translateX(0%)}
+}
+
+/* Carousel */
+  
+.carousel-.carousel-clicked-left-true{
+    animation-name: gallery-left-1-t;
+    animation-duration: 1s;
+} 
+.carousel-1.carousel-clicked-left-false {
+    animation-name: gallery-left-1-f;
+    animation-duration: 1s;
+} 
+
+.carousel-1.carousel-clicked-right-true {
+    animation-name: gallery-right-1-t;
+    animation-duration: 1s;
+} 
+.carousel-1.carousel-clicked-right-false {
+    animation-name: gallery-right-1-f;
+    animation-duration: 1s;
+} 
+
+/* The animation code */
+@keyframes gallery-left-2-t {
+    0%   {transform: translateX(-50%)}
+    100% {transform: translateX(0%)}
+}
+@keyframes gallery-left-2-f {
+    0%   {transform: translateX(-50%)}
+    100% {transform: translateX(0%)}
+}
+@keyframes gallery-right-2-t {
+    0%   {transform: translateX(50%)}
+    100% {transform: translateX(0%)}
+}
+@keyframes gallery-right-2-f {
+    0%   {transform: translateX(50%)}
+    100% {transform: translateX(0%)}
+}
+
+/* Carousel */
+  
+.carousel-2.carousel-clicked-left-true {
+    animation-name: gallery-left-2-t;
+    animation-duration: 1s;
+}
+.carousel-2.carousel-clicked-left-false {
+    animation-name: gallery-left-2-f;
+    animation-duration: 1s;
+} 
+.carousel-2.carousel-clicked-right-true {
+    animation-name: gallery-right-2-t;
+    animation-duration: 1s;
+} 
+.carousel-2.carousel-clicked-right-false {
+    animation-name: gallery-right-2-f;
+    animation-duration: 1s;
+} 
+
+/* The animation code */
+@keyframes gallery-left-3{
+    0%   {transform: translateX(-33%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-right-3 {
+    0%   {transform: translateX(33%)}
+    100% {transform: translateX(0%)}
+}
+
+/* Carousel */
+  
+.carousel-3.carousel-clicked-left-true, .carousel-3.carousel-clicked-left-false {
+    animation-name: gallery-left-3;
+    animation-duration: 1s;
+} 
+
+.carousel-3.carousel-clicked-right-true, .carousel-3.carousel-clicked-right-false {
+    animation-name: gallery-right-3;
+    animation-duration: 1s;
+} 
+
+/* The animation code */
+@keyframes gallery-left-4-t{
+    0%   {transform: translateX(-25%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-left-4-f{
+    0%   {transform: translateX(-25%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-right-4-t {
+    0%   {transform: translateX(25%)}
+    100% {transform: translateX(0%)}
+}
+
+@keyframes gallery-right-4-f {
+    0%   {transform: translateX(25%)}
+    100% {transform: translateX(0%)}
+}
+
+/* Carousel */
+  
+.carousel-4.carousel-clicked-left-true {
+    animation-name: gallery-left-4-t;
+    animation-duration: 1s;
+} 
+.carousel-4.carousel-clicked-left-false {
+    animation-name: gallery-left-4-f;
+    animation-duration: 1s;
+} 
+
+.carousel-4.carousel-clicked-right-true{
+    animation-name: gallery-right-4-t;
+    animation-duration: 1s;
+} 
+
+.carousel-4.carousel-clicked-right-false {
+    animation-name: gallery-right-4-f;
+    animation-duration: 1s;
+} 
