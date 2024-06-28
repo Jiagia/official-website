@@ -7,6 +7,7 @@ import ProductOptions from '~/components/ProductOptions';
 import ProductCard from '~/components/ProductCard';
 import {AddToCartButton} from '~/components/CartButtons';
 import {Carousel} from '~/components/Carousel';
+import { AccordionItem } from '../components/Accordion';
 import arrowRight from '../../public/arrow-right-black.svg';
 import arrowLeft from '../../public/arrow-left-black.svg';
 import carouselcss from '../styles/carousel.css';
@@ -69,62 +70,73 @@ export default function ProductHandle() {
 
   return (
     <section className="w-full grid ">
-      <div className="grid items-start md:grid-cols-2">
-        {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
-        <div className="relative md:col-span-2 card-image ">
-          <ProductGallery media={product.media.nodes} />
-          <div className="absolute flex top-0 left-0 w-full h-full z-[2]">
-            <div className="md:w-[350px] p-4 m-auto my-auto items-center text-center bg-white">
-              <h2 className="text-bold">{product.title}</h2>
-              {sellable ? (
-                <>
-                  <ProductOptions
-                    options={product.options}
-                    selectedVariant={selectedVariant}
-                    className="mt-32"
-                  />
-                  <Money
-                    withoutTrailingZeros
-                    data={selectedVariant.price}
-                    className=" mb-2"
-                  />
-                  {orderable ? (
-                    <div className="w-full">
-                      <div className="mx-auto mb-2">Available</div>
-                      <ProductForm
-                        variantId={selectedVariant?.id}
-                        width="100%"
-                        productAnalytics={product?.handle}
-                      />
-                      {/* <ShopPayButton
+      {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
+      <div className="relative card-image ">
+        <ProductGallery media={product.media.nodes} />
+        <div className="absolute flex top-0 left-0 w-full h-full z-[2]">
+          <div className="md:w-[350px] p-4 m-auto my-auto items-center text-center bg-white">
+            <h2 className="text-bold">{product.title}</h2>
+            {sellable ? (
+              <>
+                <ProductOptions
+                  options={product.options}
+                  selectedVariant={selectedVariant}
+                  className="mt-32"
+                />
+                <Money
+                  withoutTrailingZeros
+                  data={selectedVariant.price}
+                  className=" mb-2"
+                />
+                {orderable ? (
+                  <div className="w-full">
+                    <div className="mx-auto mb-2">Available</div>
+                    <ProductForm
+                      variantId={selectedVariant?.id}
+                      width="100%"
+                      productAnalytics={product?.handle}
+                    />
+                    {/* <ShopPayButton
                       storeDomain={storeDomain}
                       variantIds={[selectedVariant?.id]}
                       width="100%"
                     /> */}
-                      
-                    </div>
-                  ) : (
-                    <div className="mx-auto mb-2 text-red-500">Out of Stock</div>
-                  )}
-                </>
-              ) : null}
-            </div>
+                  </div>
+                ) : (
+                  <div className="mx-auto mb-2 text-red-500">Out of Stock</div>
+                )}
+              </>
+            ) : null}
           </div>
         </div>
-        <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2  ">
-          <div className="grid gap-2">
-            <h1 className="text-4xl font-bold leading-10 whitespace-normal">
-              {product.title}
-            </h1>
-            {/* <span className="max-w-prose whitespace-pre-wrap inherit text-copy opacity-50 font-medium">
+      </div>
+      <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2  ">
+        <div className="grid gap-2">
+          <h1 className="text-4xl font-bold leading-10 whitespace-normal">
+            {product.title}
+          </h1>
+          {/* <span className="max-w-prose whitespace-pre-wrap inherit text-copy opacity-50 font-medium">
                 {product.vendor}
               </span> */}
-          </div>
-          <div
-            className="prose border-t border-gray-200 pt-6 text-black text-md mb-8"
-            dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
-          ></div>
         </div>
+        <div
+          className="prose border-t border-gray-200 pt-6 text-black text-md mb-8"
+          dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
+        ></div>
+      </div>
+      <div className="grid md:grid-cols-2 m-2 border border-black gap-px bg-black">
+        <AccordionItem className="bg-white p-2" title="Details">
+          <p>Details</p>
+        </AccordionItem>
+        <AccordionItem className="bg-white p-2" title="Dimensions">
+          <p>Dimensions</p>
+        </AccordionItem>
+        <AccordionItem className="bg-white p-2" title="Shipping Info">
+          <p>Shipping Info</p>
+        </AccordionItem>
+        <AccordionItem className="bg-white p-2" title="Packaging">
+          <p>Packaging</p>
+        </AccordionItem>
       </div>
       {/* {product.recommendation ? (
         <div className='pt-5 grid'>
