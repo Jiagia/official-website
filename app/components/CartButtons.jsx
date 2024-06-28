@@ -79,7 +79,8 @@ export function AddToCartButton({
   lines,
   productAnalytics,
   className = '',
-  disabled = false
+  disabled = false,
+  txt = 'Add to Cart'
 }) {
   const analytics = {
     products: [productAnalytics]
@@ -106,7 +107,7 @@ export function AddToCartButton({
               disabled={disabled ?? fetcher.state !== 'idle'}
               className = {className}
             >
-              Add to cart
+              {txt}
               {children}
             </button>
           </AddToCartAnalytics>

@@ -7,13 +7,11 @@ import ProductOptions from '~/components/ProductOptions';
 import ProductCard from '~/components/ProductCard';
 import {AddToCartButton} from '~/components/CartButtons';
 import {Carousel} from '~/components/Carousel';
-import arrowRight from '../../public/arrow-right-black.svg'
-import arrowLeft from '../../public/arrow-left-black.svg'
+import arrowRight from '../../public/arrow-right-black.svg';
+import arrowLeft from '../../public/arrow-left-black.svg';
 import carouselcss from '../styles/carousel.css';
 
-export const links = () => [
-  {rel: "stylesheet", href: carouselcss},
-]
+export const links = () => [{rel: 'stylesheet', href: carouselcss}];
 
 export async function loader({params, context, request}) {
   const {handle} = params;
@@ -75,7 +73,43 @@ export default function ProductHandle() {
         {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
         <div className="relative md:col-span-2 card-image ">
           <ProductGallery media={product.media.nodes} />
-          {/* </div> */}
+          <div className="absolute flex top-0 left-0 w-full h-full">
+            <div className="md:w-[350px] p-4 m-auto my-auto items-center text-center bg-white">
+              <h2 className="text-bold">{product.title}</h2>
+              {sellable ? (
+                <>
+                  <ProductOptions
+                    options={product.options}
+                    selectedVariant={selectedVariant}
+                    className="mt-32"
+                  />
+                  <Money
+                    withoutTrailingZeros
+                    data={selectedVariant.price}
+                    className=" mb-2"
+                  />
+                  {orderable ? (
+                    <div className="w-full">
+                      <div className="mx-auto mb-2">Available</div>
+                      <ProductForm
+                        variantId={selectedVariant?.id}
+                        width="100%"
+                        productAnalytics={product?.handle}
+                      />
+                      {/* <ShopPayButton
+                      storeDomain={storeDomain}
+                      variantIds={[selectedVariant?.id]}
+                      width="100%"
+                    /> */}
+                      
+                    </div>
+                  ) : (
+                    <div className="mx-auto mb-2 text-red-500">Out of Stock</div>
+                  )}
+                </>
+              ) : null}
+            </div>
+          </div>
         </div>
         <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2  ">
           <div className="grid gap-2">
@@ -90,36 +124,6 @@ export default function ProductHandle() {
             className="prose border-t border-gray-200 pt-6 text-black text-md mb-8"
             dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
           ></div>
-          {sellable ? (
-            <>
-              <ProductOptions
-                options={product.options}
-                selectedVariant={selectedVariant}
-                className="mt-32"
-              />
-              <Money
-                withoutTrailingZeros
-                data={selectedVariant.price}
-                className="text-xl font-semibold mb-2"
-              />
-              {orderable ? (
-                <div className="space-y-2 w-11/12 max-w-[400px]">
-                  <ProductForm
-                    variantId={selectedVariant?.id}
-                    width="100%"
-                    productAnalytics={product?.handle}
-                  />
-                  <ShopPayButton
-                    storeDomain={storeDomain}
-                    variantIds={[selectedVariant?.id]}
-                    width="100%"
-                  />
-                </div>
-              ) : (
-                <div className="text-xl font-bold mb-2">Sold Out</div>
-              )}
-            </>
-          ) : null}
         </div>
       </div>
       {/* {product.recommendation ? (
@@ -155,77 +159,97 @@ function ProductGallery({media}) {
   const id = 'product-gallery';
 
   return (
-    <Carousel
-      number={number}
-      className={`flex w-full justify-center flex-col md:flex-row`}
-      // leftbtn={<img className="px-4" src={arrowLeft} />}
-      // rightbtn = {<img className="px-4" src={arrowRight} />}
-      leftbtn={
-        <svg height="60px" width="60px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 197.402 197.402" xmlSpace="preserve">
-        <g>
-          <g>
-            <g>
-              <polygon points="146.883,197.402 45.255,98.698 146.883,0 152.148,5.418 56.109,98.698 152.148,191.98         "/>
-            </g>
-          </g>
-        </g>
-        </svg>
-      }
-      rightbtn={
-      <svg height="60px" width="60px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 223.413 223.413" xmlSpace="preserve">
-        <g>
-          <g>
-            <g>
-              <polygon  points="57.179,223.413 51.224,217.276 159.925,111.71 51.224,6.127 57.179,0 172.189,111.71         "/>
-            </g>
-          </g>
-        </g>
-        </svg>
-        }
-      lbtnclass={`absolute left-0 inset-y-0 `}
-      rbtnclass={`absolute right-0 inset-y-0`}
-      indicatorclass={'absolute bottom-0 inset-x-0'}
-      array={media.map((med) => {
-        let extraProps = {};
-
-        if (med.mediaContentType === 'MODEL_3D') {
-          extraProps = {
-            interactionPromptThreshold: '0',
-            ar: true,
-            loading: 'eager',
-            disableZoom: true,
-            style: {height: '100%', margin: '0 auto'},
-          };
-        }
-
-        const data = {
-          ...med,
-          __typename: typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
-          image: {
-            ...med.image,
-            altText: med.alt || 'Product image',
-          },
-        };
-
-        return (
-          <div
-            className={`snap-center card-image bg-white aspect-square md:w-full w-[80vw] shadow-sm rounded`}
-            key={data.id || data.image.id}
+    <div className="relative">
+      <Carousel
+        number={number}
+        className={`flex w-full justify-center flex-col md:flex-row`}
+        // leftbtn={<img className="px-4" src={arrowLeft} />}
+        // rightbtn = {<img className="px-4" src={arrowRight} />}
+        leftbtn={
+          <svg
+            height="60px"
+            width="60px"
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 197.402 197.402"
+            xmlSpace="preserve"
           >
-            <MediaFile
-              tabIndex="0"
-              className={`w-full aspect-square object-cover`}
-              data={data}
-              {...extraProps}
-            />
-          </div>
-        );
-      })}
-      
-      // leftbtn=""
-      // rightbtn=""
-      id={id}
-    />
+            <g>
+              <g>
+                <g>
+                  <polygon points="146.883,197.402 45.255,98.698 146.883,0 152.148,5.418 56.109,98.698 152.148,191.98         " />
+                </g>
+              </g>
+            </g>
+          </svg>
+        }
+        rightbtn={
+          <svg
+            height="60px"
+            width="60px"
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 223.413 223.413"
+            xmlSpace="preserve"
+          >
+            <g>
+              <g>
+                <g>
+                  <polygon points="57.179,223.413 51.224,217.276 159.925,111.71 51.224,6.127 57.179,0 172.189,111.71         " />
+                </g>
+              </g>
+            </g>
+          </svg>
+        }
+        lbtnclass={`absolute left-0 top-1/2 `}
+        rbtnclass={`absolute right-0 inset-y-0`}
+        indicatorclass={'absolute bottom-0 inset-x-0'}
+        array={media.map((med) => {
+          let extraProps = {};
+
+          if (med.mediaContentType === 'MODEL_3D') {
+            extraProps = {
+              interactionPromptThreshold: '0',
+              ar: true,
+              loading: 'eager',
+              disableZoom: true,
+              style: {height: '100%', margin: '0 auto'},
+            };
+          }
+
+          const data = {
+            ...med,
+            __typename:
+              typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
+            image: {
+              ...med.image,
+              altText: med.alt || 'Product image',
+            },
+          };
+
+          return (
+            <div
+              className={`snap-center card-image bg-white aspect-square md:w-full w-[80vw] shadow-sm rounded`}
+              key={data.id || data.image.id}
+            >
+              <MediaFile
+                tabIndex="0"
+                className={`w-full aspect-square object-cover`}
+                data={data}
+                {...extraProps}
+              />
+            </div>
+          );
+        })}
+        // leftbtn=""
+        // rightbtn=""
+        id={id}
+      />
+    </div>
   );
 }
 
@@ -293,6 +317,7 @@ function ProductForm({variantId, productAnalytics = ''}) {
       lines={lines}
       productAnalytics={productAnalytics}
       className="bg-black text-white px-6 py-3 w-full text-center font-medium max-w-[400px]"
+      txt="ADD TO SHOPPING BAG"
     />
   );
   // return (
