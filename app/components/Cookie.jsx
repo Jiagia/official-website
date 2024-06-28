@@ -5,7 +5,7 @@ export function CookieForm() {
     return (
         <Form 
         method="POST"
-        className="cookieform fixed inset-x-0 bottom-0 border border-black"
+        className="cookieform fixed inset-x-0 bottom-0 border border-black z-20"
         >
             <p>This website uses cookies to offer you a better browsing experience. Find out more on how we use cookies and how you can change your settings</p>
             <div className='flex mx-auto'>

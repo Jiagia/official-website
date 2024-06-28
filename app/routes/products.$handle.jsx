@@ -73,7 +73,7 @@ export default function ProductHandle() {
         {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
         <div className="relative md:col-span-2 card-image ">
           <ProductGallery media={product.media.nodes} />
-          <div className="absolute flex top-0 left-0 w-full h-full">
+          <div className="absolute flex top-0 left-0 w-full h-full z-[2]">
             <div className="md:w-[350px] p-4 m-auto my-auto items-center text-center bg-white">
               <h2 className="text-bold">{product.title}</h2>
               {sellable ? (

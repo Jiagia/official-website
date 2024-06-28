@@ -50,7 +50,7 @@ export function Carousel({
 
   return (
     <>
-      <button className={'carousel-prev z-2 ' + lbtnclass} onClick={prev}>
+      <button className={'carousel-prev z-[4] ' + lbtnclass} onClick={prev}>
         {leftbtn}
       </button>
       <div className={`carousel carousel-${number} carousel${state} ${className}`} id={id}>
@@ -60,10 +60,10 @@ export function Carousel({
           return element;
         })}
       </div>
-      <button className={'carousel-next z-2 ' + rbtnclass} onClick={next}>
+      <button className={'carousel-next z-[4] ' + rbtnclass} onClick={next}>
         {rightbtn}
       </button>
-      <p className={`indicator z-2 text-center ` + indicatorclass}>{start+1}/{array.length}</p>
+      <p className={`indicator z-[4] text-center ` + indicatorclass}>{start+1}/{array.length}</p>
     </>
   );
 }
