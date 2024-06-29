@@ -56,7 +56,7 @@ export function Carousel({
       <button className={'carousel-prev z-[4] ' + lbtnclass} onClick={prev}>
         {leftbtn}
       </button>
-      <Swipeable onSwipeLeft={prev} onSwipeRight={next} >
+      <Swipeable onSwipeLeft={next} onSwipeRight={prev} >
       <div className={`carousel carousel-${number} carousel${state} ${className}`} 
       id={id} >
         {display.map((element) => {
