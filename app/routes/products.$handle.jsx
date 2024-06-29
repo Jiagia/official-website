@@ -65,9 +65,9 @@ export default function ProductHandle() {
   const {product, selectedVariant, storeDomain} = useLoaderData();
   // console.log(product)
   // console.log(selectedVariant)
-  // console.log(product.recommendation.references.nodes);
+  console.log(product.recommendation.references.nodes);
 
-  // console.log(product);
+  console.log(product);
 
   return (
     <section className="w-full">
@@ -116,20 +116,18 @@ export default function ProductHandle() {
         <AccordionItem className="bg-white p-2 md:col-span-2" title="Packaging">
           <p>Packaging</p>
         </AccordionItem>
+
+        {product.recommendation ? (
+          <div className="py-5 grid bg-white p-2 md:col-span-2">
+            <h2 className="text-center">You May Also Like</h2>
+            <div className="grid-flow-row grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {product.recommendation?.references.nodes.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
-      {/* {product.recommendation ? (
-        <div className='pt-5 grid'>
-          <hr />
-          <h2>Recommendation</h2>
-          <div className='grid-flow-row grid gap-2 gap-y-6 md:gap-4 lg:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-          
-          {product.recommendation?.references.nodes.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-        </div>
-        ) : null
-        } */}
     </section>
   );
 }
@@ -389,6 +387,28 @@ const PRODUCT_W_REC_QUERY = `#graphql
       width
       height
     }
+      media(first: 10) {
+          nodes {
+            ... on MediaImage {
+              mediaContentType
+              image {
+                id
+                altText
+                url
+                height
+                width
+              }
+            }
+            ... on Model3d {
+              id
+              mediaContentType
+              sources {
+                mimeType
+                url
+              }
+            }
+          }
+        }
     id
     title
     publishedAt

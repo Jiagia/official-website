@@ -2,12 +2,13 @@ import {Link} from '@remix-run/react';
 import {Image, Money} from '@shopify/hydrogen';
 import {RotatingImage} from '~/components/Image';
 
-export default function ProductCard({product}) {
+export default function ProductCard({product, rotate = false, rotateInt = 2}) {
   const {price, compareAtPrice} = product.variants?.nodes[0] || {};
   const isDiscounted = compareAtPrice?.amount > price?.amount;
 
   // console.log(product);
 
+  console.log(rotate ? 'rotating' : 'image');
   return (
     <Link to={`/products/${product.handle}`}>
       <div className="grid text-center border border-black">
@@ -17,12 +18,16 @@ export default function ProductCard({product}) {
               Sale
             </label>
           )}
-          <RotatingImage
-            // length={product.media.nodes.length}
-            length={2}
-            media={product.media.nodes}
-            style={{width: 100}}
-          />
+          {rotate ? (
+            <RotatingImage
+              // length={product.media.nodes.length}
+              length={rotateInt}
+              media={product.media.nodes}
+              style={{width: 100}}
+            />
+          ) : (
+            <Image data={product.media.nodes[0].image} />
+          )}
           {!product.availableForSale && (
             <label className="subpixel-antialiased absolute top-0 right-0 m-4 text-right text-notice text-red-600">
               Sold out
