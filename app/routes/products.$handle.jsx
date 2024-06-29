@@ -171,36 +171,28 @@ function ProductGallery({media, number = 2}) {
   };
 
   const id = 'product-gallery';
-
-  return (
-    <div className="relative">
-      <Carousel
-        number={number}
-        className={`flex w-full justify-center flex-col md:flex-row`}
-        // leftbtn={<img className="px-4" src={arrowLeft} />}
-        // rightbtn = {<img className="px-4" src={arrowRight} />}
-        leftbtn={
-          <svg
-            height="60px"
-            width="60px"
-            version="1.1"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 197.402 197.402"
-            xmlSpace="preserve"
-          >
-            <g>
-              <g>
-                <g>
-                  <polygon points="146.883,197.402 45.255,98.698 146.883,0 152.148,5.418 56.109,98.698 152.148,191.98         " />
-                </g>
-              </g>
-            </g>
-          </svg>
-        }
-        rightbtn={
-          <svg
+  const leftbtn = (
+    <svg
+      height="60px"
+      width="60px"
+      version="1.1"
+      id="Capa_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 197.402 197.402"
+      xmlSpace="preserve"
+    >
+      <g>
+        <g>
+          <g>
+            <polygon points="146.883,197.402 45.255,98.698 146.883,0 152.148,5.418 56.109,98.698 152.148,191.98         " />
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+  const rightbtn = (
+    <svg
             height="60px"
             width="60px"
             version="1.1"
@@ -218,49 +210,72 @@ function ProductGallery({media, number = 2}) {
               </g>
             </g>
           </svg>
-        }
-        lbtnclass={`absolute left-0 top-1/2 `}
-        rbtnclass={`absolute right-0 inset-y-0`}
-        indicatorclass={'absolute bottom-0 inset-x-0'}
-        array={media.map((med) => {
-          let extraProps = {};
+  );
 
-          if (med.mediaContentType === 'MODEL_3D') {
-            extraProps = {
-              interactionPromptThreshold: '0',
-              ar: true,
-              loading: 'eager',
-              disableZoom: true,
-              style: {height: '100%', margin: '0 auto'},
-            };
-          }
 
-          const data = {
-            ...med,
-            __typename:
-              typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
-            image: {
-              ...med.image,
-              altText: med.alt || 'Product image',
-            },
-          };
+  const array = media.map((med) => {
+    let extraProps = {};
 
-          return (
-            <div
-              className={`snap-center card-image bg-white aspect-square md:w-full w-[80vw] shadow-sm rounded`}
-              key={data.id || data.image.id}
-            >
-              <MediaFile
-                tabIndex="0"
-                className={`w-full aspect-square object-cover`}
-                data={data}
-                {...extraProps}
-              />
-            </div>
-          );
-        })}
-        // leftbtn=""
-        // rightbtn=""
+    if (med.mediaContentType === 'MODEL_3D') {
+      extraProps = {
+        interactionPromptThreshold: '0',
+        ar: true,
+        loading: 'eager',
+        disableZoom: true,
+        style: {height: '100%', margin: '0 auto'},
+      };
+    }
+
+    const data = {
+      ...med,
+      __typename:
+        typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
+      image: {
+        ...med.image,
+        altText: med.alt || 'Product image',
+      },
+    };
+
+    return (
+      <div
+        className={`snap-center card-image bg-white aspect-square w-full shadow-sm rounded`}
+        key={data.id || data.image.id}
+      >
+        <MediaFile
+          tabIndex="0"
+          className={`w-full aspect-square object-cover`}
+          data={data}
+          {...extraProps}
+        />
+      </div>
+    );
+  })
+
+
+  return (
+    <div className="relative">
+      <Carousel
+        number={number}
+        className={`hidden md:flex w-full justify-center flex-col md:flex-row`}
+        // leftbtn={<img className="px-4" src={arrowLeft} />}
+        // rightbtn = {<img className="px-4" src={arrowRight} />}
+        leftbtn={leftbtn}
+        rightbtn={rightbtn}
+        lbtnclass={`hidden md:block absolute left-0 top-1/2 `}
+        rbtnclass={`hidden md:block absolute right-0 top-1/2`}
+        indicatorclass={'hidden md:block absolute bottom-0 inset-x-0'}
+        array={array}
+        id={id}
+      />
+      <Carousel
+        number={1}
+        className={`flex md:hidden w-full justify-center flex-col md:flex-row`}
+        leftbtn={leftbtn}
+        rightbtn={rightbtn}
+        lbtnclass={`md:hidden absolute left-0 top-1/2 `}
+        rbtnclass={`md:hidden absolute right-0 top-1/2`}
+        indicatorclass={'md:hidden absolute bottom-0 inset-x-0'}
+        array={array}
         id={id}
       />
     </div>
