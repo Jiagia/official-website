@@ -66,78 +66,54 @@ export default function ProductHandle() {
   // console.log(product)
   // console.log(selectedVariant)
   // console.log(product.recommendation.references.nodes);
-  const orderable = selectedVariant?.availableForSale || false;
-  const sellable = product.tags.includes('Sellable');
-  console.log(product);
+
+  // console.log(product);
 
   return (
-    <section className="w-full grid ">
+    <section className="w-full">
       {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
       <div className="relative card-image ">
+        <ProductPriceandForm
+          className="hidden md:block absolute w-[350px] p-4 m-auto top-[250px] left-0 right-0"
+          product={product}
+          selectedVariant={selectedVariant}
+        />
         <ProductGallery media={product.media.nodes} />
-        <div
-          className="relative md:w-[350px] p-4 m-auto items-center text-center bg-white/75 z-[3] md:top-[calc(450px-100%)]"
-
-        >
-          <h2 className="text-bold">{product.title}</h2>
-          {sellable ? (
-            <>
-              <ProductOptions
-                options={product.options}
-                selectedVariant={selectedVariant}
-                className="mt-32"
-              />
-              <Money
-                withoutTrailingZeros
-                data={selectedVariant.price}
-                className=" mb-2"
-              />
-              {orderable ? (
-                <div className="w-full">
-                  <div className="mx-auto mb-2">Available</div>
-                  <ProductForm
-                    variantId={selectedVariant?.id}
-                    width="100%"
-                    productAnalytics={product?.handle}
-                  />
-                  {/* <ShopPayButton
-                      storeDomain={storeDomain}
-                      variantIds={[selectedVariant?.id]}
-                      width="100%"
-                    /> */}
-                </div>
-              ) : (
-                <div className="mx-auto mb-2 text-red-500">Out of Stock</div>
-              )}
-            </>
-          ) : null}
-        </div>
+        <ProductPriceandForm
+          className="md:hidden p-4 m-auto"
+          product={product}
+          selectedVariant={selectedVariant}
+        />
       </div>
-      <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2  ">
+      {/* <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2  ">
         <div className="grid gap-2">
           <h1 className="text-4xl font-bold leading-10 whitespace-normal">
             {product.title}
           </h1>
-          {/* <span className="max-w-prose whitespace-pre-wrap inherit text-copy opacity-50 font-medium">
+          <span className="max-w-prose whitespace-pre-wrap inherit text-copy opacity-50 font-medium">
                 {product.vendor}
-              </span> */}
+              </span>
         </div>
         <div
           className="prose border-t border-gray-200 pt-6 text-black text-md mb-8"
           dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
         ></div>
-      </div>
+      </div> */}
       <div className="grid md:grid-cols-2 m-2 border border-black gap-px bg-black">
         <AccordionItem className="bg-white p-2" title="Details">
-          <p>Details</p>
+          {/* <p>Details</p> */}
+          <p
+            className=""
+            dangerouslySetInnerHTML={{__html: product.descriptionHtml}}
+          ></p>
         </AccordionItem>
         <AccordionItem className="bg-white p-2" title="Dimensions">
           <p>Dimensions</p>
         </AccordionItem>
-        <AccordionItem className="bg-white p-2" title="Shipping Info">
+        {/* <AccordionItem className="bg-white p-2" title="Shipping Info">
           <p>Shipping Info</p>
-        </AccordionItem>
-        <AccordionItem className="bg-white p-2" title="Packaging">
+        </AccordionItem> */}
+        <AccordionItem className="bg-white p-2 md:col-span-2" title="Packaging">
           <p>Packaging</p>
         </AccordionItem>
       </div>
@@ -155,6 +131,47 @@ export default function ProductHandle() {
         ) : null
         } */}
     </section>
+  );
+}
+
+function ProductPriceandForm({className = '', product, selectedVariant}) {
+  const orderable = selectedVariant?.availableForSale || false;
+  const sellable = product.tags.includes('Sellable');
+  return (
+    <div className={'items-center text-center bg-white/75 z-[3] ' + className}>
+      <h2 className="text-bold">{product.title}</h2>
+      {sellable ? (
+        <>
+          <ProductOptions
+            options={product.options}
+            selectedVariant={selectedVariant}
+            className="mt-32"
+          />
+          <Money
+            withoutTrailingZeros
+            data={selectedVariant.price}
+            className=" mb-2"
+          />
+          {orderable ? (
+            <div className="w-full">
+              <div className="mx-auto mb-2">Available</div>
+              <ProductForm
+                variantId={selectedVariant?.id}
+                width="100%"
+                productAnalytics={product?.handle}
+              />
+              {/* <ShopPayButton
+                      storeDomain={storeDomain}
+                      variantIds={[selectedVariant?.id]}
+                      width="100%"
+                    /> */}
+            </div>
+          ) : (
+            <div className="mx-auto mb-2 text-red-500">Out of Stock</div>
+          )}
+        </>
+      ) : null}
+    </div>
   );
 }
 
@@ -193,25 +210,24 @@ function ProductGallery({media, number = 2}) {
   );
   const rightbtn = (
     <svg
-            height="60px"
-            width="60px"
-            version="1.1"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 223.413 223.413"
-            xmlSpace="preserve"
-          >
-            <g>
-              <g>
-                <g>
-                  <polygon points="57.179,223.413 51.224,217.276 159.925,111.71 51.224,6.127 57.179,0 172.189,111.71         " />
-                </g>
-              </g>
-            </g>
-          </svg>
+      height="60px"
+      width="60px"
+      version="1.1"
+      id="Capa_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 223.413 223.413"
+      xmlSpace="preserve"
+    >
+      <g>
+        <g>
+          <g>
+            <polygon points="57.179,223.413 51.224,217.276 159.925,111.71 51.224,6.127 57.179,0 172.189,111.71         " />
+          </g>
+        </g>
+      </g>
+    </svg>
   );
-
 
   const array = media.map((med) => {
     let extraProps = {};
@@ -228,8 +244,7 @@ function ProductGallery({media, number = 2}) {
 
     const data = {
       ...med,
-      __typename:
-        typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
+      __typename: typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
       image: {
         ...med.image,
         altText: med.alt || 'Product image',
@@ -249,20 +264,17 @@ function ProductGallery({media, number = 2}) {
         />
       </div>
     );
-  })
-
+  });
 
   return (
     <div className="relative">
       <Carousel
         number={number}
         className={`hidden md:flex w-full justify-center flex-col md:flex-row`}
-        // leftbtn={<img className="px-4" src={arrowLeft} />}
-        // rightbtn = {<img className="px-4" src={arrowRight} />}
         leftbtn={leftbtn}
         rightbtn={rightbtn}
-        lbtnclass={`hidden md:block absolute left-0 top-1/2 `}
-        rbtnclass={`hidden md:block absolute right-0 top-1/2`}
+        lbtnclass={`hidden md:block absolute left-0 top-0 bottom-0`}
+        rbtnclass={`hidden md:block absolute right-0 top-0 bottom-0`}
         indicatorclass={'hidden md:block absolute bottom-0 inset-x-0'}
         array={array}
         id={id}
