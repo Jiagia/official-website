@@ -7,7 +7,8 @@ import ProductOptions from '~/components/ProductOptions';
 import ProductCard from '~/components/ProductCard';
 import {AddToCartButton} from '~/components/CartButtons';
 import {Carousel} from '~/components/Carousel';
-import { AccordionItem } from '../components/Accordion';
+import {AccordionItem} from '../components/Accordion';
+import useSwipe from '../hooks/useSwipe';
 import arrowRight from '../../public/arrow-right-black.svg';
 import arrowLeft from '../../public/arrow-left-black.svg';
 import carouselcss from '../styles/carousel.css';
@@ -67,47 +68,49 @@ export default function ProductHandle() {
   // console.log(product.recommendation.references.nodes);
   const orderable = selectedVariant?.availableForSale || false;
   const sellable = product.tags.includes('Sellable');
+  console.log(product);
 
   return (
     <section className="w-full grid ">
       {/* <div className="grid md:grid-flow-row  md:p-0 md:overflow-x-hidden md:grid-cols-2 md:w-full lg:col-span-3"> */}
       <div className="relative card-image ">
         <ProductGallery media={product.media.nodes} />
-        <div className="absolute flex top-0 left-0 w-full h-full z-[2]">
-          <div className="md:w-[350px] p-4 m-auto my-auto items-center text-center bg-white">
-            <h2 className="text-bold">{product.title}</h2>
-            {sellable ? (
-              <>
-                <ProductOptions
-                  options={product.options}
-                  selectedVariant={selectedVariant}
-                  className="mt-32"
-                />
-                <Money
-                  withoutTrailingZeros
-                  data={selectedVariant.price}
-                  className=" mb-2"
-                />
-                {orderable ? (
-                  <div className="w-full">
-                    <div className="mx-auto mb-2">Available</div>
-                    <ProductForm
-                      variantId={selectedVariant?.id}
-                      width="100%"
-                      productAnalytics={product?.handle}
-                    />
-                    {/* <ShopPayButton
+        <div
+          className="relative md:w-[350px] p-4 m-auto items-center text-center bg-white/75 z-[3] md:top-[calc(450px-100%)]"
+
+        >
+          <h2 className="text-bold">{product.title}</h2>
+          {sellable ? (
+            <>
+              <ProductOptions
+                options={product.options}
+                selectedVariant={selectedVariant}
+                className="mt-32"
+              />
+              <Money
+                withoutTrailingZeros
+                data={selectedVariant.price}
+                className=" mb-2"
+              />
+              {orderable ? (
+                <div className="w-full">
+                  <div className="mx-auto mb-2">Available</div>
+                  <ProductForm
+                    variantId={selectedVariant?.id}
+                    width="100%"
+                    productAnalytics={product?.handle}
+                  />
+                  {/* <ShopPayButton
                       storeDomain={storeDomain}
                       variantIds={[selectedVariant?.id]}
                       width="100%"
                     /> */}
-                  </div>
-                ) : (
-                  <div className="mx-auto mb-2 text-red-500">Out of Stock</div>
-                )}
-              </>
-            ) : null}
-          </div>
+                </div>
+              ) : (
+                <div className="mx-auto mb-2 text-red-500">Out of Stock</div>
+              )}
+            </>
+          ) : null}
         </div>
       </div>
       <div className="md:sticky px-auto max-w-xl  grid p-2 md:p-6 md:px-2  ">
@@ -155,7 +158,7 @@ export default function ProductHandle() {
   );
 }
 
-function ProductGallery({media}) {
+function ProductGallery({media, number = 2}) {
   if (!media.length) {
     return null;
   }
@@ -167,7 +170,6 @@ function ProductGallery({media}) {
     EXTERNAL_VIDEO: 'ExternalVideo',
   };
 
-  const number = 2;
   const id = 'product-gallery';
 
   return (
