@@ -23,7 +23,7 @@ Desktop version
 
 /* Carousel */
   
-.carousel-.carousel-clicked-left-true{
+.carousel-1.carousel-clicked-left-true{
     animation-name: gallery-left-1-t;
     animation-duration: 1s;
 } 
