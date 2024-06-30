@@ -40,7 +40,7 @@ export function meta({matches}) {
 export async function loader({context}) {
   // const handle = FeaturedCollectionHandle;
   // const number = FeaturedCollectionNumber;
-  var handle = 'home-page';
+  var handle = 'sample-splash';
   var type = 'file';
 
   const img = await context.storefront.query(COLLECTION_QUERY, {
@@ -50,12 +50,10 @@ export async function loader({context}) {
     },
   });
 
-  handle = 'latest-laboratory-update';
-  type = 'carousel';
-  const latestUpdate = await context.storefront.query(UPDATE_QUERY, {
+  handle = 'Featured';
+  const {collection} = await context.storefront.query(FEATURED_QUERY, {
     variables: {
       handle,
-      type,
     },
   });
 
@@ -68,49 +66,65 @@ export async function loader({context}) {
   // https://remix.run/docs/en/v1/utils/json
   return json({
     img,
-    latestUpdate,
+    collection,
   });
 }
 
 export default function Index() {
   // hook that retrieves queries data from the loader function
-  const {img, latestUpdate} = useLoaderData();
-
-  // console.log(img);
-  // console.log(latestUpdate.metaobject.items);
+  const {img, collection} = useLoaderData();
+  console.log(collection.products.nodes[0]);
 
   return (
     <>
-      <div style={{height: "150px"}}></div>
-      <div className=' text-center justify-center'>
-        <Link to="/about" className='border hover:border-2 w-fit place-content-center justify-center p-2 text-sm font-bold hover:font-black'>
-            &gt; ABOUT US &lt;
-        </Link>
-        <div className='m-4 mt-12 flex flex-col gap-4'>
-          <p>
-          WE ARE A CREATIVE LAB <b>EXPLORING</b> WORLDS WITHIN THE <i><b>“DAYDREAM UNIVERSE”</b></i> 
-          </p>
-          <p>
-          OUR MISSION IS TO <b>INVESTIGATE, DOCUMENT,</b> AND <b>SHOWCASE</b> OUR FINDINGS AND STORIES 
-          </p>
-          <p>
-          REPORTS OF OUR RESEARCH & EXPEDITIONS ARE PUBLISHED THROUGH VARIOUS CHANNELS
-          </p>
-        </div>
-        <div>
-        <Image
-          style={{
-            width: "100%"
-          }}
-          className="mb-8"
-          data={img.home.image.reference.image}
-        />
-        </div>
+      <div className="text-center justify-center">
+        <section className="w-full relative">
+          <Image
+            style={{width: '100%'}}
+            data={img.home.image.reference.image}
+          />
+          <Link
+            to="/shop"
+            className="border hover:border-2 hover:font-black text-white text-center text-overlay"
+          >
+            &gt; View Collection &lt;
+          </Link>
+        </section>
+        <section className="m-2 border border-black">
+          <h2 className="p-2 border-b border-black font-bold underline">
+            Featured Collection
+          </h2>
+          <div className="grid grid-cols-2 border-b border-black divide-x divide-black">
+            {collection.products.nodes.map((product) => (
+                <div key={product}>
+                  <Image data={product.media.nodes[0].image} />
+                </div>
+              )
+            )}
+          </div>
+          <h2 className="p-2 border-b border-black font-bold underline">
+            About Us
+          </h2>
+          <div className="flex flex-col gap-4">
+            <p>
+              WE ARE A CREATIVE LAB <b>EXPLORING</b> WORLDS WITHIN THE
+              <i>
+                <b>“DAYDREAM UNIVERSE”</b>
+              </i>
+              </p>
+            <p>
+              OUR MISSION IS TO <b>INVESTIGATE, DOCUMENT,</b> AND <b>SHOWCASE</b> OUR FINDINGS AND STORIES
+              </p>
+            <p>
+              REPORTS OF OUR RESEARCH & EXPEDITIONS ARE PUBLISHED THROUGH VARIOUS CHANNELS
+            </p>
+          </div>
+        </section>
         {/* <div className="hidden md:flex p-4 md:p-6 lg:p-8">
           
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={3} id="prod-carousel-desktop" />
-        </div> */}
-        {/* <div className="flex md:hidden p-4">
+        </div>
+        <div className="flex md:hidden p-4">
           <UpdateCarousel cards={latestUpdate.metaobject.items} number={1} id="prod-carousel-mobile" />
         </div>
         <Link to="/explore" className='border hover:border-2 w-fit place-content-center justify-center p-2 text-sm font-bold hover:font-black'>
@@ -156,6 +170,40 @@ const COLLECTION_QUERY = `#graphql
             }
           }
       }
+      }
+    }
+  }
+`;
+
+const FEATURED_QUERY = `#graphql
+  query CollectionDetails($handle: String!) {
+    collection(handle: $handle) {
+      id
+      title
+      description
+      handle
+      products(first: 2) {
+        nodes {
+          id
+          title
+          publishedAt
+          handle
+          availableForSale
+          media(first: 1) {
+            nodes {
+              ... on MediaImage {
+                mediaContentType
+                image {
+                  id
+                  altText
+                  url
+                  height
+                  width
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
