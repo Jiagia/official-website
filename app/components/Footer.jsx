@@ -5,16 +5,16 @@ export function Footer({menu, newsletterLink}) {
   const IGLink = 'https://www.instagram.com/jiagia_studios/';
   const XLink = 'https://twitter.com/jiagia_studios';
   return (
-    <footer className="footer border-t border-black grid md:grid-cols-3 gap-y-4 justify-items-center items-center pt-2">
-      <div className="px-8">
+    <footer className="footer border-t border-black flex flex-col justify-center align-center">
+      <div className="px-8 border-b border-black">
         <div className={newsletterLink} style={{maxWidth: '100vw'}}></div>
         {/* <div className="klaviyo-form-XgeEVP" style={{maxWidth: '100vw'}}></div> */}
       </div>
-      <div className="justify-self-center py-4 md:pt-0">
+      <div className="py-2 border-b border-black">
         <SocialIcon FacebookLink={FBLink} InstaLink={IGLink} XLink={XLink} />
       </div>
-      <div className="text-center md:text-right justify-items-center ">
-        <FooterMenu menu={menu} className="justify-self-center width-fit" />
+      <div className="py-2 text-center flex flex-row justify-center">
+        <FooterMenu menu={menu} />
       </div>
     </footer>
   );
@@ -24,8 +24,8 @@ function FooterMenu({menu, className, style}) {
   const [root] = useMatches();
   const publicStoreDomain = root?.data?.publicStoreDomain;
   return (
-    <nav className={`footer-menu ${className}`} style={style} role="navigation">
-      <ul style={{width: 'fit-content'}}>
+    <nav className="w-full flex flex-row flex-nowrap justify-center" style={style} role="navigation">
+      <ul className="block flex flex-row items-center gap-3 md:gap-5 my-3">
         {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
           if (!item.url) return null;
           // if the url is internal, we strip the domain
@@ -62,11 +62,11 @@ function FooterMenu({menu, className, style}) {
 
 export function SocialIcon({FacebookLink, InstaLink, XLink}) {
   return (
-    <div className="social-icons">
+    <div className="flex justify-center items-center">
       <a
         target="_blank"
         href={FacebookLink}
-        className="social-link m-3 md:m-5 w-7 h-7"
+        className="social-link m-3 md:mx-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -86,7 +86,7 @@ export function SocialIcon({FacebookLink, InstaLink, XLink}) {
       <a
         target="_blank"
         href={InstaLink}
-        className="social-link m-3 md:m-5 w-7 h-7"
+        className="social-link m-3 md:mx-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
@@ -110,7 +110,7 @@ export function SocialIcon({FacebookLink, InstaLink, XLink}) {
       <a
         target="_blank"
         href={XLink}
-        className="social-link m-3 md:m-5 w-7 h-7"
+        className="social-link m-3 md:mx-5 w-7 h-7"
         rel="noreferrer"
       >
         <div className="w-7 h-7" style={{display: 'inline-block'}}>
