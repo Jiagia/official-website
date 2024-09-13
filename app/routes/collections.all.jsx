@@ -1,7 +1,7 @@
-import {useLoaderData, Form} from '@remix-run/react';
+import {useLoaderData, Form, useLocation} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import ProductGrid from '../components/ProductGrid';
-import {AnalyticsPageType} from '@shopify/hydrogen';
+
 
 // const seo = ({data}) => ({
 //   title: data?.collection?.title,
@@ -12,96 +12,26 @@ import {AnalyticsPageType} from '@shopify/hydrogen';
   //   seo,
   // };
   
-  export async function loader({params, context, request}) {
+  export async function loader({params, context, request, route}) {
     const searchParams = new URL(request.url).searchParams;
+    const url = new URL(request.url);
     const cursor = searchParams.get('cursor');
-    console.log(searchParams);
+    console.info(searchParams);
+    console.info(url.pathname);
+    console.info(url.pathname.split('/')[2]);
 
-    // iterate through availability filters, if any
-    let availabilityFilter = '';
-    let availability = searchParams.getAll('available_for_sale');
-    if (availability.length > 0) {
-      availabilityFilter += (availability.includes('false')) ? '(-' : '(';
-      
-      for (let i = 0; i < availability.length; i++) {
-        availabilityFilter += `available_for_sale:${availability[i]}`;
-
-        if (i < availability.length - 1) {
-          availabilityFilter += ' OR '
-        }
-      }
-
-      if (availability.length === 1) {
-        availabilityFilter.replace(' OR ', '');
-      }
-      availabilityFilter += ')';
-    }
-
-    // iterate through product type filters, if any
-    let productTypeFilter = '';
-    let productType = searchParams.getAll('product_type');
-    if (productType.length > 0) {
-      productTypeFilter += '(';
-
-      for (let i = 0; i < productType.length; i++) {
-        productTypeFilter += `product_type:${productType[i]}`;
-        
-        if (i < productType.length - 1) {
-          productTypeFilter += ' OR ';
-        }
-      }
-
-      if (productType.length === 1) {
-        productTypeFilter.replace(' OR ', '');
-      }
-      productTypeFilter += ')';
-    }
-    
-    // iterate through price range filters, if any
-    let priceRangeFilter = '';
-    let minPrice = parseInt(searchParams.get('min-price'));
-    let maxPrice = parseInt(searchParams.get('max-price'));
-    console.log('minPrice: ' + minPrice);
-    console.log('maxPrice: ' + maxPrice);
-    if (minPrice && maxPrice) {
-      console.log('Inside both');
-      priceRangeFilter += `(variants.price:>=${minPrice} variants.price<=${maxPrice})`;
-    } else {
-      console.log('Inside one');
-      if (minPrice) {
-        console.log('Inside minPrice');
-        priceRangeFilter += `(variants.price:>=${minPrice})`;
-      }
-      if (maxPrice) {
-        console.log('Inside maxPrice');
-        priceRangeFilter += `(variants.price:<=${maxPrice})`;
-      }
-    }
-    console.log(priceRangeFilter);
-
-    let filter = `${availabilityFilter}${productTypeFilter}${priceRangeFilter}`;
-    if (!availabilityFilter && !productTypeFilter && !priceRangeFilter) {
-      filter = '';
-    }
-    console.log(filter);
-
-    let sortOption = searchParams.get('sort-option');
-    console.log(sortOption);
-
-    const collection = await context.storefront.query(COLLECTION_QUERY, {
+    const {collections} = await context.storefront.query(COLLECTION_QUERY, {
         variables: {
             cursor,
-            filter,
-            sortOption
         },
     });
 
-      if (!collection) {
+      if (!collections) {
         throw new Response(null, {status: 404});
       }
 
       return json({
-        collection,
+        collections,
         analytics: {
           pageType: AnalyticsPageType.collection,
         },
@@ -170,10 +100,31 @@ function CollectionForm() {
 }
 
 export default function CollectionAll() {
-  const {collection} = useLoaderData();
-  return (
+  const {collections} = useLoaderData();
+  const location = useLocation();
+  console.log(location);
+  console.log(collections);
+  return collections ? (
     <>
-      <CollectionForm />
+      <div className="md:grid md:grid-cols-12 md:mx-4 md:border-x md:border-black">
+        <div className="flex flex-row md:flex-col md:col-span-1 items-center p-4 gap-4 md:h-screen overflow-auto bg-slate-700">
+          {collections.nodes.map((collection) => {
+            return (
+              <div key={collection} className="flex flex-col w-full">
+                <Image data={collection.image} />
+                <p className="text-center text-sm">{collection.title}</p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="md:grid md:grid-cols-2 md:col-span-11">
+          <div className="bg-lime-500 h-full"></div>
+          <div className="md:border-l md:border-black">
+            <h1 className="text-xl text-center">Title</h1>
+          </div>
+        </div>
+      </div>
+      {/* <CollectionForm />
       {collection ? (
         <ProductGrid
           collection={collection}
@@ -181,67 +132,30 @@ export default function CollectionAll() {
         />
       ) : (
         <p>Nothing to be shown</p>
-      )}
+      )} */}
+    </>
+  ) : (
+    <>
+      <p>Collection data not loaded</p>
     </>
   );
 }
 
 const COLLECTION_QUERY = `#graphql
-  query CollectionDetails($cursor: String, $filter: String, $sortOption: ProductSortKeys) {
-      products(first: 20, after: $cursor, query: $filter, sortKey: $sortOption) {
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        nodes {
-          id
-          title
-          publishedAt
-          handle
-          availableForSale
-          media(first: 10) {
-            nodes {
-              ... on MediaImage {
-                mediaContentType
-                image {
-                  id
-                  altText
-                  url
-                  height
-                  width
-                }
-              }
-              ... on Model3d {
-                id
-                mediaContentType
-                sources {
-                  mimeType
-                  url
-                }
-              }
-            }
-          }
-          variants(first: 1) {
-            nodes {
-              id
-              image {
-                url
-                altText
-                width
-                height
-              }
-              price {
-                amount
-                currencyCode
-              }
-              compareAtPrice {
-                amount
-                currencyCode
-              }
-            }
+  query CollectionOptions {
+    collections(first: 15) {
+      nodes {
+        title
+        handle
+        image {
+          ... on Image {
+            altText
+            width
+            height
+            url
           }
         }
       }
-    
+    }
   }
 `;

@@ -12,6 +12,7 @@ import {CartProvider, useCart} from '@shopify/hydrogen-react';
 // import {Seo} from `@shopify/hydrogen`;
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -195,6 +196,7 @@ export default function App() {
         {/* <CookieForm /> */}
         <ScrollRestoration />
         <Scripts />
+        <LiveReload />
         {/* </CartProvider> */}
       </body>
     </html>
