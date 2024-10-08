@@ -7,11 +7,11 @@ import ProductOptions from '~/components/ProductOptions';
 import ProductCard from '~/components/ProductCard';
 import {AddToCartButton} from '~/components/CartButtons';
 import {Carousel} from '~/components/Carousel';
-import {AccordionItem} from '../components/Accordion';
-import useSwipe from '../hooks/useSwipe';
-import arrowRight from '../../public/arrow-right-black.svg';
-import arrowLeft from '../../public/arrow-left-black.svg';
-import carouselcss from '../styles/carousel.css';
+import {AccordionItem} from '~/components/Accordion';
+import useSwipe from '~/hooks/useSwipe';
+import arrowRight from '~/../public/arrow-right-black.svg';
+import arrowLeft from '~/../public/arrow-left-black.svg';
+import carouselcss from '~/styles/carousel.css';
 
 export const links = () => [{rel: 'stylesheet', href: carouselcss}];
 

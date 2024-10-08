@@ -2,14 +2,14 @@ import {useLoaderData, Link} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
 import {Carousel} from '~/components/Carousel';
 import {Image} from '@shopify/hydrogen';
-import {FeaturedProductCard} from '../components/FeaturedCollection';
+import {FeaturedProductCard} from '../../components/FeaturedCollection';
 import {ImageCard} from '~/components/ImageCard';
 // import {useState} from 'react';
 // import {motion, AnimatePresence} from 'framer-motion'
 // import splashcss from '../styles/splash.css';
 import {Await, NavLink, useMatches} from '@remix-run/react';
-import arrowRight from '../../public/arrow-right-black.svg'
-import arrowLeft from '../../public/arrow-left-black.svg'
+import arrowRight from '../../../public/arrow-right-black.svg'
+import arrowLeft from '../../../public/arrow-left-black.svg'
 
 
 export async function loader({context}) {

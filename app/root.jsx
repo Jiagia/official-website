@@ -189,9 +189,9 @@ export default function App() {
       </head>
       <body>
         {/* <CartProvider> */}
-        <Layout {...data}>
+        {/* <Layout {...data}> */}
           <Outlet />
-        </Layout>
+        {/* </Layout> */}
         {!cookieConsent ? <CookieForm /> : null}
         {/* <CookieForm /> */}
         <ScrollRestoration />

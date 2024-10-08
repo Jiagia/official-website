@@ -10,7 +10,7 @@ import {
   useActionData,
   useLocation,
 } from '@remix-run/react';
-import {Layout} from '../components/Layout';
+import {Layout} from '../../components/Layout';
 import {usePageAnalytics} from '~/hooks/usePageAnalytics';
 
 

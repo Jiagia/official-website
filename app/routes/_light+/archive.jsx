@@ -1,7 +1,7 @@
 import {Image} from '@shopify/hydrogen';
 import {useLoaderData} from '@remix-run/react';
 import {json} from '@shopify/remix-oxygen';
-import ProductGrid from '../components/ProductGrid';
+import ShowcaseGrid from '../../components/ShowcaseGrid';
 
 export async function loader({context, request}) {
   // const {handle} = params;
@@ -46,6 +46,7 @@ export function meta({matches}) {
 
 export default function Shop() {
   const {collection} = useLoaderData();
+  console.log(collection);
   const imgData = {
     altText: 'Temp png',
     url: 'https://cdn.shopify.com/s/files/1/0753/7868/8295/files/template.png?v=1702157407',
@@ -57,11 +58,11 @@ export default function Shop() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="text-center m-10">
-        <h2 className="font-bold">&gt; SHOP &lt;</h2>
-        <p>CURRENT PROJECTS AND PROTOTYPES AVAILABLE FOR DREAMERS</p>
+        <h2 className="font-bold">&gt; ARCHIVE &lt;</h2>
+        <p>VARIOUS DIFFERENT EXPERIMENTS AND CLOTHING PROTOTYPES </p>
       </div>
       
-      <ProductGrid
+      <ShowcaseGrid
           collection={collection}
           url={`/collections/${collection.handle}`}
         />
@@ -71,12 +72,12 @@ export default function Shop() {
 
 const SELLABLE_COLLECTION_QUERY = `#graphql
 query CollectionDetails($cursor: String) {
-  collection(handle: "Sellable") {
+  collection(handle: "archive") {
     id
     title
     description
     handle
-    products(first: 10, after: $cursor) {
+    products(first: 20, after: $cursor) {
       pageInfo {
         hasNextPage
         endCursor
@@ -132,4 +133,4 @@ query CollectionDetails($cursor: String) {
     }
   }
 }
-`
+`;
