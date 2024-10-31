@@ -7,7 +7,7 @@ export function Header({cart, shop, menu}) {
   return (
     <header
       role="banner"
-      className={`flex h-[45px] border-b border-black bg-white justify-between items-center px-6 md:px-8 lg:px-12 sticky z-40 top-0 w-full leading-none gap-4 antialiased transition`}
+      className={`flex h-[45px] border-b border-black bg-inherit justify-between items-center px-6 md:px-8 lg:px-12 sticky z-40 top-0 w-full leading-none gap-4 antialiased transition`}
     >
       <nav className="flex gap-12 items-center justify-between max-w-full w-full">
         <HeaderMenuMobileToggle />

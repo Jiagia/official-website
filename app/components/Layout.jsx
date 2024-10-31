@@ -19,17 +19,23 @@ export function Layout({cart, children = null, footer, header, isLoggedIn, color
   
   return (
     <>
-      {colorMode == "light" ? <MobileMenuAside menu={menu} /> : null }
+      {/* {colorMode == "light" ? <MobileMenuAside menu={menu} /> : null } */}
+      <MobileMenuAside menu={menu} />
       <SearchDropDown />
       <div className={`flex flex-col min-h-screen antialiased ${color}`}>
-        {
+        {/* {
           colorMode == "light" ?
           <Header cart={cart} shop={shop} menu={menu} /> 
           : 
           (<>
             <HeaderCenter cart={cart} shop={shop} menu={menu} />
           </>)
-        }
+        } */}
+
+        
+          <Header cart={cart} shop={shop} menu={menu} />
+        
+        
         <main role="main" id="mainContent" className="flex-grow">
           {children}
         </main>
